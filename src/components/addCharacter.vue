@@ -54,6 +54,7 @@
 
         <div class="col-md-12">
           <button type="button" class="btn btn-large btn-primary" @click="addToAPI">Сохранить</button>
+          <button type="button" class="btn btn-large btn-primary" @click="testDice">Тест дайсов</button>
         </div>
       </div>
     </form>
@@ -66,6 +67,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
+import { capitalize, formatDate, calculateAge, rollDice, rollString } from '../helpers';
 export default {
   name: 'addCharacter',
   data() {
@@ -87,7 +89,22 @@ export default {
       submitted: false
     }
   },
+  computed: {
+    // use {{ age }}
+    age () {
+      return calculateAge(new Date())
+    }
+  },
+  filters: {
+    capitalize,
+    formatDate
+  },
   methods: {
+    testDice() {
+      console.log('Rolled 2d10+2, result is: ' + rollString('2d10+2'));
+      console.log('Rolled 2d10-2, result is: ' + rollDice(10, 2, -2));
+      console.log('Rolled a d20, result is: ' + rollDice(20));
+    },
     addToAPI() {
       let newCharacter = {
         characterName: this.Character.characterName,
