@@ -36,7 +36,7 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 export default {
-  name:'charsheetViewer',
+  name:'viewCharsheet',
   components: { Spinner },
   data() {
     return {

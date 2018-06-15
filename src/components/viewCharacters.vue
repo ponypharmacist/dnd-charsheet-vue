@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-    <div class="well golden-border">
-      <template v-if="isLoading">
+    <div class="row text-center" v-if="isLoading">
+      <template>
         <spinner></spinner>
       </template>
+    </div>
+    <div class="well golden-border" v-if="!isLoading">
       <table class="table table-striped table-borderes">
         <thead>
           <tr>
@@ -71,8 +73,5 @@ li {
 
 a {
   color: #42b983;
-}
-img{
-  max-width: 25%;
 }
 </style>
