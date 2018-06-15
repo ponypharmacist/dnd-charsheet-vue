@@ -1,25 +1,28 @@
 <template>
   <div class="container">
-    <div class="well">
+    <div class="well golden-border">
+      <template v-if="isLoading">
+        <spinner></spinner>
+      </template>
       <table class="table table-striped table-borderes">
         <thead>
           <tr>
-            <th class="center">Username</th>
-            <th class="center">ID</th>
-            <th>Email</th>
+            <th>Name</th>
+            <th>Race/Class</th>
+            <th>Stats</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user_alias in User">
-            <td class="text-left"> <a v-bind:href="'/charsheet/' + user_alias._id">{{ user_alias.username}}</a> </td>
-            <td class="text-left"> {{ user_alias.password}}</td>
-            <td class="text-left"> {{ user_alias.email}}</td>
+          <tr v-for="char_alias in Character">
+            <td class="text-left"> <a v-bind:href="'/charsheet/' + char_alias._id">{{ char_alias.characterName }}</a> </td>
+            <td class="text-left"> lvl. {{ char_alias.level }} {{ char_alias.race }} / {{ char_alias.class }}</td>
+            <td class="text-left">
+              Background: {{ char_alias.background }}. Alignment: {{ char_alias.alignment }}.<br/>
+              S:{{ char_alias.strength }} D:{{ char_alias.dexterity }} C:{{ char_alias.constitution }} I:{{ char_alias.intelligence }} W:{{ char_alias.wisdom }} Ch:{{ char_alias.charisma }}
+            </td>
           </tr>
         </tbody>
       </table>
-      <router-link to="/add-user">
-        <button class="brn btn-large btn-block btn-success full-width"> Add User </button>
-      </router-link>
     </div>
   </div>
 </template>
@@ -27,18 +30,22 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
+import Spinner from './common/Spinner';
 export default {
-    name:'View Characters',
+    name:'viewCharacters',
+    components: { Spinner },
     data() {
-        return {
-            User: [],
-        }
+      return {
+        Character: [],
+        isLoading: true
+      }
     },
     mounted() {
-    axios.get('https://dnd-charsheet-api.herokuapp.com/users')
+    axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets')
         .then((response) => {
-            console.log(response.data);
-            this.User = response.data;
+          this.isLoading = false;
+          console.log(response.data);
+          this.Character = response.data;
         })
         .catch((error) => {
             console.log(error);

@@ -1,10 +1,10 @@
 <template>
-    <nav>
-        <ul>
-            <li><router-link to="/" exact>Tavern</router-link></li>
-            <li><router-link to="/add-user" exact>New Character</router-link></li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li><router-link to="/" exact>Tavern</router-link></li>
+      <li><router-link to="/add-character" exact>New Character</router-link></li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -28,7 +28,7 @@ a{
     border-radius: 5px;
 }
 nav{
-    background: crimson;
+    background: black;
     padding: 30px 0;
     margin-bottom: 40px;
 }
