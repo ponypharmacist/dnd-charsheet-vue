@@ -10,7 +10,7 @@ export default {
 
 <style scoped>
 .spinner {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
 }
 </style>
