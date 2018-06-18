@@ -61,6 +61,7 @@ export default {
       console.log('Rolled 2d10+2, result is: ' + rollString('2d10+2'));
       console.log('Rolled 2d10-2, result is: ' + rollDice(10, 2, -2));
       console.log('Rolled a d20, result is: ' + rollDice(20));
+      console.log(this.Character.class);
     },
     addToAPI() {
     let newCharacter = this.Character;

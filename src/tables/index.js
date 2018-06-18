@@ -215,22 +215,45 @@ export const backgrounds = {
 // Classes
 export const classes = {
   barbarian: {
+    title: 'Barbarian',
     hitDie: 12,
     savingThrowProficiency: ['strength', 'constitution'],
     proficiencies: [''],
     feats: ['rage', 'unarmoredDefence'] // on level 1
   },
-  bard: {},
-  cleric: {},
-  druid: {},
-  fighter: {},
-  monk: {},
-  paladin: {},
-  ranger: {},
-  rogue: {},
-  sorcerer: {},
-  warlock: {},
-  wizard: {}
+  bard: {
+    title: 'Bard'
+  },
+  cleric: {
+    title: 'Cleric'
+  },
+  druid: {
+    title: 'Druid'
+  },
+  fighter: {
+    title: 'Fighter'
+  },
+  monk: {
+    title: 'Monk'
+  },
+  paladin: {
+    title: 'Paladin'
+  },
+  ranger: {
+    title: 'Ranger'
+  },
+  rogue: {
+    title: 'Rogue'
+  },
+  sorcerer: {
+    title: 'Sorcerer'
+  },
+  warlock: {
+    title: 'Warlock'
+  },
+  wizard: {
+    title: 'Wizard'
+  }
 }
 
 // Feats
