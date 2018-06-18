@@ -1,0 +1,26 @@
+.container
+  .row.text-center(v-if="isLoading")
+    .col-md-12
+      template
+        spinner
+
+  .well.golden-border(v-if="!isLoading")
+    table.table.table-striped.table-borderes
+      thead
+        tr
+          th Name
+          th Race/Class
+          th Stats
+          th
+
+      tbody
+        tr(v-for="char_alias in Character")
+          td
+            a.view-name(v-bind:href="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
+          td lvl. {{ char_alias.level }} {{ char_alias.race }} ({{ char_alias.subrace }}) / {{ char_alias.class }}
+          td
+            | Background: {{ char_alias.background }}. Alignment: {{ char_alias.alignment }}. 
+            br
+            | S:{{ char_alias.strength }} D:{{ char_alias.dexterity }} C:{{ char_alias.constitution }} I:{{ char_alias.intelligence }} W:{{ char_alias.wisdom }} Ch:{{ char_alias.charisma }}
+          td
+            a.delete-icon(@click="deleteCharacter(char_alias._id)") X

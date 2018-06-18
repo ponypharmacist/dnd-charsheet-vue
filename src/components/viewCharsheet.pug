@@ -1,0 +1,21 @@
+.container
+  .row.text-center
+    template(v-if="isLoading")
+      spinner
+
+  .row(v-if="!isLoading")
+    .col-md-12.golden-border.mb-1
+      table.table.table-striped.table-borderes
+        thead
+          tr
+            th Name: {{ Character.characterName }}
+            th Race: {{ Character.race }}
+            th Class: {{ Character.class }}
+
+    .col-md-6.golden-border
+      .stat-block Strength: {{ Character.strength }}
+      .stat-block Dexterity: {{ Character.dexterity }}
+      .stat-block Constitution: {{ Character.constitution }}
+      .stat-block Intelligence: {{ Character.intelligence }}
+      .stat-block Wisdom: {{ Character.wisdom }}
+      .stat-block Charisma: {{ Character.charisma }}
