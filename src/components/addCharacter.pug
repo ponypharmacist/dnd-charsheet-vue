@@ -53,12 +53,9 @@
       .col-md-3.golden-border
         h3 Feats
         .feat-list(v-if="Character.background && Character.subrace")
-          .feat-list-item
-            .feat-name Lucky
-            .feat-description You can reroll any 1 on a d20 roll.
-          .feat-list-item
-            .feat-name Lucky
-            .feat-description You can reroll any 1 on a d20 roll.
+          .feat-list-item(v-for="feat in Character.feats")
+            .feat-name {{ feats[feat].title }}
+            .feat-description {{ feats[feat].description }}
 
       .col-md-3.golden-border
         h3 Proficiencies

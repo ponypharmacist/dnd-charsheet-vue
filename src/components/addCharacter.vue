@@ -39,11 +39,7 @@ export default {
     characterSubrace() { return this.Character.subrace; },
     characterFeats() { return this.Character.feats; },
   },
-  watch: {
-    characterSubrace() {
-      this.collectFeats();
-    }
-  },
+  watch: {},
   filters: {
     capitalize,
     genderPronoun,
