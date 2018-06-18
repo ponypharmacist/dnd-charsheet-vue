@@ -143,19 +143,73 @@ export const races = {
 
 // Backgrounds
 export const backgrounds = {
-  acolyte: {},
-  charlatan: {},
-  criminal: {},
-  entertainer: {},
-  folkHero: {},
-  guildArtisan: {},
-  hermit: {},
-  noble: {},
-  outlander: {},
-  sage: {},
-  sailor: {},
-  soldier: {},
-  urchin: {}
+  acolyte: {
+    title: 'Acolyte',
+    skillProficiencies: ['insight', 'religion'],
+    extraLanguage: 2,
+    equipment: ['A holy symbol', 'a prayer book', 'vestments', '5 sticks of incense'],
+    money: 15
+  },
+  charlatan: {
+    title: 'Charlatan',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  criminal: {
+    title: 'Criminal',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  entertainer: {
+    title: 'Entertainer',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  folkHero: {
+    title: 'Folk Hero',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  guildArtisan: {
+    title: 'Guild Artisan',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  hermit: {
+    title: 'Hermit',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  noble: {
+    title: 'Noble',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  outlander: {
+    title: 'Outlander',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  sage: {
+    title: 'Sage',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  sailor: {
+    title: 'Sailor',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  soldier: {
+    title: 'Soldier',
+    skillProficiencies: [''],
+    equipment: ['']
+  },
+  urchin: {
+    title: 'Urchin',
+    skillProficiencies: [''],
+    equipment: ['']
+  }
 }
 
 // Classes
@@ -163,7 +217,8 @@ export const classes = {
   barbarian: {
     hitDie: 12,
     savingThrowProficiency: ['strength', 'constitution'],
-    proficiencies: ['']
+    proficiencies: [''],
+    feats: ['rage', 'unarmoredDefence'] // on level 1
   },
   bard: {},
   cleric: {},

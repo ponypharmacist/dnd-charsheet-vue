@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div class="row text-center" v-if="isLoading">
+      <div class="col-md-12">
       <template>
         <spinner></spinner>
       </template>
+      </div>
     </div>
     <div class="well golden-border" v-if="!isLoading">
       <table class="table table-striped table-borderes">

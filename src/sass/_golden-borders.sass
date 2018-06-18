@@ -1,0 +1,23 @@
+// Golden borders
+.golden-border
+  background-color: rgba(0,0,0,.3)
+  position: relative
+  border: none
+  color: #ecbe57
+  padding: 24px
+
+.golden-border::after
+  content: ''
+  display: block
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  border-width: 24px
+  border-style: solid
+  border-image-source: url('assets/frame.png')
+  border-image-slice: 24
+  border-image-outset: 0
+  border-image-repeat: round
+  pointer-events: none

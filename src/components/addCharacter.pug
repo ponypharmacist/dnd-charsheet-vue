@@ -1,0 +1,102 @@
+.container
+  h3(v-if="submitted") Thanks for adding your character!
+  form(v-if="!submitted")
+    .row.mb-2
+      .col-md-12.golden-border
+        .paragraph-create
+          | You roll a level 
+          input.form-control.input-inline.input-short(type="number" min="1" max="20" v-model="Character.level") 
+          |  
+          select.form-control.input-inline(v-model="Character.class")
+            option(v-for="(aClass, key) in classes" v-bind:value="key" placeholder="class") {{ key | capitalize }}
+          |  .
+          br
+          select.form-control.input-inline(v-model="Character.gender")
+            option(value="male") He
+            option(value="female") She
+            option(value="neutral") It
+          |  is a 
+          select.form-control.input-inline(v-model="Character.race")
+            option(v-for="(race, key) in races" v-bind:value="key") {{ race.title }}
+          |  
+          select.form-control.input-inline(v-if="Character.race" v-model="Character.subrace")
+            option(v-for="(subrace, key) in races[Character.race].subraces" v-bind:value="key") {{ subrace.title }}
+          |  who used to be a 
+          select.form-control.input-inline(v-model="Character.background")
+            option(v-for="(background, key) in backgrounds" v-bind:value="key") {{ background.title }}
+          |  .
+          br
+          | {{ Character.gender | genderPosessive | capitalize }} name is 
+          input.form-control.input-inline(type="text" placeholder="Character Name" v-model="Character.characterName")
+          |  and {{ Character.gender | genderPronoun }} is usually 
+          select.form-control.input-inline(v-model="Character.alignment")
+            option(value="Lawful Good") Lawful Good
+            option(value="Neutral Good") Neutral Good
+            option(value="Chaotic Good") Chaotic Good
+            option(value="Lawful Neutral") Lawful Neutral
+            option(value="True Neutral") True Neutral
+            option(value="Chaotic Neutral") Chaotic Neutral
+            option(value="Lawful Evil") Lawful Evil
+            option(value="Neutral Evil") Neutral Evil
+            option(value="Chaotic Evil") Chaotic Evil
+          |  .
+
+
+    .row.mb-2
+      .col-md-3.golden-border
+        h3 Feats
+        .feat-list(v-if="Character.background && Character.subrace")
+          .feat-list-item
+            .feat-name Lucky
+            .feat-description You can reroll any 1 on a d20 roll.
+          .feat-list-item
+            .feat-name Lucky
+            .feat-description You can reroll any 1 on a d20 roll.
+
+      .col-md-3.golden-border
+        h3 Proficiencies
+
+      .col-md-3.golden-border
+        h3 Languages
+
+    .row.mb-2
+      .col-md-6.golden-border
+        h3 Ability Scores 
+          button.btn.btn-large.btn-primary.btn-sm(type="button" @click="testDice") Roll
+        table
+          tr
+            td(width="100") Strength 
+            td(width="100")
+              input.form-control(placeholder="Str" v-model="Character.strength")
+            td
+          tr
+            td Dexterity
+            td
+              input.form-control(placeholder="Dex" v-model="Character.dexterity")
+            td
+          tr
+            td Constitution 
+            td
+              input.form-control(placeholder="Con" v-model="Character.constitution")
+            td
+          tr
+            td Intelligence
+            td
+              input.form-control(placeholder="Int" v-model="Character.intelligence")
+            td
+          tr
+            td Wisdom
+            td
+              input.form-control(placeholder="Wis" v-model="Character.wisdom")
+            td
+          tr
+            td Charisma
+            td
+              input.form-control(placeholder="Cha" v-model="Character.charisma")
+            td
+
+    .row
+      .col-md-12
+        button.btn.btn-large.btn-primary(type="button" @click="addToAPI") Сохранить
+        | 
+        button.btn.btn-large.btn-primary(type="button" @click="testDice") Тест дайсов
