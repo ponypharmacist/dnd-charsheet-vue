@@ -258,6 +258,65 @@ export const classes = {
 
 // Feats
 export const feats = {
+  // Racial feats
+  darkvision: {
+    title: 'Darkvision',
+    description: 'You can see 60 feet in the dark.',
+    implementation: false
+  },
+  dwarvenResilience: {
+    title: 'Dwarven Resilience',
+    description: '',
+    implementation: true,
+    implementationRule: '' // Some function that changes stats around
+  },
+  stonecutting: {
+    title: 'Stonecutting',
+    description: '',
+    implementation: ''
+  },
+  dwarvenToughness: {
+    title: 'Dwarven Toughness',
+    description: '',
+    implementation: ''
+  },
+  keenSenses: {
+    title: 'Keen Senses',
+    description: '',
+    implementation: ''
+  },
+  feyAncestry: {
+    title: 'Fey Ancestry',
+    description: '',
+    implementation: ''
+  },
+  trance: {
+    title: 'Trance',
+    description: '',
+    implementation: ''
+  },
+  cantripWizard: {
+    title: 'Cantrip (wizard)',
+    description: '',
+    implementation: ''
+  },
+  maskOfTheWild: {
+    title: 'Mask of the Wild',
+    description: '',
+    implementation: ''
+  },
+  // Class feats
+  rage: {
+    title: 'Rage',
+    description: '',
+    implementation: ''
+  },
+  unarmoredDefence: {
+    title: 'Unarmored Defence',
+    description: '',
+    implementation: ''
+  }
+  // Background feats
 }
 
 // Dwarf 'artisanTools': Tool Proficiency. You gain proficiency with the artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools.
