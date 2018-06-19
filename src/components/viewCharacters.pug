@@ -17,10 +17,11 @@
         tr(v-for="char_alias in Character")
           td
             a.view-name(v-bind:href="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
-          td lvl. {{ char_alias.level }} {{ char_alias.race }} ({{ char_alias.subrace }}) / {{ char_alias.class }}
+          td lvl. {{ char_alias.characterLevel }} {{ char_alias.characterRace }} ({{ char_alias.characterSubrace }}) / {{ char_alias.characterClass }}
           td
-            | Background: {{ char_alias.background }}. Alignment: {{ char_alias.alignment }}. 
+            | Background: {{ char_alias.characterBackground }}. Alignment: {{ char_alias.characterAlignment }}. 
             br
-            | S:{{ char_alias.strength }} D:{{ char_alias.dexterity }} C:{{ char_alias.constitution }} I:{{ char_alias.intelligence }} W:{{ char_alias.wisdom }} Ch:{{ char_alias.charisma }}
+            | S:{{ char_alias.characterStrength }} D:{{ char_alias.characterDexterity }} C:{{ char_alias.characterConstitution }} 
+            | I:{{ char_alias.characterIntelligence }} W:{{ char_alias.characterWisdom }} Ch:{{ char_alias.characterCharisma }}
           td
             a.delete-icon(@click="deleteCharacter(char_alias._id)") X

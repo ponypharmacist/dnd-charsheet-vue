@@ -6,38 +6,38 @@
         .paragraph-create
           | You roll a 
           md-field.md-theme-dark
-            label(for="characterClass") Class
-            md-select(v-model="Character.class" name="characterClass" id="characterClass")
+            label(for="charClass") Class
+            md-select(v-model="characterClass" name="charClass")
               md-option(v-for="(aClass, key) in classes" v-bind:key="classes[aClass]" v-bind:value="key") {{ aClass.title }}
           |  .
           br
           md-field.md-theme-dark
-            label(for="characterGender") Gender
-            md-select(v-model="Character.gender" name="characterGender" id="characterGender")
+            label(for="charGender") Gender
+            md-select(v-model="characterGender" name="charGender")
               md-option(value="male") He
               md-option(value="female") She
               md-option(value="neutral") It
           |  is a 
           md-field.md-theme-dark
-            label(for="characterRace") Race
-            md-select(v-model="Character.race" name="characterRace" id="characterRace")
+            label(for="charRace") Race
+            md-select(v-model="characterRace" name="charRace" @md-selected="clearSubrace")
               md-option(v-for="(race, key) in races" v-bind:key="races[race]" v-bind:value="key") {{ race.title }}
           |  
-          md-field.md-theme-dark(v-if="Character.race")
-            label(for="characterSubrace") Subrace
-            md-select(v-model="Character.subrace" name="characterSubrace" id="characterSubrace")
-              md-option(v-for="(subrace, key) in races[Character.race].subraces" v-bind:key="races[Character.race].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
+          md-field.md-theme-dark(v-if="characterRace")
+            label(for="charSubrace") Subrace
+            md-select(v-model="characterSubrace" name="charSubrace")
+              md-option(v-for="(subrace, key) in races[characterRace].subraces" v-bind:key="races[characterRace].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
           |  who used to be a 
           md-field.md-theme-dark
-            label(for="characterBackground") Background
-            md-select(v-model="Character.background" name="characterBackground" id="characterBackground")
+            label(for="charBackground") Background
+            md-select(v-model="characterBackground" name="charBackground")
               md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
           |  .
           br
-          | {{ Character.gender | genderPosessive | capitalize }} name is 
-          input.form-control.input-inline(type="text" placeholder="Character Name" v-model="Character.characterName")
-          |  and {{ Character.gender | genderPronoun }} is usually 
-          select.form-control.input-inline(v-model="Character.alignment")
+          | {{ characterGender | genderPosessive | capitalize }} name is 
+          input.form-control.input-inline(type="text" placeholder="Character Name" v-model="characterName")
+          |  and {{ characterGender | genderPronoun }} is usually 
+          select.form-control.input-inline(v-model="characterAlignment")
             option(value="Lawful Good") Lawful Good
             option(value="Neutral Good") Neutral Good
             option(value="Chaotic Good") Chaotic Good
@@ -51,53 +51,58 @@
 
     .row.mb-2
       .col-md-3.golden-border
+        h3 Stuff
+        div(v-if="true") Health {{ healthBonusFromFeats }}
+
+      .col-md-3.golden-border
         h3 Feats
-        .feat-list(v-if="Character.background && Character.subrace")
-          .feat-list-item(v-for="feat in Character.feats")
+        .feat-list
+          .feat-list-item(v-for="feat in characterFeats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
       .col-md-3.golden-border
-        h3 Proficiencies
+        h3 Combat proficiencies
+        h3 Languages
 
       .col-md-3.golden-border
-        h3 Languages
+        h3 Skills
 
     .row.mb-2
       .col-md-6.golden-border
         h3 Ability Scores 
-          button.btn.btn-large.btn-primary.btn-sm(type="button" @click="testDice") Roll
+          button.btn.btn-large.btn-primary.btn-sm(type="button" @click="rollAbilities") Roll
         table
           tr
             td(width="100") Strength 
             td(width="100")
-              input.form-control(placeholder="Str" v-model="Character.strength")
-            td
+              input.form-control(placeholder="Str" v-model="characterStrength")
+            td {{ characterStrength | getModifier | decoratePositive }}
           tr
             td Dexterity
             td
-              input.form-control(placeholder="Dex" v-model="Character.dexterity")
-            td
+              input.form-control(placeholder="Dex" v-model="characterDexterity")
+            td {{ characterDexterity | getModifier | decoratePositive }}
           tr
             td Constitution 
             td
-              input.form-control(placeholder="Con" v-model="Character.constitution")
-            td
+              input.form-control(v-model="characterConstitution")
+            td {{ characterConstitution | getModifier | decoratePositive }}
           tr
             td Intelligence
             td
-              input.form-control(placeholder="Int" v-model="Character.intelligence")
-            td
+              input.form-control(placeholder="Int" v-model="characterIntelligence")
+            td {{ characterIntelligence | getModifier | decoratePositive }}
           tr
             td Wisdom
             td
-              input.form-control(placeholder="Wis" v-model="Character.wisdom")
-            td
+              input.form-control(placeholder="Wis" v-model="characterWisdom")
+            td {{ characterWisdom | getModifier | decoratePositive }}
           tr
             td Charisma
             td
-              input.form-control(placeholder="Cha" v-model="Character.charisma")
-            td
+              input.form-control(placeholder="Cha" v-model="characterCharisma")
+            td {{ characterCharisma | getModifier | decoratePositive }}
 
     .row
       .col-md-12

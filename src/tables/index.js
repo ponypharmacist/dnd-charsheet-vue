@@ -2,7 +2,7 @@
 export const races = {
   dwarf: {
     title: 'Dwarf',
-    abilityScore: ['con+2'],
+    abilityScore: ['characterConstitution+2'], // ? как
     speed: 25,
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
     languages: ['Common', 'Dwarvish'],
@@ -10,12 +10,12 @@ export const races = {
     subraces: {
       hillDwarf: {
         title: 'Hill Dwarf',
-        abilityScore: ['wis+1'],
+        abilityScore: ['wisdom+1'],
         feats: ['dwarvenToughness'] // +1 to hp every level
       },
       mountainDwarf: {
         title: 'Mountain Dwarf',
-        abilityScore: ['str+2'],
+        abilityScore: ['strength+2'],
         proficiencies: ['lightArmor', 'mediumArmor']
       }
     }
@@ -278,7 +278,10 @@ export const feats = {
   dwarvenToughness: {
     title: 'Dwarven Toughness',
     description: '',
-    implementation: ''
+    implementation: true,
+    implementationRule: function () {
+      console.log('Feat implemented')
+    }
   },
   keenSenses: {
     title: 'Keen Senses',

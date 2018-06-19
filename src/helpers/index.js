@@ -1,3 +1,4 @@
+// Capitalize text filter
 export const capitalize = (text) => {
   return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
@@ -21,12 +22,32 @@ export const rollString = (expression) => {
   return rollDice(die, times, modifier)
 }
 
-// Gender pronoun
+// Gender pronoun filter
 export const genderPronoun = (gender) => {
   return gender === 'male' ? 'he' : gender === 'female' ? 'she' : 'it'
 }
 
-// Gender posessive
+// Gender posessive filter
 export const genderPosessive = (gender) => {
   return gender === 'male' ? 'his' : gender === 'female' ? 'her' : 'its'
+}
+
+// Calculate modifier filter
+export const getModifier = (abilityValue) => {
+  return Math.floor((abilityValue - 10) / 2)
+}
+
+// Decorate positive numbers with a plus
+export const decoratePositive = (number) => {
+  return number > 0 ? '+' + number : number
+}
+
+// Parse ability bonuses from race and subrace
+export const parseAbilityBonus = (expression) => {
+  let abilityName = expression.split('+')[0]
+  let abilityBonus = parseInt(expression.split('+')[1])
+  return {
+    abilityName: abilityName,
+    abilityBonus: abilityBonus
+  }
 }
