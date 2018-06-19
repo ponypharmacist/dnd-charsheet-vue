@@ -7,7 +7,7 @@ import VueSweetalert2 from 'vue-sweetalert2'
 // https://vuematerial.io/getting-started - Material Design for Vue
 import VueMaterial from 'vue-material'
 // separate components can also be imported
-// import { MdField, MdTabs } from 'vue-material/dist/components/index.js'
+// import { MdField, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default-dark.css'
 

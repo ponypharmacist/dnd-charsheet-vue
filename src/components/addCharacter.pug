@@ -53,6 +53,10 @@
       .col-md-3.golden-border
         h3 Stuff
         div(v-if="true") Health {{ healthBonusFromFeats }}
+        div Passive perception
+        div Initiative
+        div Combat proficiencies
+        div Languages
 
       .col-md-3.golden-border
         h3 Feats
@@ -62,11 +66,29 @@
             .feat-description {{ feats[feat].description }}
 
       .col-md-3.golden-border
-        h3 Combat proficiencies
-        h3 Languages
+        h3 Skills
+        ul
+          li Acrobatics (Dex)
+          li Animal Handling (Wis)
+          li Arcana (Int)
+          li Athletics (Str)
+          li Deception (Cha)
+          li History (Int)
+          li Insight (Wis)
+          li Intimidation (Cha)
+          li Investigation (Int)
+          li Medicine (Wis)
+          li Nature (Int)
+          li Perception (Wis)
+          li Performance (Cha)
+          li Persuasion (Cha)
+          li Religion (Int)
+          li Sleight of Hand (Dex)
+          li Stealth (Dex)
+          li Survival (Wis)
 
       .col-md-3.golden-border
-        h3 Skills
+        h3 Equipment
 
     .row.mb-2
       .col-md-6.golden-border
