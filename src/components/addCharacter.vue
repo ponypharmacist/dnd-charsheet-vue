@@ -24,14 +24,15 @@ export default {
       characterClass: '',
       characterBackground: '',
       characterAlignment: '',
-      characterStrength: 10,
-      characterDexterity: 10,
-      characterConstitution: 10,
-      characterIntelligence: 10,
-      characterWisdom: 10,
-      characterCharisma: 10,
+      characterStrength: 14,
+      characterDexterity: 14,
+      characterConstitution: 14,
+      characterIntelligence: 14,
+      characterWisdom: 14,
+      characterCharisma: 8,
       characterLanguages: [],
       characterProficiencies: [],
+      characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)
       characterMaxHealth: 0
     }
   },
@@ -104,6 +105,7 @@ export default {
       characterLanguages: this.characterLanguages,
       characterFeats: this.characterFeats,
       characterProficiencies: this.characterProficiencies,
+      characterSkills: this.characterSkills,
       characterMaxHealth: this.characterMaxHealth
     }
     console.log(newCharacter);

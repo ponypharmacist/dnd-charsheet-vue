@@ -65,30 +65,41 @@
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
-      .col-md-3.golden-border
+      .col-md-6.golden-border
         h3 Skills
-        ul
-          li Acrobatics (Dex)
-          li Animal Handling (Wis)
-          li Arcana (Int)
-          li Athletics (Str)
-          li Deception (Cha)
-          li History (Int)
-          li Insight (Wis)
-          li Intimidation (Cha)
-          li Investigation (Int)
-          li Medicine (Wis)
-          li Nature (Int)
-          li Perception (Wis)
-          li Performance (Cha)
-          li Persuasion (Cha)
-          li Religion (Int)
-          li Sleight of Hand (Dex)
-          li Stealth (Dex)
-          li Survival (Wis)
+        .md-layout
+          .md-layout-item
+            .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
+            md-checkbox(v-model="characterSkills" value="athletics") Athletics (Str)
+            
+            .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
+            md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
+            md-checkbox(v-model="characterSkills" value="medicine") Medicine (Wis)
+            md-checkbox(v-model="characterSkills" value="perception") Perception (Wis)
+            md-checkbox(v-model="characterSkills" value="survival") Survival (Wis)
+            
+            .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
+            md-checkbox(v-model="characterSkills" value="deception") Deception (Cha)
+            md-checkbox(v-model="characterSkills" value="intimidation") Intimidation (Cha)
+            md-checkbox(v-model="characterSkills" value="performance") Performance (Cha)
+            md-checkbox(v-model="characterSkills" value="persuasion") Persuasion (Cha)
+          
+          .md-layout-item
+            .title-h4 Dexterity {{ characterDexterity | getModifier | decoratePositive }}
+            md-checkbox(v-model="characterSkills" value="acrobatics") Acrobatics (Dex)
+            md-checkbox(v-model="characterSkills" value="sleightOfHand") Sleight of Hand (Dex)
+            md-checkbox(v-model="characterSkills" value="stealth") Stealth (Dex)
+              
+            .title-h4 Intelligence {{ characterIntelligence | getModifier | decoratePositive }}
+            md-checkbox(v-model="characterSkills" value="arcana") Arcana (Int)
+            md-checkbox(v-model="characterSkills" value="history") History (Int)
+            md-checkbox(v-model="characterSkills" value="investigation") Investigation (Int)
+            md-checkbox(v-model="characterSkills" value="nature") Nature (Int)
+            md-checkbox(v-model="characterSkills" value="religion") Religion (Int)
+            md-checkbox(v-model="characterSkills" value="insight") Insight (Wis)
+          
+        p {{ characterSkills }}
 
-      .col-md-3.golden-border
-        h3 Equipment
 
     .row.mb-2
       .col-md-6.golden-border
@@ -125,6 +136,10 @@
             td
               input.form-control(placeholder="Cha" v-model="characterCharisma")
             td {{ characterCharisma | getModifier | decoratePositive }}
+
+      .col-md-6.golden-border
+        h3 Equipment
+        textarea Stuff and loot
 
     .row
       .col-md-12
