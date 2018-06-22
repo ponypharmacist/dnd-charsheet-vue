@@ -22,16 +22,6 @@ export const rollString = (expression) => {
   return rollDice(die, times, modifier)
 }
 
-// Gender pronoun filter
-export const genderPronoun = (gender) => {
-  return gender === 'male' ? 'he' : gender === 'female' ? 'she' : 'it'
-}
-
-// Gender posessive filter
-export const genderPosessive = (gender) => {
-  return gender === 'male' ? 'his' : gender === 'female' ? 'her' : 'its'
-}
-
 // Calculate modifier filter
 export const getModifier = (abilityValue) => {
   return Math.floor((abilityValue - 10) / 2)

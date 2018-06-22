@@ -54,12 +54,7 @@ export const races = {
     abilityScore: ['+'],
     speed: 0,
     feats: [''],
-    languages: ['Common', ''],
-    subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
-      }
-    }
+    languages: ['Common', '']
   },
   // Humans
   human: {

@@ -2,7 +2,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import { capitalize, rollDice, rollString, genderPronoun, genderPosessive, getModifier, decoratePositive, parseAbilityBonus } from '../helpers';
+import { capitalize, rollDice, rollString, getModifier, decoratePositive, parseAbilityBonus } from '../helpers';
 import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name: 'addCharacter',
@@ -18,12 +18,10 @@ export default {
       // character stuff
       characterName: '',
       characterLevel: 1,
-      characterGender: '',
       characterRace: '',
       characterSubrace: '',
       characterClass: '',
       characterBackground: '',
-      characterAlignment: '',
       characterStrength: 14,
       characterDexterity: 14,
       characterConstitution: 14,
@@ -61,8 +59,6 @@ export default {
   },
   filters: {
     capitalize,
-    genderPronoun,
-    genderPosessive,
     getModifier,
     decoratePositive
   },
@@ -90,12 +86,10 @@ export default {
       characterName: this.characterName,
       characterName: this.characterName,
       characterLevel: this.characterLevel,
-      characterGender: this.characterGender,
       characterRace: this.characterRace,
       characterSubrace: this.characterSubrace,
       characterClass: this.characterClass,
       characterBackground: this.characterBackground,
-      characterAlignment: this.characterAlignment,
       characterStrength: this.characterStrength,
       characterDexterity: this.characterDexterity,
       characterConstitution: this.characterConstitution,

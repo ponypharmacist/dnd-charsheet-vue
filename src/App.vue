@@ -1,8 +1,7 @@
-<template>
-  <div id="app">
-    <app-head></app-head>
-    <router-view></router-view>
-  </div>
+<template lang="pug">
+  #app(md-theme="default-dark")
+    app-head
+    router-view
 </template>
 
 <script>

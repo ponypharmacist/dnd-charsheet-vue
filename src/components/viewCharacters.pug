@@ -1,35 +1,20 @@
 .container
-  .row.text-center(v-if="isLoading")
-    .col-md-12
+  .md-layout(v-if="isLoading")
+    .md-layout-item
       template
         spinner
 
-  .well.golden-border(v-if="!isLoading")
-    table.table.table-striped.table-borderes
-      thead
-        tr
-          th Name
-          th Race/Class
-          th Stats
-          th
-
-      tbody
-        tr(v-for="char_alias in Character")
-          td
-            a.view-name(v-bind:href="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
-          td lvl. {{ char_alias.characterLevel }} {{ char_alias.characterRace }} ({{ char_alias.characterSubrace }}) / {{ char_alias.characterClass }}
-          td
-            | Background: {{ char_alias.characterBackground }}. Alignment: {{ char_alias.characterAlignment }}. 
-            br
-            | S:{{ char_alias.characterStrength }} D:{{ char_alias.characterDexterity }} C:{{ char_alias.characterConstitution }} 
-            | I:{{ char_alias.characterIntelligence }} W:{{ char_alias.characterWisdom }} Ch:{{ char_alias.characterCharisma }}
-          td
-            a.delete-icon(@click="deleteCharacter(char_alias._id)") X
-
-  .md-layout(style="color:#fff;")
-    .md-layout-item.golden-border One
-      .md-layout
-        .md-layout-item One-One
-        .md-layout-item One-Two
-    .md-layout-item.golden-border Two
-    .md-layout-item.golden-border Three
+  .md-layout.golden-border(v-if="!isLoading")
+    .character-row(v-for="char_alias in Character")
+      a.md-title(v-bind:href="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
+      .md-body
+        | lvl. {{ char_alias.characterLevel }} {{ char_alias.characterRace }} ({{ char_alias.characterSubrace }}) / {{ char_alias.characterClass }}
+        br
+        | Background: {{ char_alias.characterBackground }}.
+        br
+        | S:{{ char_alias.characterStrength }} D:{{ char_alias.characterDexterity }} C:{{ char_alias.characterConstitution }} 
+        | I:{{ char_alias.characterIntelligence }} W:{{ char_alias.characterWisdom }} Ch:{{ char_alias.characterCharisma }}
+        br
+        a.delete-icon(@click="deleteCharacter(char_alias._id)")
+          md-icon close
+          | delete

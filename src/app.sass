@@ -1,5 +1,9 @@
 @import "./sass/golden-borders"
 
+@import "~vue-material/dist/theme/engine"
+@include md-register-theme("default", (primary: md-get-palette-color(white, A200), accent: md-get-palette-color(red, A200), theme: dark))
+@import "~vue-material/dist/theme/all"
+
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -21,32 +25,7 @@ h4
   font-weight: bold
   margin: 0.5rem 0
 
-.paragraph-create
-  font-size: 1.5rem
-  line-height: 3rem
-
-.paragraph-create .md-field
-  display: inline-block
-  width: auto
-  top: 9px
-
 // Tables
-.table
-  margin-bottom: 0
-
-.table-striped > tbody > tr:nth-of-type(2n+1)
-  background-color: rgba(0,0,0,.3)
-
-.table > tbody > tr > td,
-.table > tbody > tr > th,
-.table > tfoot > tr > td,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > thead > tr > th
-  border-top: none
-
-.table > thead > tr > th
-  border-bottom: none
 
 // Kostyli
 .mb-1
@@ -55,22 +34,10 @@ h4
 .mb-2
   margin-bottom: 2rem
 
-
 // View Characters
-.view-name
-  font-size: 2rem
-
-  &:hover
-    color: white
-
 .delete-icon
-  color: red
-  font-weight: bold
   cursor: pointer
   text-decoration: none
-
-.delete-icon:hover
-  color: white
 
 // Create / Edit Character
 // == Forms
@@ -84,6 +51,9 @@ h4
 .md-checkbox
   margin: 0 16px 0 0
   width: 100%
+
+.md-field
+  margin-bottom: 12px
 
 // == Texts
 .feat-list

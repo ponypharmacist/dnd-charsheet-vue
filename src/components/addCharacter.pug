@@ -1,56 +1,35 @@
 .container
   h3(v-if="submitted") Thanks for adding your character!
   form(v-if="!submitted")
-    .row.mb-2
-      .col-md-12.golden-border
-        .paragraph-create
-          | You roll a 
-          md-field.md-theme-dark
-            label(for="charClass") Class
-            md-select(v-model="characterClass" name="charClass")
-              md-option(v-for="(aClass, key) in classes" v-bind:key="classes[aClass]" v-bind:value="key") {{ aClass.title }}
-          |  .
-          br
-          md-field.md-theme-dark
-            label(for="charGender") Gender
-            md-select(v-model="characterGender" name="charGender")
-              md-option(value="male") He
-              md-option(value="female") She
-              md-option(value="neutral") It
-          |  is a 
-          md-field.md-theme-dark
-            label(for="charRace") Race
-            md-select(v-model="characterRace" name="charRace" @md-selected="clearSubrace")
-              md-option(v-for="(race, key) in races" v-bind:key="races[race]" v-bind:value="key") {{ race.title }}
-          |  
-          md-field.md-theme-dark(v-if="characterRace")
-            label(for="charSubrace") Subrace
-            md-select(v-model="characterSubrace" name="charSubrace")
-              md-option(v-for="(subrace, key) in races[characterRace].subraces" v-bind:key="races[characterRace].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
-          |  who used to be a 
-          md-field.md-theme-dark
-            label(for="charBackground") Background
-            md-select(v-model="characterBackground" name="charBackground")
-              md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
-          |  .
-          br
-          | {{ characterGender | genderPosessive | capitalize }} name is 
-          input.form-control.input-inline(type="text" placeholder="Character Name" v-model="characterName")
-          |  and {{ characterGender | genderPronoun }} is usually 
-          select.form-control.input-inline(v-model="characterAlignment")
-            option(value="Lawful Good") Lawful Good
-            option(value="Neutral Good") Neutral Good
-            option(value="Chaotic Good") Chaotic Good
-            option(value="Lawful Neutral") Lawful Neutral
-            option(value="True Neutral") True Neutral
-            option(value="Chaotic Neutral") Chaotic Neutral
-            option(value="Lawful Evil") Lawful Evil
-            option(value="Neutral Evil") Neutral Evil
-            option(value="Chaotic Evil") Chaotic Evil
-          |  .
+    .md-layout
+      .md-layout-item.golden-border.mb-2
+        .md-title Rejoice, for it is...
+        md-field
+          label Character Name
+          md-input(v-model="characterName")
 
-    .row.mb-2
-      .col-md-3.golden-border
+        md-field
+          label(for="charRace") Race
+          md-select(v-model="characterRace" name="charRace" @md-selected="clearSubrace")
+            md-option(v-for="(race, key) in races" v-bind:key="races[race]" v-bind:value="key") {{ race.title }}
+
+        md-field(v-if="characterRace && races[characterRace].subraces")
+          label(for="charSubrace") Subrace
+          md-select(v-model="characterSubrace" name="charSubrace")
+            md-option(v-for="(subrace, key) in races[characterRace].subraces" v-bind:key="races[characterRace].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
+
+        md-field
+          label(for="charClass") Class
+          md-select(v-model="characterClass" name="charClass")
+            md-option(v-for="(aClass, key) in classes" v-bind:key="classes[aClass]" v-bind:value="key") {{ aClass.title }}
+
+        md-field
+          label(for="charBackground") Background
+          md-select(v-model="characterBackground" name="charBackground")
+            md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
+
+    .md-layout
+      .md-layout-item.golden-border
         h3 Stuff
         div(v-if="true") Health {{ healthBonusFromFeats }}
         div Passive perception
@@ -58,14 +37,14 @@
         div Combat proficiencies
         div Languages
 
-      .col-md-3.golden-border
+      .md-layout-item.golden-border
         h3 Feats
         .feat-list
           .feat-list-item(v-for="feat in characterFeats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
-      .col-md-6.golden-border
+      .md-layout-item.golden-border
         h3 Skills
         .md-layout
           .md-layout-item
@@ -101,8 +80,8 @@
         p {{ characterSkills }}
 
 
-    .row.mb-2
-      .col-md-6.golden-border
+    .md-layout.mb-2
+      .md-layout-item.golden-border
         h3 Ability Scores 
           button.btn.btn-large.btn-primary.btn-sm(type="button" @click="rollAbilities") Roll
         table
@@ -137,12 +116,12 @@
               input.form-control(placeholder="Cha" v-model="characterCharisma")
             td {{ characterCharisma | getModifier | decoratePositive }}
 
-      .col-md-6.golden-border
+      .md-layout-item.golden-border
         h3 Equipment
         textarea Stuff and loot
 
-    .row
-      .col-md-12
+    .md-layout
+      .md-layout-item
         button.btn.btn-large.btn-primary(type="button" @click="addToAPI") Сохранить
         | 
         button.btn.btn-large.btn-primary(type="button" @click="testDice") Тест дайсов
