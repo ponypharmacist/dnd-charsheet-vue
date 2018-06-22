@@ -2,7 +2,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import { capitalize, rollDice, rollString, getModifier, decoratePositive, parseAbilityBonus } from '../helpers';
+import { capitalize, rollDice, rollString, getModifier, decoratePositive, parseAbilityBonus, flattenArray } from '../helpers';
 import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name: 'addCharacter',
@@ -29,24 +29,23 @@ export default {
       characterWisdom: 14,
       characterCharisma: 8,
       characterLanguages: [],
-      characterProficiencies: [],
+      characterProficiencies: [], // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
       characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)
       characterMaxHealth: 0
     }
   },
   computed: {
-    characterFeats: function() {
-      if (this.characterSubrace && this.characterClass) {
-        let raceFeats, subraceFeats, classFeats, resultingFeatList;
-        raceFeats = this.races[this.characterRace].feats ? this.races[this.characterRace].feats : [];
-        subraceFeats = this.races[this.characterRace].subraces[this.characterSubrace].feats ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
-        classFeats = this.classes[this.characterClass].feats ? this.classes[this.characterClass].feats : [];
-        resultingFeatList = Array.from(new Set(raceFeats.concat(subraceFeats).concat(classFeats)));
-        console.log(resultingFeatList);
-        return resultingFeatList;
-      } else {
-        return [];
-      }
+    characterFeats: function() { // ToDo: feats from BG
+      let raceFeats = this.characterRace ? this.races[this.characterRace].feats : [];
+      let subraceFeats = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
+      let classFeats = this.characterClass ? this.classes[this.characterClass].feats : [];
+      return Array.from(new Set(raceFeats.concat(subraceFeats).concat(classFeats)));
+    },
+    characterProficienciesCombat: function() {
+      let fromRace = this.characterRace ? this.races[this.characterRace].profCombat : [];
+      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].profCombat : [];
+      let fromClass = this.characterClass ? this.classes[this.characterClass].profCombat : [];
+      return Array.from(new Set(fromClass.concat(fromSubrace).concat(fromRace)));
     },
     healthBonusFromFeats: function() {
       return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
@@ -56,15 +55,22 @@ export default {
     }
   },
   watch: {
+    characterRace: function (race) {
+      this.clearSubrace();
+    }
   },
   filters: {
     capitalize,
     getModifier,
-    decoratePositive
+    decoratePositive,
+    flattenArray,
+    add(number, bonus) {
+      return number + bonus;
+    }
   },
   methods: {
     clearSubrace() {
-      this.characterSubrace = '';
+      this.characterSubrace = undefined;
     },
     applyAbilityBonuses(array) {
       for (let expression of array) {
@@ -99,6 +105,7 @@ export default {
       characterLanguages: this.characterLanguages,
       characterFeats: this.characterFeats,
       characterProficiencies: this.characterProficiencies,
+      characterProficienciesCombat: this.characterProficienciesCombat,
       characterSkills: this.characterSkills,
       characterMaxHealth: this.characterMaxHealth
     }

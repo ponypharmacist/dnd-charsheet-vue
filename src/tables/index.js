@@ -6,17 +6,20 @@ export const races = {
     speed: 25,
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
     languages: ['Common', 'Dwarvish'],
-    proficiencies: ['battleaxe', 'handaxe', 'lightHammer', 'warhammer', 'artisanTools'],
+    profCombat: ['battleaxe', 'handaxe', 'light hammer', 'war hammer'],
+    profTools: ['Artisan Tools'],
     subraces: {
       hillDwarf: {
         title: 'Hill Dwarf',
         abilityScore: ['wisdom+1'],
-        feats: ['dwarvenToughness'] // +1 to hp every level
+        feats: ['dwarvenToughness'], // +1 to hp every level
+        profCombat: []
       },
       mountainDwarf: {
         title: 'Mountain Dwarf',
         abilityScore: ['strength+2'],
-        proficiencies: ['lightArmor', 'mediumArmor']
+        feats: [],
+        profCombat: ['light armor', 'medium armor']
       }
     }
   },
@@ -31,20 +34,21 @@ export const races = {
       highElf: {
         title: 'High Elf',
         abilityScore: ['int+1'],
-        proficiencies: ['longsword', 'shortsword', 'shortbow', 'longbow'],
+        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         feats: ['cantripWizard'], // you know one cantrip from wizard spell list
         extraLanguage: 1
       },
       woodElf: {
         title: 'Wood Elf',
         abilityScore: ['wis+1'],
-        proficiencies: ['longsword', 'shortsword', 'shortbow', 'longbow'],
+        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         feats: ['maskOfTheWild'],
         speed: 35
       },
       drow: {
         title: 'Dark Elf',
-        abilityScore: ['cha+1']
+        abilityScore: ['cha+1'],
+        feats: []
       }
     }
   },
@@ -53,7 +57,7 @@ export const races = {
     title: 'Halfling',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', '']
   },
   // Humans
@@ -61,7 +65,7 @@ export const races = {
     title: 'Human',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -74,7 +78,7 @@ export const races = {
     title: 'Dragonborn',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -87,7 +91,7 @@ export const races = {
     title: 'Gnome',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -100,7 +104,7 @@ export const races = {
     title: 'Half Elf',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -113,7 +117,7 @@ export const races = {
     title: 'Half Orc',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -126,7 +130,7 @@ export const races = {
     title: 'Tiefling',
     abilityScore: ['+'],
     speed: 0,
-    feats: [''],
+    feats: [],
     languages: ['Common', ''],
     subraces: {
       hammerDwarf: {
@@ -147,63 +151,63 @@ export const backgrounds = {
   },
   charlatan: {
     title: 'Charlatan',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   criminal: {
     title: 'Criminal',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   entertainer: {
     title: 'Entertainer',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   folkHero: {
     title: 'Folk Hero',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   guildArtisan: {
     title: 'Guild Artisan',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   hermit: {
     title: 'Hermit',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   noble: {
     title: 'Noble',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   outlander: {
     title: 'Outlander',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   sage: {
     title: 'Sage',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   sailor: {
     title: 'Sailor',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   soldier: {
     title: 'Soldier',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   },
   urchin: {
     title: 'Urchin',
-    skillProficiencies: [''],
-    equipment: ['']
+    skillProficiencies: [],
+    equipment: []
   }
 }
 
@@ -213,41 +217,53 @@ export const classes = {
     title: 'Barbarian',
     hitDie: 12,
     savingThrowProficiency: ['strength', 'constitution'],
-    proficiencies: [''],
+    skillProficiencies: [],
+    profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     feats: ['rage', 'unarmoredDefence'] // on level 1
   },
   bard: {
-    title: 'Bard'
+    title: 'Bard',
+    feats: []
   },
   cleric: {
-    title: 'Cleric'
+    title: 'Cleric',
+    feats: []
   },
   druid: {
-    title: 'Druid'
+    title: 'Druid',
+    feats: []
   },
   fighter: {
-    title: 'Fighter'
+    title: 'Fighter',
+    feats: []
   },
   monk: {
-    title: 'Monk'
+    title: 'Monk',
+    feats: []
   },
   paladin: {
-    title: 'Paladin'
+    title: 'Paladin',
+    feats: []
   },
   ranger: {
-    title: 'Ranger'
+    title: 'Ranger',
+    feats: []
   },
   rogue: {
-    title: 'Rogue'
+    title: 'Rogue',
+    feats: []
   },
   sorcerer: {
-    title: 'Sorcerer'
+    title: 'Sorcerer',
+    feats: []
   },
   warlock: {
-    title: 'Warlock'
+    title: 'Warlock',
+    feats: []
   },
   wizard: {
-    title: 'Wizard'
+    title: 'Wizard',
+    feats: []
   }
 }
 

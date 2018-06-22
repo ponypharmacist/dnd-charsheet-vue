@@ -41,3 +41,8 @@ export const parseAbilityBonus = (expression) => {
     abilityBonus: abilityBonus
   }
 }
+
+// Flatten array to a list
+export const flattenArray = (array) => {
+  return array.join(', ')
+}

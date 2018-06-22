@@ -10,6 +10,10 @@ export default {
 
 <style lang="sass" scoped>
 .spinner
-  width: 64px
-  height: 64px
+  width: 128px
+  height: 128px
+  position: relative
+  top: 50%
+  left: 50%
+  margin-left: -64px
 </style>

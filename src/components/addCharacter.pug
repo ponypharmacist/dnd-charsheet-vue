@@ -2,7 +2,7 @@
   h3(v-if="submitted") Thanks for adding your character!
   form(v-if="!submitted")
     .md-layout
-      .md-layout-item.golden-border.mb-2
+      .md-layout-item.golden-border.mb-1
         .md-title Rejoice, for it is...
         md-field
           label Character Name
@@ -10,7 +10,7 @@
 
         md-field
           label(for="charRace") Race
-          md-select(v-model="characterRace" name="charRace" @md-selected="clearSubrace")
+          md-select(v-model="characterRace" name="charRace")
             md-option(v-for="(race, key) in races" v-bind:key="races[race]" v-bind:value="key") {{ race.title }}
 
         md-field(v-if="characterRace && races[characterRace].subraces")
@@ -28,15 +28,15 @@
           md-select(v-model="characterBackground" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
-    .md-layout
+    .md-layout.mb-1
       .md-layout-item.golden-border
-        h3 Stuff
-        div(v-if="true") Health {{ healthBonusFromFeats }}
-        div Passive perception
-        div Initiative
-        div Combat proficiencies
-        div Languages
+        .md-subheading Health {{ healthBonusFromFeats }}
+        .md-subheading Passive perception: {{ characterWisdom | getModifier | add(10) }}
+        .md-subheading Initiative: {{ characterDexterity | getModifier | add(10) }}
+        .md-subheading Combat proficiencies: {{ characterProficienciesCombat | flattenArray }}
+        .md-subheading Languages: {{ characterLanguages }}
 
+    .md-layout.mb-1
       .md-layout-item.golden-border
         h3 Feats
         .feat-list
@@ -44,38 +44,39 @@
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
+    .md-layout.mb-1
       .md-layout-item.golden-border
         h3 Skills
         .md-layout
           .md-layout-item
             .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="athletics") Athletics (Str)
+            md-checkbox(v-model="characterSkills" value="athletics") Athletics
             
             .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
-            md-checkbox(v-model="characterSkills" value="medicine") Medicine (Wis)
-            md-checkbox(v-model="characterSkills" value="perception") Perception (Wis)
-            md-checkbox(v-model="characterSkills" value="survival") Survival (Wis)
+            md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling
+            md-checkbox(v-model="characterSkills" value="medicine") Medicine
+            md-checkbox(v-model="characterSkills" value="perception") Perception
+            md-checkbox(v-model="characterSkills" value="survival") Survival
             
             .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="deception") Deception (Cha)
-            md-checkbox(v-model="characterSkills" value="intimidation") Intimidation (Cha)
-            md-checkbox(v-model="characterSkills" value="performance") Performance (Cha)
-            md-checkbox(v-model="characterSkills" value="persuasion") Persuasion (Cha)
+            md-checkbox(v-model="characterSkills" value="deception") Deception
+            md-checkbox(v-model="characterSkills" value="intimidation") Intimidation
+            md-checkbox(v-model="characterSkills" value="performance") Performance
+            md-checkbox(v-model="characterSkills" value="persuasion") Persuasion
           
           .md-layout-item
             .title-h4 Dexterity {{ characterDexterity | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="acrobatics") Acrobatics (Dex)
-            md-checkbox(v-model="characterSkills" value="sleightOfHand") Sleight of Hand (Dex)
-            md-checkbox(v-model="characterSkills" value="stealth") Stealth (Dex)
+            md-checkbox(v-model="characterSkills" value="acrobatics") Acrobatics
+            md-checkbox(v-model="characterSkills" value="sleightOfHand") Sleight of Hand
+            md-checkbox(v-model="characterSkills" value="stealth") Stealth
               
             .title-h4 Intelligence {{ characterIntelligence | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="arcana") Arcana (Int)
-            md-checkbox(v-model="characterSkills" value="history") History (Int)
-            md-checkbox(v-model="characterSkills" value="investigation") Investigation (Int)
-            md-checkbox(v-model="characterSkills" value="nature") Nature (Int)
-            md-checkbox(v-model="characterSkills" value="religion") Religion (Int)
-            md-checkbox(v-model="characterSkills" value="insight") Insight (Wis)
+            md-checkbox(v-model="characterSkills" value="arcana") Arcana
+            md-checkbox(v-model="characterSkills" value="history") History
+            md-checkbox(v-model="characterSkills" value="investigation") Investigation
+            md-checkbox(v-model="characterSkills" value="nature") Nature
+            md-checkbox(v-model="characterSkills" value="religion") Religion
+            md-checkbox(v-model="characterSkills" value="insight") Insight
           
         p {{ characterSkills }}
 

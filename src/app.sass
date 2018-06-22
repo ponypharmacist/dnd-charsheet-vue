@@ -1,7 +1,7 @@
 @import "./sass/golden-borders"
 
 @import "~vue-material/dist/theme/engine"
-@include md-register-theme("default", (primary: md-get-palette-color(white, A200), accent: md-get-palette-color(red, A200), theme: dark))
+@include md-register-theme("default", (primary: white, accent: #2c3e50, theme: dark))
 @import "~vue-material/dist/theme/all"
 
 #app
@@ -13,6 +13,9 @@
 body
   background: #000 url('assets/bg-simple-1440.56.jpg') repeat-y center top / cover
   background-attachment: fixed
+
+.container
+  margin: 0 3vw
 
 // Grand Typographics
 h3
