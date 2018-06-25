@@ -9,7 +9,7 @@ export const rollDice = (die, times = 1, modifier = 0) => {
   for (let i = 1; i <= times; i++) {
     let currentRoll = Math.ceil(Math.random() * Math.floor(die))
     sumOfRolls += currentRoll
-    console.log('Rolled a d' + die + ' #' + i + ' for ' + currentRoll)
+    // console.log('Rolled a d' + die + ' #' + i + ' for ' + currentRoll)
   }
   return sumOfRolls + modifier
 }
@@ -30,16 +30,6 @@ export const getModifier = (abilityValue) => {
 // Decorate positive numbers with a plus
 export const decoratePositive = (number) => {
   return number > 0 ? '+' + number : number
-}
-
-// Parse ability bonuses from race and subrace
-export const parseAbilityBonus = (expression) => {
-  let abilityName = expression.split('+')[0]
-  let abilityBonus = parseInt(expression.split('+')[1])
-  return {
-    abilityName: abilityName,
-    abilityBonus: abilityBonus
-  }
 }
 
 // Flatten array to a list

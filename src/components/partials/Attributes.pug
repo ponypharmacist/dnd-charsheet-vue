@@ -1,42 +1,75 @@
-.md-layout.mb-1
+.md-layout.mb-1.ability
   .md-layout-item.golden-border
-    h3 Ability Scores
-      button.btn.btn-large.btn-primary.btn-sm(type="button" @click="$emit('setStr', strength)") setStr
-      button.btn.btn-large.btn-primary.btn-sm(type="button" @click="rollStrength") Roll Str
+    .md-layout.md-alignment-top-center
+      md-button.md-dense.md-raised(@click="roll4d6") Roll 4d6
     .md-layout
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="strength")
+        md-field.ability-input
+          md-input(v-model="strength" @input="onInput('strength')")
           span.md-helper-text
-            | Str
+            | Str 
             span.modifier-bubble {{ strength | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('strength', 'charisma')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('strength', 'dexterity')")
+          md-icon keyboard_arrow_right
+          
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="dexterity")
+        md-field.ability-input
+          md-input(v-model="dexterity" @input="onInput('dexterity')")
           span.md-helper-text
-            | Dex
+            | Dex 
             span.modifier-bubble {{ dexterity | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('dexterity', 'strength')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('dexterity', 'constitution')")
+          md-icon keyboard_arrow_right
+
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="constitution")
+        md-field.ability-input
+          md-input(v-model="constitution" @input="onInput('constitution')")
           span.md-helper-text
-            | Con
+            | Con 
             span.modifier-bubble {{ constitution | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('constitution', 'dexterity')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('constitution', 'intelligence')")
+          md-icon keyboard_arrow_right
+
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="intelligence")
+        md-field.ability-input
+          md-input(v-model="intelligence" @input="onInput('intelligence')")
           span.md-helper-text
-            | Int
+            | Int 
             span.modifier-bubble {{ intelligence | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('intelligence', 'constitution')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('intelligence', 'wisdom')")
+          md-icon keyboard_arrow_right
+
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="wisdom")
+        md-field.ability-input
+          md-input(v-model="wisdom" @input="onInput('wisdom')")
           span.md-helper-text
-            | Wis
+            | Wis 
             span.modifier-bubble {{ wisdom | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('wisdom', 'intelligence')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('wisdom', 'charisma')")
+          md-icon keyboard_arrow_right
+
       .md-layout-item
-        md-field.attribute-input
-          md-input(v-model="charisma")
+        md-field.ability-input
+          md-input(v-model="charisma" @input="onInput('charisma')")
           span.md-helper-text
-            | Cha
+            | Cha 
             span.modifier-bubble {{ charisma | getModifier | decoratePositive }}
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('charisma', 'wisdom')")
+          md-icon keyboard_arrow_left
+        md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('charisma', 'strength')")
+          md-icon keyboard_arrow_right
+
+    .md-layout.md-alignment-bottom-center
+      .md-subheading.mt-1 
+        | Sum of stats: {{ strength + dexterity + constitution + intelligence + wisdom + charisma }} 
+        span (75 is a standard)

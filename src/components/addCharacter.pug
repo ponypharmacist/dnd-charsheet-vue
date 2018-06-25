@@ -44,7 +44,7 @@
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
     template
-      attributes(@setStr="setStr")
+      attributes(@updateCharacter="updateCharacter")
 
     .md-layout.mb-1
       .md-layout-item.golden-border

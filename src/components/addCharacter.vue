@@ -3,7 +3,7 @@
 /* eslint-disable */
 import axios from 'axios';
 import Attributes from './partials/Attributes';
-import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, parseAbilityBonus, flattenArray } from '../helpers';
+import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray } from '../helpers';
 import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name: 'addCharacter',
@@ -84,34 +84,26 @@ export default {
     }
   },
   methods: {
-    setStr(strength) {
-      this.characterStrength = strength + this.strengthBonus;
-      console.log(this.characterStrength);
+    updateCharacter (value, statname) {
+      let capStatname = capitalize(statname)
+      this['character' + capStatname] = value + this[statname + 'Bonus'];
+      console.log('Character ' + capStatname + ' changed: ' + this['character' + capStatname]);
     },
-    hasBonus(attribute) {
+    hasBonus (attribute) {
       let fromRace = this.characterRace ? this.races[this.characterRace][attribute] ? this.races[this.characterRace][attribute] : 0 : 0;
       let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace][attribute] ? this.races[this.characterRace].subraces[this.characterSubrace][attribute] : 0 : 0;
       return fromRace + fromSubrace;
     },
-    clearSubrace() {
+    clearSubrace () {
       this.characterSubrace = undefined;
     },
-    applyAbilityBonuses(array) {
-      for (let expression of array) {
-        this[parseAbilityBonus(expression).abilityName] += parseAbilityBonus(expression).abilityBonus;
-      }
-    },
-    rollAbilities() {
-      this.characterConstitution = rollString('3d6');
-      // this.applyAbilityBonuses(this.races[this.characterRace].abilityScore);
-    },
-    testDice() {
+    testDice () {
       console.log('Rolled 2d10+2, result is: ' + rollString('2d10+2'));
       console.log('Rolled 2d10-2, result is: ' + rollDice(10, 2, -2));
       console.log('Rolled a d20, result is: ' + rollDice(20));
     },
     // Last method, sends new character to database
-    addToAPI() {
+    addToAPI () {
     let newCharacter = {
       characterName: this.characterName,
       characterName: this.characterName,
