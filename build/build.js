@@ -5,6 +5,7 @@ process.env.NODE_ENV = 'production'
 var ora = require('ora')
 var rm = require('rimraf')
 var path = require('path')
+var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
 var webpackConfig = require('./webpack.prod.conf')
@@ -26,14 +27,14 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     }) + '\n\n')
 
     if (stats.hasErrors()) {
-      console.log('  Build failed with errors.\n')
+      console.log(chalk.red('  Build failed with errors.\n'))
       process.exit(1)
     }
 
-    console.log('  Build complete.\n')
-    console.log(
+    console.log(chalk.cyan('  Build complete.\n'))
+    console.log(chalk.yellow(
       '  Tip: built files are meant to be served over an HTTP server.\n' +
       '  Opening index.html over file:// won\'t work.\n'
-    )
+    ))
   })
 })
