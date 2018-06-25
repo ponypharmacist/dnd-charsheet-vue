@@ -1,0 +1,42 @@
+.md-layout.mb-1
+  .md-layout-item.golden-border
+    h3 Ability Scores
+      button.btn.btn-large.btn-primary.btn-sm(type="button" @click="$emit('setStr', strength)") setStr
+      button.btn.btn-large.btn-primary.btn-sm(type="button" @click="rollStrength") Roll Str
+    .md-layout
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="strength")
+          span.md-helper-text
+            | Str
+            span.modifier-bubble {{ strength | getModifier | decoratePositive }}
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="dexterity")
+          span.md-helper-text
+            | Dex
+            span.modifier-bubble {{ dexterity | getModifier | decoratePositive }}
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="constitution")
+          span.md-helper-text
+            | Con
+            span.modifier-bubble {{ constitution | getModifier | decoratePositive }}
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="intelligence")
+          span.md-helper-text
+            | Int
+            span.modifier-bubble {{ intelligence | getModifier | decoratePositive }}
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="wisdom")
+          span.md-helper-text
+            | Wis
+            span.modifier-bubble {{ wisdom | getModifier | decoratePositive }}
+      .md-layout-item
+        md-field.attribute-input
+          md-input(v-model="charisma")
+          span.md-helper-text
+            | Cha
+            span.modifier-bubble {{ charisma | getModifier | decoratePositive }}

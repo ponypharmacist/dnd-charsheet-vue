@@ -2,7 +2,7 @@
 export const races = {
   dwarf: {
     title: 'Dwarf',
-    abilityScore: ['characterConstitution+2'], // ? как
+    constitution: 2, // ? как
     speed: 25,
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
     profCombat: ['battleaxe', 'handaxe', 'light hammer', 'war hammer'],
@@ -11,13 +11,13 @@ export const races = {
     subraces: {
       hillDwarf: {
         title: 'Hill Dwarf',
-        abilityScore: ['wisdom+1'],
+        wisdom: 1,
         feats: ['dwarvenToughness'], // +1 to hp every level
         profCombat: []
       },
       mountainDwarf: {
         title: 'Mountain Dwarf',
-        abilityScore: ['strength+2'],
+        strength: 2,
         feats: [],
         profCombat: ['light armor', 'medium armor']
       }
@@ -26,7 +26,7 @@ export const races = {
   // Elves
   elf: {
     title: 'Elf',
-    abilityScore: ['dex+2'],
+    dexterity: 2,
     speed: 30,
     feats: ['darkvision', 'keenSenses', 'feyAncestry', 'trance'],
     profCombat: [],
@@ -34,21 +34,21 @@ export const races = {
     subraces: {
       highElf: {
         title: 'High Elf',
-        abilityScore: ['int+1'],
+        intelligence: 1,
         feats: ['cantripWizard'], // you know one cantrip from wizard spell list
         profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         extraLanguage: 1
       },
       woodElf: {
         title: 'Wood Elf',
-        abilityScore: ['wis+1'],
+        wisdom: 1,
         feats: ['maskOfTheWild'],
         profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         speed: 35
       },
       drow: {
         title: 'Dark Elf',
-        abilityScore: ['cha+1'],
+        charisma: 1,
         feats: [],
         profCombat: []
       }
@@ -57,7 +57,7 @@ export const races = {
   // Halflings
   halfling: {
     title: 'Halfling',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
     languages: ['Common', '']

@@ -43,9 +43,13 @@
           md-select(v-model="characterBackground" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
+    template
+      attributes(@setStr="setStr")
+
     .md-layout.mb-1
       .md-layout-item.golden-border
-        .md-subheading Health {{ healthBonusFromFeats }}
+        .md-subheading AC: {{ characterDexterity | getModifier | add(10) }}
+        .md-subheading Health: {{ healthBonusFromFeats }}
         .md-subheading Passive perception: {{ characterWisdom | getModifier | add(10) }}
         .md-subheading Initiative: {{ characterDexterity | getModifier | add(10) }}
         .md-subheading Combat proficiencies: {{ characterProficienciesCombat | flattenArray }}
@@ -96,44 +100,8 @@
             md-checkbox(v-model="characterSkills" value="insight") Insight
           
         p {{ characterSkills }}
-
-
-    .md-layout.mb-2
-      .md-layout-item.golden-border
-        h3 Ability Scores 
-          button.btn.btn-large.btn-primary.btn-sm(type="button" @click="rollAbilities") Roll
-        table
-          tr
-            td(width="100") Strength 
-            td(width="100")
-              input.form-control(placeholder="Str" v-model="characterStrength")
-            td {{ characterStrength | getModifier | decoratePositive }}
-          tr
-            td Dexterity
-            td
-              input.form-control(placeholder="Dex" v-model="characterDexterity")
-            td {{ characterDexterity | getModifier | decoratePositive }}
-          tr
-            td Constitution 
-            td
-              input.form-control(v-model="characterConstitution")
-            td {{ characterConstitution | getModifier | decoratePositive }}
-          tr
-            td Intelligence
-            td
-              input.form-control(placeholder="Int" v-model="characterIntelligence")
-            td {{ characterIntelligence | getModifier | decoratePositive }}
-          tr
-            td Wisdom
-            td
-              input.form-control(placeholder="Wis" v-model="characterWisdom")
-            td {{ characterWisdom | getModifier | decoratePositive }}
-          tr
-            td Charisma
-            td
-              input.form-control(placeholder="Cha" v-model="characterCharisma")
-            td {{ characterCharisma | getModifier | decoratePositive }}
-
+    
+    .md-layout
       .md-layout-item.golden-border
         h3 Equipment
         textarea Stuff and loot

@@ -2,10 +2,12 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import { capitalize, rollDice, rollString, getModifier, decoratePositive, parseAbilityBonus, flattenArray } from '../helpers';
+import Attributes from './partials/Attributes';
+import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, parseAbilityBonus, flattenArray } from '../helpers';
 import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name: 'addCharacter',
+  components: { Attributes },
   data() {
     return {
       // tables of stuff
@@ -59,7 +61,13 @@ export default {
     },
     healthBonus: function() {
       return getModifier(this.characterConstitution);
-    }
+    },
+    strengthBonus: function() { return this.hasBonus('strength'); },
+    dexterityBonus: function() { return this.hasBonus('dexterity'); },
+    constitutionBonus: function() { return this.hasBonus('constitution'); },
+    intelligenceBonus: function() { return this.hasBonus('intelligence'); },
+    wisdomBonus: function() { return this.hasBonus('wisdom'); },
+    charismaBonus: function() { return this.hasBonus('charisma'); }
   },
   watch: {
     characterRace: function (race) {
@@ -76,6 +84,15 @@ export default {
     }
   },
   methods: {
+    setStr(strength) {
+      this.characterStrength = strength + this.strengthBonus;
+      console.log(this.characterStrength);
+    },
+    hasBonus(attribute) {
+      let fromRace = this.characterRace ? this.races[this.characterRace][attribute] ? this.races[this.characterRace][attribute] : 0 : 0;
+      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace][attribute] ? this.races[this.characterRace].subraces[this.characterSubrace][attribute] : 0 : 0;
+      return fromRace + fromSubrace;
+    },
     clearSubrace() {
       this.characterSubrace = undefined;
     },
