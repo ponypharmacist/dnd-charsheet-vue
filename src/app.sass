@@ -1,7 +1,7 @@
 @import "./sass/golden-borders"
 
 @import "~vue-material/dist/theme/engine"
-@include md-register-theme("default", (primary: white, accent: #2c3e50, theme: dark))
+@include md-register-theme("default", (primary: white, accent: #ecbe57, theme: dark))
 @import "~vue-material/dist/theme/all"
 
 #app
@@ -36,6 +36,12 @@ h4
 
 .mb-2
   margin-bottom: 2rem
+
+// Dialogs
+.dialog
+
+  .md-layout
+    padding: 0 24px
 
 // View Characters
 .delete-icon

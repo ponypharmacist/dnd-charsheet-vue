@@ -15,6 +15,7 @@ export default {
       feats: feats,
       // form and visuals stuff
       submitted: false,
+      languageDialog: false,
       // character stuff
       characterName: '',
       characterLevel: 1,
@@ -28,7 +29,6 @@ export default {
       characterIntelligence: 14,
       characterWisdom: 14,
       characterCharisma: 8,
-      characterLanguages: [],
       characterProficiencies: [], // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
       characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)
       characterMaxHealth: 0
@@ -36,16 +36,23 @@ export default {
   },
   computed: {
     characterFeats: function() { // ToDo: feats from BG
-      let raceFeats = this.characterRace ? this.races[this.characterRace].feats : [];
-      let subraceFeats = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
-      let classFeats = this.characterClass ? this.classes[this.characterClass].feats : [];
-      return Array.from(new Set(raceFeats.concat(subraceFeats).concat(classFeats)));
+      let fromRace = this.characterRace ? this.races[this.characterRace].feats : [];
+      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
+      let fromClass = this.characterClass ? this.classes[this.characterClass].feats : [];
+      return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass)));
     },
     characterProficienciesCombat: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].profCombat : [];
       let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].profCombat : [];
       let fromClass = this.characterClass ? this.classes[this.characterClass].profCombat : [];
       return Array.from(new Set(fromClass.concat(fromSubrace).concat(fromRace)));
+    },
+    characterLanguages: function() {
+      let fromRace = this.characterRace ? this.races[this.characterRace].languages : [];
+      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].languages : [];
+      // check for extra languages
+      let addLang = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage : 0;
+      return Array.from(new Set(fromRace.concat(fromSubrace)));
     },
     healthBonusFromFeats: function() {
       return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;

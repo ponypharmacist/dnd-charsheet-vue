@@ -1,5 +1,20 @@
 .container
+  md-dialog.dialog(:md-active.sync="languageDialog" :md-fullscreen="false")
+    md-dialog-title Extra language
+    .md-layout(md-dynamic-height)
+      .md-layout-item
+        | Oh, you studied hard and learned a language or two.
+        br
+        md-field
+          label(for="extraLang") Extra language
+          md-select(name="extraLang")
+            md-option(value="engrish") Engrish
+    md-dialog-actions
+      md-button.md-primary(@click="languageDialog = false") Close
+      md-button.md-primary(@click="languageDialog = false") Save
+  
   h3(v-if="submitted") Thanks for adding your character!
+  
   form(v-if="!submitted")
     .md-layout
       .md-layout-item.golden-border.mb-1
@@ -35,6 +50,8 @@
         .md-subheading Initiative: {{ characterDexterity | getModifier | add(10) }}
         .md-subheading Combat proficiencies: {{ characterProficienciesCombat | flattenArray }}
         .md-subheading Languages: {{ characterLanguages }}
+        div
+          md-button.md-primary.md-raised(@click="languageDialog = true") Lang Dialog
 
     .md-layout.mb-1
       .md-layout-item.golden-border

@@ -5,8 +5,8 @@ export const races = {
     abilityScore: ['characterConstitution+2'], // ? как
     speed: 25,
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
-    languages: ['Common', 'Dwarvish'],
     profCombat: ['battleaxe', 'handaxe', 'light hammer', 'war hammer'],
+    languages: ['Common', 'Dwarvish'],
     profTools: ['Artisan Tools'],
     subraces: {
       hillDwarf: {
@@ -29,26 +29,28 @@ export const races = {
     abilityScore: ['dex+2'],
     speed: 30,
     feats: ['darkvision', 'keenSenses', 'feyAncestry', 'trance'],
+    profCombat: [],
     languages: ['Common', 'Elvish'],
     subraces: {
       highElf: {
         title: 'High Elf',
         abilityScore: ['int+1'],
-        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         feats: ['cantripWizard'], // you know one cantrip from wizard spell list
+        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         extraLanguage: 1
       },
       woodElf: {
         title: 'Wood Elf',
         abilityScore: ['wis+1'],
-        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         feats: ['maskOfTheWild'],
+        profCombat: ['longsword', 'shortsword', 'shortbow', 'longbow'],
         speed: 35
       },
       drow: {
         title: 'Dark Elf',
         abilityScore: ['cha+1'],
-        feats: []
+        feats: [],
+        profCombat: []
       }
     }
   },
