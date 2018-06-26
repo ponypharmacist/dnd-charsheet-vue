@@ -25,11 +25,11 @@ export default {
       characterSubrace: '',
       characterClass: '',
       characterBackground: '',
-      characterStrength: 14,
-      characterDexterity: 14,
-      characterConstitution: 14,
-      characterIntelligence: 14,
-      characterWisdom: 14,
+      characterStrength: 12,
+      characterDexterity: 12,
+      characterConstitution: 12,
+      characterIntelligence: 12,
+      characterWisdom: 12,
       characterCharisma: 8,
       characterProficiencies: [], // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
       characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)

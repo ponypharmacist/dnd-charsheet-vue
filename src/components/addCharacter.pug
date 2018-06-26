@@ -17,7 +17,7 @@
   
   form(v-if="!submitted")
     .md-layout
-      .md-layout-item.golden-border.mb-1
+      .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-50
         .md-title Rejoice, for it is...
         md-field
           label Character Name
@@ -43,11 +43,17 @@
           md-select(v-model="characterBackground" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
-    template
-      attributes(@updateCharacter="updateCharacter")
+      template
+        attributes(@updateCharacter="updateCharacter"
+                   :strengthBonus="strengthBonus"
+                   :dexterityBonus="dexterityBonus"
+                   :constitutionBonus="constitutionBonus"
+                   :intelligenceBonus="intelligenceBonus"
+                   :wisdomBonus="wisdomBonus"
+                   :charismaBonus="charismaBonus")
 
     .md-layout.mb-1
-      .md-layout-item.golden-border
+      .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-50
         .md-subheading AC: {{ characterDexterity | getModifier | add(10) }}
         .md-subheading Health: {{ healthBonusFromFeats }}
         .md-subheading Passive perception: {{ characterWisdom | getModifier | add(10) }}
@@ -57,15 +63,15 @@
         div
           md-button.md-primary.md-raised(@click="languageDialog = true") Lang Dialog
 
-    .md-layout.mb-1
-      .md-layout-item.golden-border
-        h3 Feats
-        .feat-list
-          .feat-list-item(v-for="feat in characterFeats")
-            .feat-name {{ feats[feat].title }}
-            .feat-description {{ feats[feat].description }}
+      .md-layout-item.md-xsmall-size-100.md-small-size-50
+        .md-layout-item.golden-border
+          h3 Feats
+          .feat-list
+            .feat-list-item(v-for="feat in characterFeats")
+              .feat-name {{ feats[feat].title }}
+              .feat-description {{ feats[feat].description }}
 
-    .md-layout.mb-1
+    .md-layout.mb-1.md-xsmall-size-100.md-small-size-50
       .md-layout-item.golden-border
         h3 Skills
         .md-layout

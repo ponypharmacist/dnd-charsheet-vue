@@ -2,17 +2,17 @@
 export const races = {
   dwarf: {
     title: 'Dwarf',
-    constitution: 2, // ? как
+    constitution: 2,
     speed: 25,
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
     profCombat: ['battleaxe', 'handaxe', 'light hammer', 'war hammer'],
     languages: ['Common', 'Dwarvish'],
-    profTools: ['Artisan Tools'],
+    profTools: ['Artisan Tools'], // of your choice: smith’s tools, brewer’s supplies, or mason’s tools.
     subraces: {
       hillDwarf: {
         title: 'Hill Dwarf',
         wisdom: 1,
-        feats: ['dwarvenToughness'], // +1 to hp every level
+        feats: ['dwarvenToughness'],
         profCombat: []
       },
       mountainDwarf: {
@@ -31,6 +31,7 @@ export const races = {
     feats: ['darkvision', 'keenSenses', 'feyAncestry', 'trance'],
     profCombat: [],
     languages: ['Common', 'Elvish'],
+    skills: ['perception'],
     subraces: {
       highElf: {
         title: 'High Elf',
@@ -58,85 +59,122 @@ export const races = {
   halfling: {
     title: 'Halfling',
     dexterity: 2,
-    speed: 0,
-    feats: [],
-    languages: ['Common', '']
+    speed: 25,
+    feats: ['lucky', 'brave', 'nimbleness'], // reroll 1's on d20 once !!!
+    profCombat: [],
+    languages: ['Common', 'Halfling'],
+    subraces: {
+      lightfootHalfling: {
+        title: 'Lightfoot Halfling',
+        charisma: 1,
+        feats: ['naturallyStealthy'],
+        profCombat: []
+      },
+      stoutHalfling: {
+        title: 'Stout Halfling',
+        constitution: 1,
+        feats: ['stoutResilience'],
+        profCombat: []
+      }
+    }
   },
   // Humans
   human: {
     title: 'Human',
-    abilityScore: ['+'],
-    speed: 0,
+    strength: 1,
+    dexterity: 1,
+    constitution: 1,
+    intelligence: 1,
+    wisdom: 1,
+    charisma: 1,
+    speed: 30,
+    extraLanguage: 1,
     feats: [],
-    languages: ['Common', ''],
-    subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
-      }
-    }
+    profCombat: [],
+    languages: ['Common']
   },
   // Dragonborn
   dragonborn: {
     title: 'Dragonborn',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
-    languages: ['Common', ''],
+    profCombat: [],
+    languages: ['Common'],
     subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
+      stoutHalfling: {
+        title: 'A Subrace',
+        constitution: 1,
+        feats: [''],
+        profCombat: []
       }
     }
   },
   // Gnomes
   gnome: {
     title: 'Gnome',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
-    languages: ['Common', ''],
+    profCombat: [],
+    languages: ['Common'],
     subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
+      stoutHalfling: {
+        title: 'A Subrace',
+        constitution: 1,
+        feats: [''],
+        profCombat: []
       }
     }
   },
   // Half Elf
   halfElf: {
     title: 'Half Elf',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
-    languages: ['Common', ''],
+    profCombat: [],
+    languages: ['Common'],
     subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
+      stoutHalfling: {
+        title: 'A Subrace',
+        constitution: 1,
+        feats: [''],
+        profCombat: []
       }
     }
   },
   // Half Orc
   halfOrc: {
     title: 'Half Orc',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
-    languages: ['Common', ''],
+    profCombat: [],
+    languages: ['Common'],
     subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
+      stoutHalfling: {
+        title: 'A Subrace',
+        constitution: 1,
+        feats: [''],
+        profCombat: []
       }
     }
   },
   // Tiefling
   tiefling: {
     title: 'Tiefling',
-    abilityScore: ['+'],
+    dexterity: 2,
     speed: 0,
     feats: [],
-    languages: ['Common', ''],
+    profCombat: [],
+    languages: ['Common'],
     subraces: {
-      hammerDwarf: {
-        title: 'Hammer Dwarf'
+      stoutHalfling: {
+        title: 'A Subrace',
+        constitution: 1,
+        feats: [''],
+        profCombat: []
       }
     }
   }
@@ -274,63 +312,72 @@ export const feats = {
   // Racial feats
   darkvision: {
     title: 'Darkvision',
-    description: 'You can see 60 feet in the dark.',
-    implementation: false
+    description: 'You can see 60 feet in the dark.'
   },
   dwarvenResilience: {
     title: 'Dwarven Resilience',
-    description: '',
-    implementation: true,
-    implementationRule: '' // Some function that changes stats around
+    description: 'You have poison resistance and advantage on saving throws against poison.'
   },
   stonecutting: {
     title: 'Stonecutting',
-    description: '',
-    implementation: ''
+    description: 'On History (Int) checks related to the origin of stonework you are considered proficient and add double your proficiency bonus.'
   },
   dwarvenToughness: {
     title: 'Dwarven Toughness',
-    description: '',
-    implementation: true,
-    implementationRule: function () {
-      console.log('Feat implemented')
-    }
+    description: '+1 maximum hit points per level.'
   },
   keenSenses: {
     title: 'Keen Senses',
-    description: '',
-    implementation: ''
+    description: 'You have proficiency in the Perception skill.'
   },
   feyAncestry: {
     title: 'Fey Ancestry',
-    description: '',
-    implementation: ''
+    description: 'Advantage on saving throws vs. charmed, immune to magic sleep.'
   },
   trance: {
     title: 'Trance',
-    description: '',
-    implementation: ''
+    description: 'Instead of sleeping you meditate for 4 hours.'
   },
   cantripWizard: {
     title: 'Cantrip (wizard)',
-    description: '',
-    implementation: ''
+    description: 'You know one cantrip from the wizard spell list.'
   },
   maskOfTheWild: {
     title: 'Mask of the Wild',
-    description: '',
-    implementation: ''
+    description: 'You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.'
+  },
+  lucky: {
+    title: 'Lucky',
+    description: 'You can reroll a 1 on d20 (attack, ability, saving throw) and must use the new roll.'
+  },
+  brave: {
+    title: 'Brave',
+    description: 'Advantage on saving throws against being frightened.'
+  },
+  nimbleness: {
+    title: 'Halfling Nimbleness',
+    description: 'You can move through the space of any creature of larger size (medium+).'
+  },
+  naturallyStealthy: {
+    title: 'Naturally Stealthy',
+    description: 'You can attempt to hide behind a creature that one size larger (or more) than you.'
+  },
+  stoutResilience: {
+    title: 'Stout Resilience',
+    description: 'You have poison resistance and advantage on saving throws against poison.'
+  },
+  brave2: {
+    title: '',
+    description: ''
   },
   // Class feats
   rage: {
     title: 'Rage',
-    description: '',
-    implementation: ''
+    description: ''
   },
   unarmoredDefence: {
     title: 'Unarmored Defence',
-    description: '',
-    implementation: ''
+    description: ''
   }
   // Background feats
 }

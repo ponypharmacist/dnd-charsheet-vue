@@ -5,15 +5,15 @@
 import { getModifier, decoratePositive, rollDice } from '../../helpers'
 export default {
   name: 'Attributes',
-  props: [ 'updateCharacter' ],
+  props: [ 'updateCharacter', 'strengthBonus', 'dexterityBonus', 'constitutionBonus', 'intelligenceBonus', 'wisdomBonus', 'charismaBonus' ],
   data () {
     return {
-      strength: 24,
-      dexterity: 14,
-      constitution: 14,
-      intelligence: 14,
-      wisdom: 14,
-      charisma: 10
+      strength: 12,
+      dexterity: 12,
+      constitution: 12,
+      intelligence: 12,
+      wisdom: 12,
+      charisma: 8
     }
   },
   filters: {
