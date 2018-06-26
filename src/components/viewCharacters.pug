@@ -6,7 +6,7 @@
 
   .md-layout.golden-border(v-if="!isLoading")
     .character-row(v-for="char_alias in Character")
-      a.md-title(v-bind:href="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
+      router-link.md-title(:to="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
       .md-body
         | lvl. {{ char_alias.characterLevel }} {{ char_alias.characterRace }} ({{ char_alias.characterSubrace }}) / {{ char_alias.characterClass }}
         br
