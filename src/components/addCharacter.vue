@@ -31,6 +31,7 @@ export default {
       characterIntelligence: 12,
       characterWisdom: 12,
       characterCharisma: 8,
+      // ToDo: remove proficiencies, replaced by cSkills
       characterProficiencies: [], // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
       characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)
       characterMaxHealth: 0
@@ -51,10 +52,14 @@ export default {
     },
     characterLanguages: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].languages : [];
-      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].languages : [];
+      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].languages ? this.races[this.characterRace].subraces[this.characterSubrace].languages : [] : [];
       // check for extra languages
-      let addLang = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage : 0;
       return Array.from(new Set(fromRace.concat(fromSubrace)));
+    },
+    extraLanguages: function() {
+      let subraceLang = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage : 0 : 0;
+      let raceLang = this.characterRace ? this.races[this.characterRace].extraLanguage ?  this.races[this.characterRace].extraLanguage : 0 : 0;
+      return subraceLang + raceLang;
     },
     healthBonusFromFeats: function() {
       return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
@@ -67,7 +72,12 @@ export default {
     constitutionBonus: function() { return this.hasBonus('constitution'); },
     intelligenceBonus: function() { return this.hasBonus('intelligence'); },
     wisdomBonus: function() { return this.hasBonus('wisdom'); },
-    charismaBonus: function() { return this.hasBonus('charisma'); }
+    charismaBonus: function() { return this.hasBonus('charisma'); },
+    characterSpeed: function() {
+      let raceSpeed = this.characterRace ? this.races[this.characterRace].speed : 30;
+      let subraceSpeed = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].speed ? this.races[this.characterRace].subraces[this.characterSubrace].speed : false : false;
+      return subraceSpeed ? subraceSpeed : raceSpeed;
+    }
   },
   watch: {
     characterRace: function (race) {
@@ -118,12 +128,17 @@ export default {
       characterIntelligence: this.characterIntelligence,
       characterWisdom: this.characterWisdom,
       characterCharisma: this.characterCharisma,
+      characterSpeed: this.characterSpeed,
+
       characterLanguages: this.characterLanguages,
       characterFeats: this.characterFeats,
-      characterProficiencies: this.characterProficiencies,
+      characterSkills: this.characterSkills,
       characterProficienciesCombat: this.characterProficienciesCombat,
       characterSkills: this.characterSkills,
-      characterMaxHealth: this.characterMaxHealth
+      // ToDo: proficiency with tools
+
+      characterMaxHealth: this.characterMaxHealth,
+      healthBonusFromFeats: this.healthBonusFromFeats
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)

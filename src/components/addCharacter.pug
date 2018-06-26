@@ -58,8 +58,12 @@
         .md-subheading Health: {{ healthBonusFromFeats }}
         .md-subheading Passive perception: {{ characterWisdom | getModifier | add(10) }}
         .md-subheading Initiative: {{ characterDexterity | getModifier | add(10) }}
+        .md-subheading Speed: {{ characterSpeed }}
         .md-subheading Combat proficiencies: {{ characterProficienciesCombat | flattenArray }}
         .md-subheading Languages: {{ characterLanguages }}
+        .md-subheading Chips (look up editable and deletable chips): 
+        md-chips(v-model="characterLanguages" md-placeholder="Add lang...")
+        .md-subheading Extra languages: {{ extraLanguages }}
         div
           md-button.md-primary.md-raised(@click="languageDialog = true") Lang Dialog
 
