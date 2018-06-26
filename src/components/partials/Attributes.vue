@@ -20,6 +20,11 @@ export default {
     getModifier,
     decoratePositive
   },
+  computed: {
+    sumOfStats: function () {
+      return parseInt(this.strength) + parseInt(this.dexterity) + parseInt(this.constitution) + parseInt(this.intelligence) + parseInt(this.wisdom) + parseInt(this.charisma)
+    }
+  },
   methods: {
     swap (from, to) {
       let buffer = this[to]
