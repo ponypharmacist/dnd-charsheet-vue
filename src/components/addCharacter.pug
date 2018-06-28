@@ -1,4 +1,5 @@
 .container
+  // Language dialog
   md-dialog.dialog(:md-active.sync="languageDialog" :md-fullscreen="false")
     md-dialog-title Extra language
     .md-layout(md-dynamic-height)
@@ -12,6 +13,38 @@
     md-dialog-actions
       md-button.md-primary(@click="languageDialog = false") Close
       md-button.md-primary(@click="languageDialog = false") Save
+  
+  // Class skills dialog
+  md-dialog.dialog(:md-active.sync="classDialog" :md-fullscreen="false")
+    md-dialog-title Select {{ skillpoints }} skills
+    .md-layout(md-dynamic-height)
+      .md-layout-item
+        | Your class allows you to be proficient in {{ skillpoints }} of these skills.
+        br
+        md-field
+          label(for="extraLang") Extra language
+          md-select(name="extraLang")
+            // v-for goes here
+            md-option(value="engrish") Engrish
+    md-dialog-actions
+      md-button.md-primary(@click="classDialog = false") Close
+      md-button.md-primary(@click="classDialog = false") Next  
+
+  // Remaining skills dialog
+  md-dialog.dialog(:md-active.sync="classDialogNext" :md-fullscreen="false")
+    md-dialog-title Select {{ skillpoints }} skills
+    .md-layout(md-dynamic-height)
+      .md-layout-item
+        | Your class allows you to be proficient in {{ skillpoints }} of these skills.
+        br
+        md-field
+          label(for="extraLang") Extra language
+          md-select(name="extraLang")
+            // v-for goes here
+            md-option(value="engrish") Engrish
+    md-dialog-actions
+      md-button.md-primary(@click="classDialogNext = false") Close
+      md-button.md-primary(@click="classDialogNext = false") Next
   
   h3(v-if="submitted") Thanks for adding your character!
   
@@ -92,7 +125,9 @@
 
     .md-layout.mb-1.md-xsmall-size-100.md-small-size-50
       .md-layout-item.golden-border
-        h3 Skills
+        .md-title  
+          | Skills
+          span(v-if="skillpoints > 0")  (choose {{ skillpoints }} more)
         .md-layout
           .md-layout-item
             .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
@@ -124,7 +159,8 @@
             md-checkbox(v-model="characterSkills" value="religion") Religion
             md-checkbox(v-model="characterSkills" value="insight") Insight
           
-        p {{ characterSkills }}
+        p Selected: {{ characterSkills }}
+        p Allowed: {{ skillsAllowed }}
     
     .md-layout
       .md-layout-item.golden-border

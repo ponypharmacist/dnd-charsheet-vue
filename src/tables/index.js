@@ -217,69 +217,69 @@ export const races = {
 export const backgrounds = {
   acolyte: {
     title: 'Acolyte',
-    skillProficiencies: ['insight', 'religion'],
+    skills: ['insight', 'religion'],
     extraLanguage: 2,
     equipment: ['A holy symbol', 'a prayer book', 'vestments', '5 sticks of incense'],
     money: 15
   },
   charlatan: {
     title: 'Charlatan',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   criminal: {
     title: 'Criminal',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   entertainer: {
     title: 'Entertainer',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   folkHero: {
     title: 'Folk Hero',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   guildArtisan: {
     title: 'Guild Artisan',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   hermit: {
     title: 'Hermit',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   noble: {
     title: 'Noble',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   outlander: {
     title: 'Outlander',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   sage: {
     title: 'Sage',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   sailor: {
     title: 'Sailor',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   soldier: {
     title: 'Soldier',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   },
   urchin: {
     title: 'Urchin',
-    skillProficiencies: [],
+    skills: [],
     equipment: []
   }
 }
@@ -294,51 +294,129 @@ export const classes = {
     feats: ['rage', 'unarmoredDefence'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     profTools: [],
-    skills: [] // Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
+    skills: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
+    skillsAllowed: 2,
+    wealth: 0
   },
   bard: {
     title: 'Bard',
-    feats: []
+    hitDie: 8,
+    savingThrowProficiency: ['dexterity', 'charisma'],
+    feats: ['spellcasting', 'bardicInspiration'],
+    profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
+    profTools: ['Three musical instruments of your choice'],
+    skillpoints: 3, // any 3, yes
+    wealth: 0
   },
   cleric: {
     title: 'Cleric',
-    feats: []
+    hitDie: 8,
+    savingThrowProficiency: ['wisdom', 'charisma'],
+    feats: ['spellcasting', 'divineDomain'],
+    profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
+    profTools: [],
+    skills: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
+    skillsAllowed: 2,
+    wealth: 0
   },
   druid: {
     title: 'Druid',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   fighter: {
     title: 'Fighter',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   monk: {
     title: 'Monk',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   paladin: {
     title: 'Paladin',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   ranger: {
     title: 'Ranger',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   rogue: {
     title: 'Rogue',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   sorcerer: {
     title: 'Sorcerer',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   warlock: {
     title: 'Warlock',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   },
   wizard: {
     title: 'Wizard',
-    feats: []
+    hitDie: 10,
+    savingThrowProficiency: [],
+    feats: [],
+    profCombat: [],
+    profTools: [],
+    skills: [],
+    skillsAllowed: 2,
+    wealth: 0
   }
 }
 
@@ -489,6 +567,26 @@ export const feats = {
   unarmoredDefence: {
     title: 'Unarmored Defence',
     description: 'While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.'
+  },
+  spellcasting: {
+    title: 'Spellcasting',
+    description: 'ToDo: decr.'
+  },
+  bardicInspiration: {
+    title: 'Bardic Inspiration',
+    description: 'As a bonus action one creature of your choice gains Inspiration d6 die. It lasts 10 minutes, allows to add 1d6 to ability check, attack roll or saving throw it makes.'
+  },
+  divineDomain: {
+    title: 'Divine Domain',
+    description: ''
+  },
+  spellcasting2: {
+    title: '',
+    description: ''
+  },
+  spellcasting3: {
+    title: '',
+    description: ''
   }
   // Background feats
 }

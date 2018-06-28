@@ -18,6 +18,8 @@ export default {
       // form and visuals stuff
       submitted: false,
       languageDialog: false,
+      classDialog: false,
+      classDialogNext: false,
       // character stuff
       characterName: '',
       characterLevel: 1,
@@ -32,15 +34,25 @@ export default {
       characterWisdom: 12,
       characterCharisma: 8,
       characterItems: 'Bag of shopping',
-      characterGold: 36
+      characterGold: 36,
+      characterSkills: []
+        // make computed, set -> push item (if not there), remove item (if there)
+        // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
   },
   computed: {
-    characterSkills: {
-      // make computed, set -> push item (if not there), remove item (if there)
-      // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
-      get: function() { return; },
-      set: function() { return; }
+    skillsStatic: function() {
+      let fromRace = this.characterRace ? this.races[this.characterRace].skills ? this.races[this.characterRace].skills : [] : [];
+      let fromBackrgound = this.characterBackground ? this.classes[this.characterBackground].skills ? this.classes[this.characterBackground].skills : [] : [];
+      return Array.from(new Set(fromRace.concat(fromBackground)));
+    },
+    skillsAllowed: function() {
+      let fromClass = this.characterClass ? this.classes[this.characterClass].skills ? this.classes[this.characterClass].skills : [] : [];
+      return fromClass;
+    },
+    skillpoints: function() {
+      let fromRace = this.characterRace ? this.races[this.characterRace].skillpoints ? this.races[this.characterRace].skillpoints : 0 : 0;
+      return fromRace;
     },
     characterFeats: function() { // ToDo: feats from BG
       let fromRace = this.characterRace ? this.races[this.characterRace].feats : [];
@@ -102,6 +114,10 @@ export default {
   watch: {
     characterRace: function (race) {
       this.clearSubrace();
+    },
+    characterClass: function (cls) {
+      console.log('Watcher cClass!');
+      this.classDialog = true;
     }
   },
   filters: {
