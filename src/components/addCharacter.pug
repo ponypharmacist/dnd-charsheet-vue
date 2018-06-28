@@ -51,21 +51,38 @@
                    :intelligenceBonus="intelligenceBonus"
                    :wisdomBonus="wisdomBonus"
                    :charismaBonus="charismaBonus")
+    
+    .md-layout
+      .md-layout.md-layout-item.md-small-size-100.golden-border
+        .md-layout-item.md-xsmall-size-50.md-small-size-33
+          md-icon security 
+          |  AC: {{ characterDexterity | getModifier | add(10) }}
+        .md-layout-item.md-xsmall-size-50.md-small-size-33
+          md-icon favorite 
+          |  Health: {{ healthBonusFromFeats }}
+        .md-layout-item.md-xsmall-size-50.md-small-size-33
+          md-icon track_changes 
+          |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
+        
+        .md-layout-item.md-xsmall-size-50.md-small-size-33
+          md-icon verified_user 
+          |  Speed: {{ characterSpeed }}
+        .md-layout-item.md-xsmall-size-50.md-small-size-33
+          md-icon vibration 
+          |  Awareness: {{ characterWisdom | getModifier | add(10) }}
 
-    .md-layout.mb-1
-      .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-50
-        .md-subheading AC: {{ characterDexterity | getModifier | add(10) }}
-        .md-subheading Health: {{ healthBonusFromFeats }}
-        .md-subheading Passive perception: {{ characterWisdom | getModifier | add(10) }}
-        .md-subheading Initiative: {{ characterDexterity | getModifier | add(10) }}
-        .md-subheading Speed: {{ characterSpeed }}
-        .md-subheading Combat proficiencies: {{ characterProficienciesCombat | flattenArray }}
-        .md-subheading Languages: {{ characterLanguages }}
-        .md-subheading Extra languages: {{ extraLanguages }}
-        div
-          md-button.md-primary.md-raised(@click="languageDialog = true") Lang Dialog
+        .md-layout-item.md-xsmall-size-100.md-small-size-100
+          md-field
+            md-icon colorize
+            label Combat proficiencies
+            md-textarea(v-model="characterProficienciesCombat" md-autogrow)
 
-      .md-layout-item.md-xsmall-size-100.md-small-size-50
+          md-field
+            md-icon sms
+            label Languages
+            md-input(v-model="totalLanguages")
+
+      .md-layout-item.md-small-size-100
         .md-layout-item.golden-border
           h3 Feats
           .feat-list
@@ -111,11 +128,17 @@
     
     .md-layout
       .md-layout-item.golden-border
-        h3 Equipment
-        textarea Stuff and loot
+        md-field
+          md-icon fingerprint
+          label Gold
+          md-input(v-model="characterGold" type="number")
+
+        md-field
+          md-icon description
+          label Equipment and loot
+          md-textarea(v-model="characterItems" md-autogrow)
 
     .md-layout
       .md-layout-item
-        button.btn.btn-large.btn-primary(type="button" @click="addToAPI") Сохранить
-        | 
-        button.btn.btn-large.btn-primary(type="button" @click="testDice") Тест дайсов
+        md-button.md-primary.md-raised(type="button" @click="addToAPI") Сохранить
+        md-button.md-primary.md-raised(@click="languageDialog = true") Open Dialog

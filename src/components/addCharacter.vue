@@ -31,24 +31,37 @@ export default {
       characterIntelligence: 12,
       characterWisdom: 12,
       characterCharisma: 8,
-      // ToDo: remove proficiencies, replaced by cSkills
-      characterProficiencies: [], // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
-      characterSkills: [], // make computed, set -> push item (if not there), remove item (if there)
-      characterMaxHealth: 0
+      characterItems: 'Bag of shopping',
+      characterGold: 36
     }
   },
   computed: {
+    characterSkills: {
+      // make computed, set -> push item (if not there), remove item (if there)
+      // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
+      get: function() { return; },
+      set: function() { return; }
+    },
     characterFeats: function() { // ToDo: feats from BG
       let fromRace = this.characterRace ? this.races[this.characterRace].feats : [];
       let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
       let fromClass = this.characterClass ? this.classes[this.characterClass].feats : [];
       return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass)));
     },
-    characterProficienciesCombat: function() {
-      let fromRace = this.characterRace ? this.races[this.characterRace].profCombat : [];
-      let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].profCombat : [];
-      let fromClass = this.characterClass ? this.classes[this.characterClass].profCombat : [];
-      return Array.from(new Set(fromClass.concat(fromSubrace).concat(fromRace)));
+    characterProficienciesCombat: {
+      get: function() {
+        let fromRace = this.characterRace ? this.races[this.characterRace].profCombat : [];
+        let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].profCombat : [];
+        let fromClass = this.characterClass ? this.classes[this.characterClass].profCombat : [];
+        let cleanList = Array.from(new Set(fromClass.concat(fromSubrace).concat(fromRace)));
+        let finalList = '';
+        for (let prof of cleanList) {
+          finalList += capitalize(prof) + ', ';
+        }
+        finalList = finalList.slice(0, -2);
+        return finalList;
+      },
+      set: function(profString) { return profString; }
     },
     characterLanguages: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].languages : [];
@@ -61,11 +74,18 @@ export default {
       let raceLang = this.characterRace ? this.races[this.characterRace].extraLanguage ?  this.races[this.characterRace].extraLanguage : 0 : 0;
       return subraceLang + raceLang;
     },
+    totalLanguages: {
+      get: function() { return flattenArray(this.characterLanguages) + (this.extraLanguages > 0 ? ' (add ' + this.extraLanguages + ' more)' : ''); },
+      set: function(langString) { return langString; }
+    },
     healthBonusFromFeats: function() {
       return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
     },
     healthBonus: function() {
       return getModifier(this.characterConstitution);
+    },
+    characterMaxHealth: function() {
+      return this.characterClass ? this.classes[this.characterClass].hitDie + this.healthBonus + this.healthBonusFromFeats : 0;
     },
     strengthBonus: function() { return this.hasBonus('strength'); },
     dexterityBonus: function() { return this.hasBonus('dexterity'); },
@@ -116,29 +136,30 @@ export default {
     addToAPI () {
     let newCharacter = {
       characterName: this.characterName,
-      characterName: this.characterName,
       characterLevel: this.characterLevel,
       characterRace: this.characterRace,
       characterSubrace: this.characterSubrace,
       characterClass: this.characterClass,
       characterBackground: this.characterBackground,
+
       characterStrength: this.characterStrength,
       characterDexterity: this.characterDexterity,
       characterConstitution: this.characterConstitution,
       characterIntelligence: this.characterIntelligence,
       characterWisdom: this.characterWisdom,
       characterCharisma: this.characterCharisma,
+
+      healthBonusFromFeats: this.healthBonusFromFeats,
+      characterMaxHealth: this.characterMaxHealth,
       characterSpeed: this.characterSpeed,
 
-      characterLanguages: this.characterLanguages,
+      characterLanguages: this.totalLanguages,
       characterFeats: this.characterFeats,
       characterSkills: this.characterSkills,
       characterProficienciesCombat: this.characterProficienciesCombat,
-      characterSkills: this.characterSkills,
+      characterSkills: this.characterSkills
       // ToDo: proficiency with tools
 
-      characterMaxHealth: this.characterMaxHealth,
-      healthBonusFromFeats: this.healthBonusFromFeats
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)

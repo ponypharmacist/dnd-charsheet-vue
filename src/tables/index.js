@@ -285,14 +285,16 @@ export const backgrounds = {
 }
 
 // Classes
+// ToDo: leveling system, spells, feats and iterations for every level
 export const classes = {
   barbarian: {
     title: 'Barbarian',
     hitDie: 12,
     savingThrowProficiency: ['strength', 'constitution'],
-    skillProficiencies: [],
+    feats: ['rage', 'unarmoredDefence'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
-    feats: ['rage', 'unarmoredDefence'] // on level 1
+    profTools: [],
+    skills: [] // Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival
   },
   bard: {
     title: 'Bard',
@@ -482,11 +484,11 @@ export const feats = {
   // Class feats
   rage: {
     title: 'Rage',
-    description: 'RAGE RAGE RAGE'
+    description: 'You can enter a rage for 1 minute as a bonus action. If you don\'t wear heavy armor, you get: advantage on Str checks and saves. Bonus (+2 at lvl 1) to the damage roll. Resistance to  bludgeoning, piercing, and slashing damage. You also can\'t cast spells or concentrate on them while raging. It ends early if you are knocked unconscious or if your turn ends and you haven’t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action.'
   },
   unarmoredDefence: {
     title: 'Unarmored Defence',
-    description: ''
+    description: 'While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.'
   }
   // Background feats
 }
