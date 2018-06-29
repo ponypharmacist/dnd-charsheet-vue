@@ -17,9 +17,8 @@ export default {
       feats: feats,
       // form and visuals stuff
       submitted: false,
-      languageDialog: false,
-      classDialog: false,
-      classDialogNext: false,
+      skillsDialog: false,
+      skillsDialogNext: false,
       // character stuff
       characterName: '',
       characterLevel: 1,
@@ -41,18 +40,21 @@ export default {
     }
   },
   computed: {
-    skillsStatic: function() {
+    skillsChoice: function() {
+      return this.characterClass ? this.classes[this.characterClass].skillsChoice ? this.classes[this.characterClass].skillsChoice : [] : [];
+    },
+    staticSkills: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].skills ? this.races[this.characterRace].skills : [] : [];
-      let fromBackrgound = this.characterBackground ? this.classes[this.characterBackground].skills ? this.classes[this.characterBackground].skills : [] : [];
+      let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].skills ? this.backgrounds[this.characterBackground].skills : [] : [];
       return Array.from(new Set(fromRace.concat(fromBackground)));
     },
     skillsAllowed: function() {
-      let fromClass = this.characterClass ? this.classes[this.characterClass].skills ? this.classes[this.characterClass].skills : [] : [];
-      return fromClass;
+      return this.characterClass ? this.classes[this.characterClass].skillsAllowed ? this.classes[this.characterClass].skillsAllowed : 0 : 0;
     },
     skillpoints: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].skillpoints ? this.races[this.characterRace].skillpoints : 0 : 0;
-      return fromRace;
+      let fromClass = this.characterClass ? this.classes[this.characterClass].skillpoints ? this.classes[this.characterClass].skillpoints : 0 : 0;
+      return fromRace + fromClass;
     },
     characterFeats: function() { // ToDo: feats from BG
       let fromRace = this.characterRace ? this.races[this.characterRace].feats : [];
@@ -84,7 +86,8 @@ export default {
     extraLanguages: function() {
       let subraceLang = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage ? this.races[this.characterRace].subraces[this.characterSubrace].extraLanguage : 0 : 0;
       let raceLang = this.characterRace ? this.races[this.characterRace].extraLanguage ?  this.races[this.characterRace].extraLanguage : 0 : 0;
-      return subraceLang + raceLang;
+      let bgLang = this.characterBackground ? this.backgrounds[this.characterBackground].extraLanguage ?  this.backgrounds[this.characterBackground].extraLanguage : 0 : 0;
+      return subraceLang + raceLang + bgLang;
     },
     totalLanguages: {
       get: function() { return flattenArray(this.characterLanguages) + (this.extraLanguages > 0 ? ' (add ' + this.extraLanguages + ' more)' : ''); },
@@ -112,12 +115,18 @@ export default {
     }
   },
   watch: {
-    characterRace: function (race) {
+    characterRace: function () {
       this.clearSubrace();
+      this.pickSkills();
     },
-    characterClass: function (cls) {
-      console.log('Watcher cClass!');
-      this.classDialog = true;
+    characterClass: function () {
+      this.pickSkills();
+    },
+    characterBackground: function () {
+      this.pickSkills();
+    },
+    staticSkills: function () {
+      this.characterSkills = this.staticSkills;
     }
   },
   filters: {
@@ -130,6 +139,10 @@ export default {
     }
   },
   methods: {
+    pickSkills () {
+      this.skillsDialog = (this.characterClass && this.characterBackground && this.characterRace && this.skillsAllowed) ? true : false;
+      this.skillsDialogNext = (this.characterClass && this.characterBackground && this.characterRace && !this.skillsAllowed) ? true : false;
+    },
     updateCharacter (value, statname) {
       let capStatname = capitalize(statname)
       this['character' + capStatname] = value + this[statname + 'Bonus'];
@@ -171,7 +184,6 @@ export default {
 
       characterLanguages: this.totalLanguages,
       characterFeats: this.characterFeats,
-      characterSkills: this.characterSkills,
       characterProficienciesCombat: this.characterProficienciesCombat,
       characterSkills: this.characterSkills
       // ToDo: proficiency with tools

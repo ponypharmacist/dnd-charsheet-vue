@@ -1,50 +1,66 @@
 .container
-  // Language dialog
-  md-dialog.dialog(:md-active.sync="languageDialog" :md-fullscreen="false")
-    md-dialog-title Extra language
-    .md-layout(md-dynamic-height)
-      .md-layout-item
-        | Oh, you studied hard and learned a language or two.
-        br
-        md-field
-          label(for="extraLang") Extra language
-          md-select(name="extraLang")
-            md-option(value="engrish") Engrish
-    md-dialog-actions
-      md-button.md-primary(@click="languageDialog = false") Close
-      md-button.md-primary(@click="languageDialog = false") Save
-  
   // Class skills dialog
-  md-dialog.dialog(:md-active.sync="classDialog" :md-fullscreen="false")
-    md-dialog-title Select {{ skillpoints }} skills
+  md-dialog.dialog(:md-active.sync="skillsDialog" :md-fullscreen="false")
+    md-dialog-title Select {{ skillsAllowed }} skills
     .md-layout(md-dynamic-height)
       .md-layout-item
-        | Your class allows you to be proficient in {{ skillpoints }} of these skills.
+        | Your class allows you to be proficient in {{ skillsAllowed }} of these skills.
         br
-        md-field
-          label(for="extraLang") Extra language
-          md-select(name="extraLang")
-            // v-for goes here
-            md-option(value="engrish") Engrish
+        br
+        md-checkbox(v-if="skillsChoice.includes('athletics')" v-model="characterSkills" value="athletics") Athletics (Str)
+        md-checkbox(v-if="skillsChoice.includes('animalHandling')" v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
+        md-checkbox(v-if="skillsChoice.includes('medicine')" v-model="characterSkills" value="medicine") Medicine (Wis)
+        md-checkbox(v-if="skillsChoice.includes('perception')" v-model="characterSkills" value="perception") Perception (Wis)
+        md-checkbox(v-if="skillsChoice.includes('survival')" v-model="characterSkills" value="survival") Survival (Wis)
+        md-checkbox(v-if="skillsChoice.includes('deception')" v-model="characterSkills" value="deception") Deception (Cha)
+        md-checkbox(v-if="skillsChoice.includes('intimidation')" v-model="characterSkills" value="intimidation") Intimidation (Cha)
+        md-checkbox(v-if="skillsChoice.includes('performance')" v-model="characterSkills" value="performance") Performance (Cha)
+        md-checkbox(v-if="skillsChoice.includes('persuasion')" v-model="characterSkills" value="persuasion") Persuasion (Cha)
+        md-checkbox(v-if="skillsChoice.includes('acrobatics')" v-model="characterSkills" value="acrobatics") Acrobatics (Dex)
+        md-checkbox(v-if="skillsChoice.includes('sleightOfHand')" v-model="characterSkills" value="sleightOfHand") Sleight of Hand (Dex)
+        md-checkbox(v-if="skillsChoice.includes('stealth')" v-model="characterSkills" value="stealth") Stealth (Dex)
+        md-checkbox(v-if="skillsChoice.includes('arcana')" v-model="characterSkills" value="arcana") Arcana (Int)
+        md-checkbox(v-if="skillsChoice.includes('history')" v-model="characterSkills" value="history") History (Int)
+        md-checkbox(v-if="skillsChoice.includes('investigation')" v-model="characterSkills" value="investigation") Investigation (Int)
+        md-checkbox(v-if="skillsChoice.includes('nature')" v-model="characterSkills" value="nature") Nature (Int)
+        md-checkbox(v-if="skillsChoice.includes('religion')" v-model="characterSkills" value="religion") Religion (Int)
+        md-checkbox(v-if="skillsChoice.includes('insight')" v-model="characterSkills" value="insight") Insight (Int)
+      
     md-dialog-actions
-      md-button.md-primary(@click="classDialog = false") Close
-      md-button.md-primary(@click="classDialog = false") Next  
+      md-button.md-primary(@click="skillsDialog = false") Close
+      md-button.md-primary(v-if="skillpoints == 0" @click="skillsDialog = false") Confirm
+      md-button.md-primary(v-if="skillpoints > 0" @click="skillsDialog = false, skillsDialogNext = true") Next  
 
   // Remaining skills dialog
-  md-dialog.dialog(:md-active.sync="classDialogNext" :md-fullscreen="false")
+  md-dialog.dialog(:md-active.sync="skillsDialogNext" :md-fullscreen="false")
     md-dialog-title Select {{ skillpoints }} skills
     .md-layout(md-dynamic-height)
       .md-layout-item
         | Your class allows you to be proficient in {{ skillpoints }} of these skills.
         br
-        md-field
-          label(for="extraLang") Extra language
-          md-select(name="extraLang")
-            // v-for goes here
-            md-option(value="engrish") Engrish
+        br
+        md-checkbox(v-model="characterSkills" value="athletics") Athletics (Str)
+        md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
+        md-checkbox(v-model="characterSkills" value="medicine") Medicine (Wis)
+        md-checkbox(v-model="characterSkills" value="perception") Perception (Wis)
+        md-checkbox(v-model="characterSkills" value="survival") Survival (Wis)
+        md-checkbox(v-model="characterSkills" value="deception") Deception (Cha)
+        md-checkbox(v-model="characterSkills" value="intimidation") Intimidation (Cha)
+        md-checkbox(v-model="characterSkills" value="performance") Performance (Cha)
+        md-checkbox(v-model="characterSkills" value="persuasion") Persuasion (Cha)
+        md-checkbox(v-model="characterSkills" value="acrobatics") Acrobatics (Dex)
+        md-checkbox(v-model="characterSkills" value="sleightOfHand") Sleight of Hand (Dex)
+        md-checkbox(v-model="characterSkills" value="stealth") Stealth (Dex)
+        md-checkbox(v-model="characterSkills" value="arcana") Arcana (Int)
+        md-checkbox(v-model="characterSkills" value="history") History (Int)
+        md-checkbox(v-model="characterSkills" value="investigation") Investigation (Int)
+        md-checkbox(v-model="characterSkills" value="nature") Nature (Int)
+        md-checkbox(v-model="characterSkills" value="religion") Religion (Int)
+        md-checkbox(v-model="characterSkills" value="insight") Insight (Int)
+
     md-dialog-actions
-      md-button.md-primary(@click="classDialogNext = false") Close
-      md-button.md-primary(@click="classDialogNext = false") Next
+      md-button.md-primary(v-if="skillsAllowed" @click="skillsDialogNext = false, skillsDialog = true") Back
+      md-button.md-primary(@click="skillsDialogNext = false") Confirm
   
   h3(v-if="submitted") Thanks for adding your character!
   
@@ -105,10 +121,10 @@
           |  Awareness: {{ characterWisdom | getModifier | add(10) }}
 
         .md-layout-item.md-xsmall-size-100.md-small-size-100
-          md-field
-            md-icon colorize
-            label Combat proficiencies
-            md-textarea(v-model="characterProficienciesCombat" md-autogrow)
+          .md-subtitle.m-1
+            | Combat proficiencies: 
+            br 
+            | {{ characterProficienciesCombat }}
 
           md-field
             md-icon sms
@@ -131,36 +147,71 @@
         .md-layout
           .md-layout-item
             .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="athletics") Athletics
+            p
+              md-icon(v-if="characterSkills.includes('athletics')") star
+              | Athletics
             
             .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling
-            md-checkbox(v-model="characterSkills" value="medicine") Medicine
-            md-checkbox(v-model="characterSkills" value="perception") Perception
-            md-checkbox(v-model="characterSkills" value="survival") Survival
+            p
+              md-icon(v-if="characterSkills.includes('animalHandling')") star
+              | Animal Handling
+            p
+              md-icon(v-if="characterSkills.includes('medicine')") star
+              | Medicine
+            p
+              md-icon(v-if="characterSkills.includes('perception')") star
+              | Perception
+            p
+              md-icon(v-if="characterSkills.includes('survival')") star
+              | Survival
             
             .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="deception") Deception
-            md-checkbox(v-model="characterSkills" value="intimidation") Intimidation
-            md-checkbox(v-model="characterSkills" value="performance") Performance
-            md-checkbox(v-model="characterSkills" value="persuasion") Persuasion
+            p
+              md-icon(v-if="characterSkills.includes('deception')") star
+              | Deception
+            p
+              md-icon(v-if="characterSkills.includes('intimidation')") star
+              | Intimidation
+            p
+              md-icon(v-if="characterSkills.includes('performance')") star
+              | Performance
+            p
+              md-icon(v-if="characterSkills.includes('persuasion')") star
+              | Persuasion
           
           .md-layout-item
             .title-h4 Dexterity {{ characterDexterity | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="acrobatics") Acrobatics
-            md-checkbox(v-model="characterSkills" value="sleightOfHand") Sleight of Hand
-            md-checkbox(v-model="characterSkills" value="stealth") Stealth
+            p
+              md-icon(v-if="characterSkills.includes('acrobatics')") star
+              | Acrobatics
+            p
+              md-icon(v-if="characterSkills.includes('sleightOfHand')") star
+              | Sleight of Hand
+            p
+              md-icon(v-if="characterSkills.includes('stealth')") star
+              | Stealth
               
             .title-h4 Intelligence {{ characterIntelligence | getModifier | decoratePositive }}
-            md-checkbox(v-model="characterSkills" value="arcana") Arcana
-            md-checkbox(v-model="characterSkills" value="history") History
-            md-checkbox(v-model="characterSkills" value="investigation") Investigation
-            md-checkbox(v-model="characterSkills" value="nature") Nature
-            md-checkbox(v-model="characterSkills" value="religion") Religion
-            md-checkbox(v-model="characterSkills" value="insight") Insight
+            p
+              md-icon(v-if="characterSkills.includes('arcana')") star
+              | Arcana
+            p
+              md-icon(v-if="characterSkills.includes('history')") star
+              | History
+            p
+              md-icon(v-if="characterSkills.includes('investigation')") star
+              | Investigation
+            p
+              md-icon(v-if="characterSkills.includes('nature')") star
+              | Nature
+            p
+              md-icon(v-if="characterSkills.includes('religion')") star
+              | Religion
+            p
+              md-icon(v-if="characterSkills.includes('insight')") star
+              | Insight
           
         p Selected: {{ characterSkills }}
-        p Allowed: {{ skillsAllowed }}
     
     .md-layout
       .md-layout-item.golden-border
@@ -169,10 +220,10 @@
           label Gold
           md-input(v-model="characterGold" type="number")
 
-        md-field
-          md-icon description
-          label Equipment and loot
-          md-textarea(v-model="characterItems" md-autogrow)
+        .md-subtitle
+          | Equipment and loot
+          br
+          | {{ characterItems }}
 
     .md-layout
       .md-layout-item

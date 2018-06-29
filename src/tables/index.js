@@ -210,6 +210,17 @@ export const races = {
     feats: ['darkvision', 'fireResistance', 'infernalLegacy'],
     profCombat: [],
     languages: ['Common', 'Infernal']
+  },
+  // Kenku
+  kenku: {
+    title: 'Kenku',
+    dexterity: 2,
+    charisma: 1,
+    speed: 30,
+    feats: ['ambusher', 'mimicry'],
+    profCombat: [],
+    skills: ['deception'],
+    languages: ['Common', 'Auran']
   }
 }
 
@@ -218,69 +229,109 @@ export const backgrounds = {
   acolyte: {
     title: 'Acolyte',
     skills: ['insight', 'religion'],
-    extraLanguage: 2,
+    feats: ['shelterOfTheFaithful'],
+    tools: [],
     equipment: ['A holy symbol', 'a prayer book', 'vestments', '5 sticks of incense'],
-    money: 15
+    money: 15,
+    extraLanguage: 2
   },
   charlatan: {
     title: 'Charlatan',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   criminal: {
-    title: 'Criminal',
-    skills: [],
-    equipment: []
+    title: 'Criminal/Spy',
+    skills: ['deception', 'stealth'],
+    feats: ['criminalContact'],
+    tools: ['One type of gaming set, thieves’ tools'],
+    equipment: ['A crowbar', 'a set of dark common clothes including a hood'],
+    money: 15
   },
   entertainer: {
     title: 'Entertainer',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   folkHero: {
     title: 'Folk Hero',
-    skills: [],
-    equipment: []
+    skills: ['animalHandling', 'survival'],
+    feats: ['rusticHospitality'],
+    tools: ['A set of artisan’s tools (one of your choice)'],
+    equipment: ['a shovel', 'an iron pot', 'a set of common clothes'],
+    money: 10
   },
   guildArtisan: {
     title: 'Guild Artisan',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   hermit: {
     title: 'Hermit',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   noble: {
     title: 'Noble',
-    skills: [],
-    equipment: []
+    skills: ['history', 'persuasion'],
+    feats: ['positionOfPrivilege'],
+    tools: ['One type of gaming set'],
+    equipment: ['a set of fine clothes', 'a signet ring', 'a scroll of pedigree'],
+    money: 25,
+    extraLanguage: 1
   },
   outlander: {
     title: 'Outlander',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   sage: {
     title: 'Sage',
-    skills: [],
-    equipment: []
+    skills: ['arcana', 'history'],
+    feats: ['researcher'],
+    tools: [],
+    equipment: ['A bottle of black ink', 'a quill', 'a small knife', 'a letter from a dead colleague posing a question you have not yet been able to answer', 'a set of common clothes'],
+    money: 10,
+    extraLanguage: 2
   },
   sailor: {
     title: 'Sailor',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   },
   soldier: {
     title: 'Soldier',
-    skills: [],
-    equipment: []
+    skills: ['athletics', 'intimidation'],
+    feats: ['militaryRank'],
+    tools: ['One type of gaming set, vehicles (land)'],
+    equipment: ['An insignia of rank', 'a trophy taken from a fallen enemy', 'a set of bone dice or deck of cards', 'a set of common clothes'],
+    money: 10
   },
   urchin: {
     title: 'Urchin',
     skills: [],
-    equipment: []
+    feats: [],
+    tools: [],
+    equipment: [],
+    money: 1
   }
 }
 
@@ -294,7 +345,7 @@ export const classes = {
     feats: ['rage', 'unarmoredDefence'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     profTools: [],
-    skills: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
+    skillsChoice: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -315,7 +366,7 @@ export const classes = {
     feats: ['spellcasting', 'divineDomain'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
     profTools: [],
-    skills: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
+    skillsChoice: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -326,7 +377,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -337,7 +388,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -348,7 +399,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -359,7 +410,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -370,7 +421,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -381,7 +432,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -392,7 +443,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -403,7 +454,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   },
@@ -414,7 +465,7 @@ export const classes = {
     feats: [],
     profCombat: [],
     profTools: [],
-    skills: [],
+    skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
   }
@@ -580,9 +631,37 @@ export const feats = {
     title: 'Divine Domain',
     description: ''
   },
-  spellcasting2: {
-    title: '',
-    description: ''
+  criminalContact: {
+    title: 'Criminal Contact',
+    description: 'You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.'
+  },
+  rusticHospitality: {
+    title: 'Rustic Hospitality',
+    description: 'Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you.'
+  },
+  positionOfPrivilege: {
+    title: 'Position of Privilege',
+    description: 'Thanks to your noble birth, people are inclined to think the best of you. You are welcome in high society, and people assume you have the right to be wherever you are. The common folk make every effort to accommodate you and avoid your displeasure, and other people of high birth treat you as a member of the same social sphere. You can secure an audience with a local noble if you need to.'
+  },
+  researcher: {
+    title: 'Researcher',
+    description: 'When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.'
+  },
+  ambusher: {
+    title: 'Ambusher',
+    description: 'You have advantage on attack rolls against any creature you have surprised.'
+  },
+  mimicry: {
+    title: 'Mimicry',
+    description: 'You can mimic any sounds you have heard, including voices. This talent extends to handwriting. A creature that hears your sounds can tell they are imitations with a successful Wisdom (Insight) check, and a creature that sees your forgery can tell it is a forgery with a successful Intelligence (Investigation) check. The DCs of these checks are each equal to 8 + your Charisma modifier + your proficiency bonus.'
+  },
+  militaryRank: {
+    title: 'Military Rank',
+    description: 'You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized.'
+  },
+  shelterOfTheFaithful: {
+    title: 'Shelter of the Faithful',
+    description: 'As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle.'
   },
   spellcasting3: {
     title: '',
@@ -592,6 +671,7 @@ export const feats = {
 }
 
 // Armors
+// If armors str requirement is not met, wearer is slowed by 10 feet
 export const armors = {
   acolyte: {}
 }
