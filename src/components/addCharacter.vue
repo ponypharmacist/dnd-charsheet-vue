@@ -34,7 +34,8 @@ export default {
       characterCharisma: 8,
       characterItems: 'Bag of shopping',
       characterGold: 36,
-      characterSkills: []
+      characterSkills: [],
+      languagesString: ''
         // make computed, set -> push item (if not there), remove item (if there)
         // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
@@ -97,8 +98,13 @@ export default {
       return subraceLang + raceLang + bgLang;
     },
     totalLanguages: {
-      get: function() { return flattenArray(this.characterLanguages) + (this.extraLanguages > 0 ? ' (add ' + this.extraLanguages + ' more)' : ''); },
-      set: function(langString) { return langString; }
+      get: function() {
+        return flattenArray(this.characterLanguages) + (this.extraLanguages > 0 ? ' (add ' + this.extraLanguages + ' more)' : '');
+      },
+      set: function(langString) {
+        this.languagesString = langString;
+        return langString;
+      }
     },
     healthBonusFromFeats: function() {
       return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
@@ -192,7 +198,7 @@ export default {
       characterGold: this.characterGold,
       characterItems: this.characterItems,
 
-      characterLanguages: this.totalLanguages.toString(),
+      characterLanguages: this.languagesString,
       characterProficienciesCombat: this.characterProficienciesCombat.toString(),
       characterTools: this.characterTools.toString(),
       characterFeats: this.characterFeats,
