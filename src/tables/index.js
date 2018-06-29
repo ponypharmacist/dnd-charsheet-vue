@@ -7,7 +7,7 @@ export const races = {
     feats: ['darkvision', 'dwarvenResilience', 'stonecutting'],
     profCombat: ['battleaxe', 'handaxe', 'light hammer', 'war hammer'],
     languages: ['Common', 'Dwarvish'],
-    profTools: ['Artisan Tools'], // of your choice: smith’s tools, brewer’s supplies, or mason’s tools.
+    tools: ['Artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools'],
     subraces: {
       hillDwarf: {
         title: 'Hill Dwarf',
@@ -344,7 +344,7 @@ export const classes = {
     savingThrowProficiency: ['strength', 'constitution'],
     feats: ['rage', 'unarmoredDefence'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
-    profTools: [],
+    tools: [],
     skillsChoice: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
     skillsAllowed: 2,
     wealth: 0
@@ -355,7 +355,7 @@ export const classes = {
     savingThrowProficiency: ['dexterity', 'charisma'],
     feats: ['spellcasting', 'bardicInspiration'],
     profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
-    profTools: ['Three musical instruments of your choice'],
+    tools: ['Three musical instruments of your choice'],
     skillpoints: 3, // any 3, yes
     wealth: 0
   },
@@ -365,7 +365,7 @@ export const classes = {
     savingThrowProficiency: ['wisdom', 'charisma'],
     feats: ['spellcasting', 'divineDomain'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
-    profTools: [],
+    tools: [],
     skillsChoice: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
     wealth: 0
@@ -376,7 +376,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -387,7 +387,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -398,7 +398,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -409,7 +409,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -420,7 +420,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -431,7 +431,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -442,7 +442,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -453,7 +453,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -464,7 +464,7 @@ export const classes = {
     savingThrowProficiency: [],
     feats: [],
     profCombat: [],
-    profTools: [],
+    tools: [],
     skillsChoice: [],
     skillsAllowed: 2,
     wealth: 0
@@ -680,5 +680,3 @@ export const armors = {
 export const weapons = {
   acolyte: {}
 }
-
-// Dwarf 'artisanTools': Tool Proficiency. You gain proficiency with the artisan’s tools of your choice: smith’s tools, brewer’s supplies, or mason’s tools.

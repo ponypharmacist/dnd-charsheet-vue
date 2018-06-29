@@ -40,6 +40,12 @@ export default {
     }
   },
   computed: {
+    characterTools: function() {
+      let fromRace = this.characterRace ? this.races[this.characterRace].tools ? this.races[this.characterRace].tools : [] : [];
+      let fromClass = this.characterClass ? this.classes[this.characterClass].tools : [];
+      let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].tools : [];
+      return Array.from(new Set(fromRace.concat(fromClass).concat(fromBackground)));
+    },
     skillsChoice: function() {
       return this.characterClass ? this.classes[this.characterClass].skillsChoice ? this.classes[this.characterClass].skillsChoice : [] : [];
     },
@@ -56,11 +62,12 @@ export default {
       let fromClass = this.characterClass ? this.classes[this.characterClass].skillpoints ? this.classes[this.characterClass].skillpoints : 0 : 0;
       return fromRace + fromClass;
     },
-    characterFeats: function() { // ToDo: feats from BG
+    characterFeats: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].feats : [];
       let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].feats : [];
       let fromClass = this.characterClass ? this.classes[this.characterClass].feats : [];
-      return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass)));
+      let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].feats : [];
+      return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass).concat(fromBackground)));
     },
     characterProficienciesCombat: {
       get: function() {
@@ -180,14 +187,17 @@ export default {
 
       healthBonusFromFeats: this.healthBonusFromFeats,
       characterMaxHealth: this.characterMaxHealth,
+
       characterSpeed: this.characterSpeed,
+      characterGold: this.characterGold,
+      characterItems: this.characterItems,
 
-      characterLanguages: this.totalLanguages,
+      characterLanguages: this.totalLanguages.toString(),
+      characterProficienciesCombat: this.characterProficienciesCombat.toString(),
+      characterTools: this.characterTools.toString(),
       characterFeats: this.characterFeats,
-      characterProficienciesCombat: this.characterProficienciesCombat,
       characterSkills: this.characterSkills
-      // ToDo: proficiency with tools
-
+      // ToDo: weapons, armor, saving throws
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
