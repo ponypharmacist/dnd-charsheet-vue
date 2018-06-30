@@ -32,20 +32,38 @@ export default {
       characterIntelligence: 12,
       characterWisdom: 12,
       characterCharisma: 8,
-      characterItems: 'Bag of shopping',
       characterGold: 36,
       characterSkills: [],
+      characterTools: '',
+      characterItems: '',
       languagesString: ''
         // make computed, set -> push item (if not there), remove item (if there)
         // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
   },
   computed: {
-    characterTools: function() {
-      let fromRace = this.characterRace ? this.races[this.characterRace].tools ? this.races[this.characterRace].tools : [] : [];
-      let fromClass = this.characterClass ? this.classes[this.characterClass].tools : [];
-      let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].tools : [];
-      return Array.from(new Set(fromRace.concat(fromClass).concat(fromBackground)));
+    characterItemsList: {
+      get: function() {
+        let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].equipment : [];
+        return flattenArray(fromBackground);
+      },
+      set: function(itemsString) {
+        this.characterItems = itemsString;
+        console.log(this.characterItems);
+        return itemsString;
+      }
+    },
+    characterToolsList: {
+      get: function() {
+        let fromRace = this.characterRace ? this.races[this.characterRace].tools ? this.races[this.characterRace].tools : [] : [];
+        let fromClass = this.characterClass ? this.classes[this.characterClass].tools : [];
+        let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].tools : [];
+        return Array.from(new Set(fromRace.concat(fromClass).concat(fromBackground)));
+      },
+      set: function(toolsString) {
+        this.characterTools = toolsString;
+        return toolsString;
+      }
     },
     skillsChoice: function() {
       return this.characterClass ? this.classes[this.characterClass].skillsChoice ? this.classes[this.characterClass].skillsChoice : [] : [];
@@ -83,7 +101,9 @@ export default {
         finalList = finalList.slice(0, -2);
         return finalList;
       },
-      set: function(profString) { return profString; }
+      set: function(profString) {
+        return profString;
+      }
     },
     characterLanguages: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].languages : [];
@@ -177,32 +197,31 @@ export default {
     // Last method, sends new character to database
     addToAPI () {
     let newCharacter = {
-      characterName: this.characterName,
-      characterLevel: this.characterLevel,
-      characterRace: this.characterRace,
-      characterSubrace: this.characterSubrace,
-      characterClass: this.characterClass,
-      characterBackground: this.characterBackground,
+      name: this.characterName,
+      level: this.characterLevel,
+      race: this.characterRace,
+      subrace: this.characterSubrace,
+      clas: this.characterClass,
+      background: this.characterBackground,
 
-      characterStrength: this.characterStrength,
-      characterDexterity: this.characterDexterity,
-      characterConstitution: this.characterConstitution,
-      characterIntelligence: this.characterIntelligence,
-      characterWisdom: this.characterWisdom,
-      characterCharisma: this.characterCharisma,
+      strength: this.characterStrength,
+      dexterity: this.characterDexterity,
+      constitution: this.characterConstitution,
+      intelligence: this.characterIntelligence,
+      wisdom: this.characterWisdom,
+      charisma: this.characterCharisma,
 
       healthBonusFromFeats: this.healthBonusFromFeats,
-      characterMaxHealth: this.characterMaxHealth,
+      maxHealth: this.characterMaxHealth,
+      speed: this.characterSpeed,
+      gold: this.characterGold,
+      items: this.characterItems,
 
-      characterSpeed: this.characterSpeed,
-      characterGold: this.characterGold,
-      characterItems: this.characterItems,
-
-      characterLanguages: this.languagesString,
-      characterProficienciesCombat: this.characterProficienciesCombat.toString(),
-      characterTools: this.characterTools.toString(),
-      characterFeats: this.characterFeats,
-      characterSkills: this.characterSkills
+      languages: this.languagesString,
+      proficienciesCombat: this.characterProficienciesCombat.toString(),
+      tools: this.characterTools,
+      feats: this.characterFeats,
+      skills: this.characterSkills
       // ToDo: weapons, armor, saving throws
     }
     console.log(newCharacter);

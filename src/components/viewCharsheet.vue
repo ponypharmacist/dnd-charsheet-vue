@@ -4,6 +4,8 @@
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
+import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
+import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name:'viewCharsheet',
   components: { Spinner },
@@ -26,6 +28,12 @@ export default {
         console.log(error);
       });
   },
+  filters: {
+    capitalize,
+    decoratePositive,
+    flattenArray,
+    getModifier
+  }
 }
 </script>
 

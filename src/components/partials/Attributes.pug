@@ -1,7 +1,13 @@
-.md-layout.ability.md-layout-item.md-xsmall-size-100.md-small-size-50.md-medium-size-50.md-large-size-33
-  .md-layout-item.golden-border
-    .md-layout.md-alignment-top-center
-      md-button.md-dense.md-raised(@click="roll4d6") Roll 4d6
+.md-layout.ability.md-layout-item
+  .md-layout-item.golden-border.mt-1
+    .md-layout.md-alignment-top-left
+      .md-layout-item
+        md-button.md-dense.md-raised(@click="roll4d6") Roll attributes (4d6)
+      .md-layout-item
+        .md-subheading.mt-1 
+          | Sum of stats: {{ sumOfStats }} 
+          span (75 is a standard)
+
     .md-layout
       .md-layout-item
         md-field.ability-input
@@ -80,8 +86,3 @@
             md-icon keyboard_arrow_left
           md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('charisma', 'strength')")
             md-icon keyboard_arrow_right
-
-    .md-layout.md-alignment-bottom-center
-      .md-subheading.mt-1 
-        | Sum of stats: {{ sumOfStats }} 
-        span (75 is a standard)

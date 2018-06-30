@@ -4,17 +4,19 @@
       template
         spinner
 
-  .md-layout.golden-border(v-if="!isLoading")
-    .character-row(v-for="char_alias in Character")
-      router-link.md-title(:to="'/charsheet/' + char_alias._id") {{ char_alias.characterName }}
+  .md-layout(v-if="!isLoading")
+    .md-layout-item.golden-border.md-xlarge-size-100(v-for="char in Character")
+      router-link.md-title(:to="'/charsheet/' + char._id") {{ char.name }}
       .md-body
-        | lvl. {{ char_alias.characterLevel }} {{ char_alias.characterRace }} ({{ char_alias.characterSubrace }}) / {{ char_alias.characterClass }}
+        | lvl. {{ char.level }} {{ char.race }} 
+        span(v-if="char.subrace") ({{ char.subrace }}) 
+        | / {{ char.clas }}
         br
-        | Background: {{ char_alias.characterBackground }}.
+        | Background: {{ char.background }}.
         br
-        | S:{{ char_alias.characterStrength }} D:{{ char_alias.characterDexterity }} C:{{ char_alias.characterConstitution }} 
-        | I:{{ char_alias.characterIntelligence }} W:{{ char_alias.characterWisdom }} Ch:{{ char_alias.characterCharisma }}
+        | S:{{ char.strength }} D:{{ char.dexterity }} C:{{ char.constitution }} 
+        | I:{{ char.intelligence }} W:{{ char.wisdom }} Ch:{{ char.charisma }}
         br
-        a.delete-icon(@click="deleteCharacter(char_alias._id)")
+        a.delete-icon(@click="deleteCharacter(char._id)")
           md-icon close
           | delete

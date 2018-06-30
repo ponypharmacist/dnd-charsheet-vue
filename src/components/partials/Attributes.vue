@@ -49,7 +49,7 @@ export default {
       return result
     },
     onInput (statname) {
-      this.$emit('updateCharacter', this[statname], statname)
+      this.$emit('updateCharacter', parseInt(this[statname]), statname)
     }
   }
 }

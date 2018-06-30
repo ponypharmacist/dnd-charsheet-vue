@@ -1,12 +1,9 @@
 .container
   // Class skills dialog
   md-dialog.dialog(:md-active.sync="skillsDialog" :md-fullscreen="false")
-    md-dialog-title Select {{ skillsAllowed }} skills
+    md-dialog-title Select {{ skillsAllowed }} skills from Class
     .md-layout(md-dynamic-height)
       .md-layout-item
-        | Your class allows you to be proficient in {{ skillsAllowed }} of these skills.
-        br
-        br
         md-checkbox(v-if="skillsChoice.includes('athletics')" v-model="characterSkills" value="athletics") Athletics (Str)
         md-checkbox(v-if="skillsChoice.includes('animalHandling')" v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
         md-checkbox(v-if="skillsChoice.includes('medicine')" v-model="characterSkills" value="medicine") Medicine (Wis)
@@ -36,9 +33,6 @@
     md-dialog-title Select {{ skillpoints }} skills
     .md-layout(md-dynamic-height)
       .md-layout-item
-        | Your class allows you to be proficient in {{ skillpoints }} of these skills.
-        br
-        br
         md-checkbox(v-model="characterSkills" value="athletics") Athletics (Str)
         md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
         md-checkbox(v-model="characterSkills" value="medicine") Medicine (Wis)
@@ -92,57 +86,49 @@
           md-select(v-model="characterBackground" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
-      template
-        attributes(@updateCharacter="updateCharacter"
-                   :strengthBonus="strengthBonus"
-                   :dexterityBonus="dexterityBonus"
-                   :constitutionBonus="constitutionBonus"
-                   :intelligenceBonus="intelligenceBonus"
-                   :wisdomBonus="wisdomBonus"
-                   :charismaBonus="charismaBonus")
+        template
+          attributes(@updateCharacter="updateCharacter"
+                     :strengthBonus="strengthBonus"
+                     :dexterityBonus="dexterityBonus"
+                     :constitutionBonus="constitutionBonus"
+                     :intelligenceBonus="intelligenceBonus"
+                     :wisdomBonus="wisdomBonus"
+                     :charismaBonus="charismaBonus")
 
-      .md-layout.md-layout-item.md-small-size-100.golden-border.md-large-size-33.md-xlarge-size-33
-        .md-layout.md-layout-item.md-small-size-100
-          .md-layout-item.md-xsmall-size-50.md-small-size-33
-            md-icon security 
-            |  AC: {{ characterDexterity | getModifier | add(10) }}
-          .md-layout-item.md-xsmall-size-50.md-small-size-33
-            md-icon favorite 
-            |  Health: {{ healthBonusFromFeats }}
-          .md-layout-item.md-xsmall-size-50.md-small-size-33
-            md-icon track_changes 
-            |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
+      .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
+        .md-title
+          md-icon security 
+          |  AC: {{ characterDexterity | getModifier | add(10) }}
+        .md-title
+          md-icon favorite 
+          |  Health: {{ characterMaxHealth }}
+        .md-title
+          md-icon track_changes 
+          |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
+        .md-title
+          md-icon verified_user 
+          |  Speed: {{ characterSpeed }}
+        .md-title
+          md-icon vibration 
+          |  Awareness: {{ characterWisdom | getModifier | add(10) }}
           
-          .md-layout-item.md-xsmall-size-50.md-small-size-33
-            md-icon verified_user 
-            |  Speed: {{ characterSpeed }}
-          .md-layout-item.md-xsmall-size-50.md-small-size-33
-            md-icon vibration 
-            |  Awareness: {{ characterWisdom | getModifier | add(10) }}
-
-        .md-layout-item.md-small-size-100.md-medium-size-100.md-large-size-100.md-xlarge-size-100
-          .md-subtitle.m-1
-            | Combat proficiencies: 
-            br 
-            | {{ characterProficienciesCombat }}
-
-          .md-subtitle.m-1
-            | Tool proficiencies: 
-            br 
-            | {{ characterTools | flattenArray }}
-
-          md-field
-            md-icon sms
-            label Languages
-            md-input(v-model="totalLanguages")
-
-    .md-layout
-      .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
-        h3 Feats
-        .feat-list
-          .feat-list-item(v-for="feat in characterFeats")
-            .feat-name {{ feats[feat].title }}
-            .feat-description {{ feats[feat].description }}
+        md-field
+          md-icon sms
+          label Languages
+          md-input(v-model="totalLanguages")
+        md-field.mt-0
+          label Combat proficiencies
+          md-textarea(v-model="characterProficienciesCombat" rows="3")  
+        md-field.mt-0
+          label Tool proficiencies
+          md-textarea(v-model="characterToolsList")           
+        md-field
+          md-icon fingerprint
+          label Gold
+          md-input(v-model="characterGold" type="number")
+        md-field.mt-0
+          label Equipment and loot
+          md-textarea(v-model="characterItemsList")
 
       .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-layout-item
@@ -213,17 +199,14 @@
             md-icon(v-if="characterSkills.includes('insight')") star
             | Insight
   
+      .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-66
+        h3 Feats
+        ul.feat-list
+          li.feat-list-item(v-for="feat in characterFeats")
+            .feat-name {{ feats[feat].title }}
+            .feat-description {{ feats[feat].description }}
+
       .md-layout-item.golden-border.md-large-size-33.md-xlarge-size-33
-        md-field
-          md-icon fingerprint
-          label Gold
-          md-input(v-model="characterGold" type="number")
-
-        .md-subtitle
-          | Equipment and loot
-          br
-          | {{ characterItems }}
-
     .md-layout
       .md-layout-item
         md-button.md-primary.md-raised(type="button" @click="addToAPI") Сохранить

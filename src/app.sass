@@ -38,6 +38,9 @@ h4
 .m-1
   margin: 1rem
 
+.mt-0
+  margin-top: 0!important
+
 .mb-1
   margin-bottom: 1rem
 
@@ -73,6 +76,13 @@ h4
 
 .md-field
   margin-bottom: 12px
+
+.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
+  min-height: 76px
+
+.md-checkbox .md-checkbox-container::before
+  width: 24px
+  height: 24px
 
 .ability-input
   margin-bottom: 24px
@@ -116,8 +126,13 @@ h4
 
 // == Texts
 .feat-list
+  list-style-type: none
+  padding-left: 0
+  column-count: 3
 
 .feat-list-item
+  width: 100%
+  display: inline-block
   margin-bottom: 0.75rem
 
 .feat-name
@@ -127,3 +142,46 @@ h4
 .feat-description
   font-style: italic
   color: #999
+
+// =======================
+// View and edit charsheet
+// =======================
+.character-sheet
+
+.character-bar
+  position: relative
+  background-color: #111
+  color: #ecbe57
+  padding: 0.5rem 1.5rem
+
+.character-name
+  font-size: 1.75rem
+  line-height: 2rem
+
+.character-race-class
+  font-size: 1.125rem
+  color: #aaa
+  font-style: italic
+
+.character-level
+  position: absolute
+  right: 1rem
+  top: 50%
+  margin-top: -2.25rem
+  border: 3px solid #ecbe57
+  border-radius: 50%
+  width: 4.5rem
+  height: 4.5rem
+  text-align: center
+  font-weight: bold
+  font-size: 1.5rem
+  line-height: 2rem
+  padding: 1rem 0
+
+  span
+    font-size: 1rem
+    color: #aaa
+
+@media screen and (max-width: 1280px)
+  .feat-list
+    column-count: 1

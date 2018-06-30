@@ -1,21 +1,20 @@
 .container
-  .row.text-center
-    template(v-if="isLoading")
+  .md-layout.mt-1(v-if="isLoading")
+    template
       spinner
 
-  .row(v-if="!isLoading")
-    .col-md-12.golden-border.mb-1
-      table.table.table-striped.table-borderes
-        thead
-          tr
-            th Name: {{ Character.characterName }}
-            th Race: {{ Character.characterRace }}
-            th Class: {{ Character.characterClass }}
-      
-      p
-        | Proficiency bonus (from level)
+  .character-sheet(v-if="!isLoading")
+    .character-bar
+      .character-name {{ Character.name | capitalize }}
+      .character-race-class 
+        span(v-if="!Character.subrace") {{ Character.race | capitalize }} 
+        span(v-if="Character.subrace") {{ Character.race | capitalize }} 
+        span {{ Character.clas | capitalize }}
+      .character-level 
+        span lv. 
+        | {{ Character.level }}
 
-    .col-md-6.golden-border
+    .golden-border
       .stat-block Strength: {{ Character.characterStrength }}
       .stat-block Dexterity: {{ Character.characterDexterity }}
       .stat-block Constitution: {{ Character.characterConstitution }}
