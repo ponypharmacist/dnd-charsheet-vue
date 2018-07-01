@@ -4,7 +4,7 @@
 import axios from 'axios';
 import Attributes from './partials/Attributes';
 import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray, flattenArrayMultiline } from '../helpers';
-import { races, backgrounds, classes, feats } from '../tables';
+import { races, backgrounds, classes, feats, armors, weaponsM, weaponsR } from '../tables';
 export default {
   name: 'addCharacter',
   components: { Attributes },
@@ -15,6 +15,9 @@ export default {
       classes: classes,
       backgrounds: backgrounds,
       feats: feats,
+      armors: armors,
+      weaponsM: weaponsM,
+      weaponsR: weaponsR,
       // form and visuals stuff
       submitted: false,
       skillsDialog: false,
@@ -37,12 +40,34 @@ export default {
       characterProficienciesCombat: '',
       characterTools: '',
       characterItems: '',
-      languagesString: ''
+      languagesString: '',
+      characterArmor: 'noArmor',
+      characterShield: false,
+      characterWeapons: []
         // make computed, set -> push item (if not there), remove item (if there)
         // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
   },
   computed: {
+    armorClass: function() {
+      let attributeModifier = getModifier(this.characterDexterity);
+      let baseAC = 10;
+      let shield = this.characterShield ? 2 : 0;
+      if (this.characterClass == 'barbarian' && this.characterArmor == 'noArmor' && !this.characterShield) {
+        attributeModifier += getModifier(this.characterConstitution);
+      } else if (this.characterClass == 'monk' && this.characterArmor == 'noArmor' && !this.characterShield) {
+        attributeModifier += getModifier(this.characterWisdom);
+      } else if (this.armors[this.characterArmor].type == 'heavy') {
+        baseAC = this.armors[this.characterArmor].ac;
+        attributeModifier = 0;
+      } else if (this.armors[this.characterArmor].type == 'medium') {
+        baseAC = this.armors[this.characterArmor].ac;
+        attributeModifier = getModifier(this.characterDexterity) >= 2 ? 2 : getModifier(this.characterDexterity);
+      } else {
+        baseAC = this.armors[this.characterArmor].ac;
+      }
+      return baseAC + attributeModifier + shield;
+    },
     characterItemsList: {
       get: function() {
         let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].equipment : [];
@@ -222,6 +247,8 @@ export default {
       speed: this.characterSpeed,
       gold: this.characterGold,
       items: this.characterItems,
+      armor: this.characterArmor,
+      shield: this.characterShield,
 
       languages: this.languagesString,
       proficienciesCombat: this.characterProficienciesCombat.toString(),

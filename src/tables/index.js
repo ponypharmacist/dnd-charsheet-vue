@@ -772,10 +772,234 @@ export const feats = {
 // Armors
 // If armors str requirement is not met, wearer is slowed by 10 feet
 export const armors = {
-  acolyte: {}
+  noArmor: {
+    title: 'No Armor',
+    type: 'none',
+    stealth: true,
+    ac: 10
+  },
+  padded: {
+    title: 'Padded Armor',
+    ac: 11,
+    type: 'light',
+    stealth: false, // disadvantage
+    cost: 5
+  },
+  leather: {
+    title: 'Leather Armor',
+    ac: 11,
+    type: 'light',
+    stealth: true,
+    cost: 10
+  },
+  studded: {
+    title: 'Studded Leather Armor',
+    ac: 12,
+    type: 'light',
+    stealth: true,
+    cost: 45
+  },
+  hide: {
+    title: 'Hide Armor',
+    ac: 12,
+    type: 'medium',
+    stealth: true,
+    cost: 10
+  },
+  chainShirt: {
+    title: 'Chain Shirt',
+    ac: 13,
+    type: 'medium',
+    stealth: true,
+    cost: 50
+  },
+  scaleMail: {
+    title: 'Scale Mail',
+    ac: 14,
+    type: 'medium',
+    stealth: false,
+    cost: 50
+  },
+  breastplate: {
+    title: 'Breastplate',
+    ac: 14,
+    type: 'medium',
+    stealth: true,
+    cost: 400
+  },
+  halfPlate: {
+    title: 'Half Plate Armor',
+    ac: 15,
+    type: 'medium',
+    stealth: false,
+    cost: 750
+  },
+  ringMail: {
+    title: 'Ring Mail Armor',
+    ac: 14,
+    type: 'heavy',
+    stealth: false,
+    cost: 30
+  },
+  chainMail: {
+    title: 'Chain Mail Armor',
+    ac: 16,
+    type: 'heavy',
+    stealth: false,
+    cost: 75
+  },
+  splint: {
+    title: 'Splint Armor',
+    ac: 17,
+    type: 'heavy',
+    stealth: false,
+    cost: 200
+  },
+  plate: {
+    title: 'Plate Armor',
+    ac: 18,
+    type: 'heavy',
+    stealth: false,
+    cost: 1500
+  }
 }
 
 // Weapons
-export const weapons = {
-  acolyte: {}
+// one can silver a weapon for 100 gp
+export const weaponsM = {
+  deadGoblin: {
+    title: 'Dead Goblin',
+    attribute: 'strength',
+    damage: '1d4',
+    type: 'melee',
+    range: '20/60'
+  },
+  club: {
+    title: 'Club',
+    attribute: 'dexterity',
+    damage: '1d4',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    type: 'melee',
+    range: '20/60',
+    twohanded: false,
+    modifiers: ['light']
+  },
+  dagger: {
+    title: 'Dagger',
+    attribute: 'dexterity', // or strength, dex weapons is basically finesse
+    damage: '1d4',
+    damageType: 'piercing',
+    category: 'simple', // or martial
+    type: 'melee', // or ranged, or ... both?
+    range: '20/60',
+    twohanded: false, // can be versatile
+    modifiers: ['finesse', 'heavy', 'light', 'reach']
+    // finesse uses str or dex, light can be used double
+  },
+  greatclub: {
+    title: 'W'
+  },
+  handaxe: {
+    title: 'W'
+  },
+  javelin: {
+    title: 'W'
+  },
+  lightHammer: {
+    title: 'W'
+  },
+  mace: {
+    title: 'W'
+  },
+  quarterstaffs: {
+    title: 'W'
+  },
+  sickle: {
+    title: 'W'
+  },
+  spear: {
+    title: 'W'
+  },
+  battleaxe: {
+    title: 'W'
+  },
+  flail: {
+    title: 'W'
+  },
+  glaive: {
+    title: 'W'
+  },
+  greataxe: {
+    title: 'W'
+  },
+  greatsword: {
+    title: 'W'
+  },
+  halberd: {
+    title: 'W'
+  },
+  lance: {
+    title: 'W'
+  },
+  longsword: {
+    title: 'W'
+  },
+  maul: {
+    title: 'W'
+  },
+  morningstar: {
+    title: 'W'
+  },
+  pike: {
+    title: 'W'
+  },
+  rapier: {
+    title: 'W'
+  },
+  scimitar: {
+    title: 'W'
+  },
+  shortsword: {
+    title: 'W'
+  },
+  trident: {
+    title: 'W'
+  },
+  warPick: {
+    title: 'W'
+  },
+  warhammer: {
+    title: 'W'
+  },
+  whip: {
+    title: 'W'
+  }
+}
+
+export const weaponsR = {
+  dart: {
+    title: 'Dart'
+  },
+  shortbow: {
+    title: 'Shortbow'
+  },
+  sling: {
+    title: 'Sling'
+  },
+  blowgun: {
+    title: 'Blowgun'
+  },
+  crossbowLight: {
+    title: 'Crossbow, light'
+  },
+  crossbowHand: {
+    title: 'Crossbow, hand'
+  },
+  crossbowHeavy: {
+    title: 'Crossbow, heavy'
+  },
+  longbow: {
+    title: 'Longbow'
+  }
 }

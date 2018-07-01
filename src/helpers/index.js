@@ -9,7 +9,7 @@ export const rollDice = (die, times = 1, modifier = 0) => {
   for (let i = 1; i <= times; i++) {
     let currentRoll = Math.ceil(Math.random() * Math.floor(die))
     sumOfRolls += currentRoll
-    console.log('Rolled a d' + die + ' #' + i + ' for ' + currentRoll)
+    // console.log('Rolled a d' + die + ' #' + i + ' for ' + currentRoll)
   }
   return sumOfRolls + modifier
 }

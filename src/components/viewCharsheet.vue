@@ -5,7 +5,7 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
-import { races, backgrounds, classes, feats } from '../tables';
+import { races, backgrounds, classes, feats, armors, weapons } from '../tables';
 export default {
   name:'viewCharsheet',
   components: { Spinner },

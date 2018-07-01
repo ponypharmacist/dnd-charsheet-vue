@@ -98,7 +98,7 @@
       .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-title
           md-icon security 
-          |  AC: {{ characterDexterity | getModifier | add(10) }}
+          |  AC: {{ armorClass }}
         .md-title
           md-icon favorite 
           |  Health: {{ characterMaxHealth }}
@@ -200,13 +200,31 @@
             | Insight
   
       .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-66
-        h3 Feats
+        .md-title Feats
         ul.feat-list
           li.feat-list-item(v-for="feat in characterFeats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
       .md-layout-item.golden-border.md-large-size-33.md-xlarge-size-33
+        .md-title Armor &amp; Weapons
+        md-field
+          label(for="charArmor") Armor
+          md-select(v-model="characterArmor" name="charArmor")
+            md-option(v-for="(armor, key) in armors" v-bind:key="armors[armor]" v-bind:value="key") (AC: {{ armor.ac }}) {{ armor.title }}
+        
+        md-field
+          label(for="charWeapon") Weapon Melee
+          md-select(v-model="characterWeapon" name="charWeapon")
+            md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+        
+        md-field
+          label(for="charWeapon") Weapon Ranged
+          md-select(v-model="characterWeapon" name="charWeapon")
+            md-option(v-for="(weapon, key) in weaponsR" v-bind:key="weaponsR[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+        
+        md-checkbox(v-model="characterShield") Shield
+
     .md-layout
       .md-layout-item
-        md-button.md-primary.md-raised(type="button" @click="addToAPI") Сохранить
+        md-button.md-primary.md-raised(type="button" @click="addToAPI") Save Character

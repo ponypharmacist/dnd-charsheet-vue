@@ -45,7 +45,6 @@ export default {
       const pos = fourDice.indexOf(smallest)
       const reducer = (accumulator, currentValue) => accumulator + currentValue
       let result = fourDice.slice(0, pos).concat(fourDice.slice(pos + 1)).reduce(reducer)
-      console.log(result)
       return result
     },
     onInput (statname) {
