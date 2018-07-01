@@ -237,11 +237,11 @@ export const backgrounds = {
   },
   charlatan: {
     title: 'Charlatan',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['deception', 'sleightOfHand'],
+    feats: ['falseIdentity'],
+    tools: ['Disguise Kit, Forgery Kit'],
+    equipment: ['A set of fine clothes', 'a disguise kit', 'tools of the con of your choice (ten stoppered bottles filled with colored liquid, a set of weighted dice, a deck of marked cards, or a signet ring of an imaginary duke)'],
+    money: 15
   },
   criminal: {
     title: 'Criminal/Spy',
@@ -253,11 +253,11 @@ export const backgrounds = {
   },
   entertainer: {
     title: 'Entertainer',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['acrobatics', 'performance'],
+    feats: ['byPopularDemand'],
+    tools: ['Disguise kit, one type of musical instrument'],
+    equipment: ['A musical instrument (one of your choice)', 'the favor of an admirer (love letter, lock of hair, or trinket)', 'a costume'],
+    money: 15
   },
   folkHero: {
     title: 'Folk Hero',
@@ -269,19 +269,21 @@ export const backgrounds = {
   },
   guildArtisan: {
     title: 'Guild Artisan',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['insight', 'persuasion'],
+    feats: ['guildMembership'],
+    tools: ['One type of artisan’s tools'],
+    equipment: ['A set of artisan’s tools (one of your choice)', 'a letter of introduction from your guild', 'a set of traveler’s clothes'],
+    money: 15,
+    extraLanguage: 1
   },
   hermit: {
     title: 'Hermit',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['medicine', 'religion'],
+    feats: ['discovery'],
+    tools: ['Herbalism kit'],
+    equipment: ['A scroll case stuffed full of notes from your studies or prayers', 'a winter blanket', 'a set of common clothes', 'a herbalism kit'],
+    money: 5,
+    extraLanguage: 1
   },
   noble: {
     title: 'Noble',
@@ -294,11 +296,12 @@ export const backgrounds = {
   },
   outlander: {
     title: 'Outlander',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['athletics', 'survival'],
+    feats: ['wanderer'],
+    tools: ['One type of musical instrument'],
+    equipment: ['A staff', 'a hunting trap', 'a trophy from an animal you killed', 'a set of traveler’s clothes'],
+    money: 10,
+    extraLanguage: 1
   },
   sage: {
     title: 'Sage',
@@ -311,11 +314,11 @@ export const backgrounds = {
   },
   sailor: {
     title: 'Sailor',
-    skills: [],
+    skills: ['athletics', 'perception'],
     feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    tools: ['Navigator’s tools, vehicles (water)'],
+    equipment: ['A belaying pin (club)', '50 feet of silk rope', 'a lucky charm such as a rabbit foot or a small stone with a hole in the center (or you may roll for a random trinket on the Trinkets table in chapter 5)', 'a set of common clothes'],
+    money: 10
   },
   soldier: {
     title: 'Soldier',
@@ -327,11 +330,11 @@ export const backgrounds = {
   },
   urchin: {
     title: 'Urchin',
-    skills: [],
-    feats: [],
-    tools: [],
-    equipment: [],
-    money: 1
+    skills: ['stealth', 'sleightOfHand'],
+    feats: ['citySecrets'],
+    tools: ['Disguise kit, thieves tools'],
+    equipment: ['A small knife', 'a map of the city you grew up in', 'a pet mouse', 'a token to remember your parents by', 'a set of common clothes'],
+    money: 10
   }
 }
 
@@ -341,132 +344,144 @@ export const classes = {
   barbarian: {
     title: 'Barbarian',
     hitDie: 12,
-    savingThrowProficiency: ['strength', 'constitution'],
     feats: ['rage', 'unarmoredDefence'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     tools: [],
+    skills: ['strength', 'constitution'],
     skillsChoice: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
     skillsAllowed: 2,
+    equipment: ['an explorer’s pack', '4 javelins'],
     wealth: 0
   },
   bard: {
     title: 'Bard',
     hitDie: 8,
-    savingThrowProficiency: ['dexterity', 'charisma'],
     feats: ['spellcasting', 'bardicInspiration'],
     profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
+    skills: ['dexterity', 'charisma'],
     tools: ['Three musical instruments of your choice'],
     skillpoints: 3, // any 3, yes
+    equipment: ['(a diplomat’s pack) or (an entertainer’s pack)', '(a lute) or (any other musical instrument)', 'leather armor', 'a dagger'],
     wealth: 0
   },
   cleric: {
     title: 'Cleric',
     hitDie: 8,
-    savingThrowProficiency: ['wisdom', 'charisma'],
     feats: ['spellcasting', 'divineDomain'],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
     tools: [],
+    skills: ['wisdom', 'charisma'],
     skillsChoice: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
+    equipment: ['(a priest’s pack) or (an explorer’s pack)', 'a shield', 'a holy symbol'],
     wealth: 0
   },
   druid: {
     title: 'Druid',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
-    tools: [],
-    skillsChoice: [],
+    hitDie: 8,
+    feats: ['spellcasting', 'druidic'],
+    profCombat: ['light armor', 'medium armor', 'shields', 'clubs', 'daggers', 'darts', 'javelins', 'maces', 'quarterstaffs', 'scimitars', 'sickles', 'slings', 'spears'],
+    tools: ['Herbalism kit'],
+    skills: ['intelligence', 'wisdom'],
+    skillsChoice: ['arcana', 'animalHandling', 'insight', 'medicine', 'nature', 'perception', 'religion', 'survival'],
     skillsAllowed: 2,
+    equipment: ['wooden shield', 'leather armor', 'an explorer’s pack', 'a druidic focus', '(druids will not wear armor or use shields made of metal)'],
     wealth: 0
   },
   fighter: {
     title: 'Fighter',
     hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    feats: ['fightingStyle', 'secondWind'],
+    profCombat: ['light armor', 'medium armor', 'heavy armor', 'shields', 'martial weapons'],
     tools: [],
-    skillsChoice: [],
+    skills: ['strength', 'constitution'],
+    skillsChoice: ['acrobatics', 'animalHandling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival'],
     skillsAllowed: 2,
+    equipment: ['(chain mail) or (leather armor, longbow, and 20 arrows)', '(a dungeoneer’s pack) or (an explorer’s pack)'],
     wealth: 0
   },
   monk: {
     title: 'Monk',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
-    tools: [],
-    skillsChoice: [],
+    hitDie: 8,
+    feats: ['unarmoredDefence', 'martialArts'],
+    profCombat: ['simple weapons', 'shortswords'],
+    tools: ['one type of artisan’s tools or one musical instrument'],
+    skills: ['strength', 'dexterity'],
+    skillsChoice: ['acrobatics', 'athletics', 'history', 'insight', 'religion', 'stealth'],
     skillsAllowed: 2,
+    equipment: ['(a dungeoneer’s pack) or (an explorer’s pack)', '10 darts'],
     wealth: 0
   },
   paladin: {
     title: 'Paladin',
     hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    feats: ['divineSense', 'layOnHands'],
+    profCombat: ['light armor', 'medium armor', 'heavy armor', 'shields', 'martial weapons'],
     tools: [],
-    skillsChoice: [],
+    skills: ['wisdom', 'charisma'],
+    skillsChoice: ['athletics', 'insight', 'intimidation', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
+    equipment: ['(a priest’s pack) or (an explorer’s pack)', 'chain mail', 'a holy symbol'],
     wealth: 0
   },
   ranger: {
     title: 'Ranger',
     hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    feats: ['favoredEnemy', 'naturalExplorer'],
+    profCombat: ['light armor', 'medium armor', 'shields', 'martial weapons'],
     tools: [],
-    skillsChoice: [],
-    skillsAllowed: 2,
+    skills: ['strength', 'dexterity'],
+    skillsChoice: ['animalHandling', 'athletics', 'insight', 'investigation', 'nature', 'perception', 'stealth', 'survival'],
+    skillsAllowed: 3,
+    equipment: ['(scale mail) or (leather armor)', '(a dungeoneer’s pack) or (an explorer’s pack)', 'a longbow', 'a quiver of 20 arrows'],
     wealth: 0
   },
   rogue: {
     title: 'Rogue',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
-    tools: [],
-    skillsChoice: [],
-    skillsAllowed: 2,
+    hitDie: 8,
+    feats: ['expertise', 'sneakAttack', 'thievesCant'],
+    profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
+    tools: ['Thieves’ tools'],
+    skills: ['dexterity', 'intelligence'],
+    skillsChoice: ['acrobatics', 'athletics', 'deception', 'insight', 'intimidation', 'investigation', 'perception', 'performance', 'persuasion', 'sleightOfHand', 'stealth'],
+    skillsAllowed: 4,
+    equipment: ['(a burglar’s pack), (a dungeoneer’s pack), or (an explorer’s pack)', 'leather armor', 'two daggers', 'thieves’ tools'],
     wealth: 0
   },
   sorcerer: {
     title: 'Sorcerer',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    hitDie: 6,
+    feats: ['spellcasting', 'sorcerousOrigin'],
+    profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
-    skillsChoice: [],
+    skills: ['constitution', 'charisma'],
+    skillsChoice: ['arcana', 'deception', 'insight', 'intimidation', 'persuasion', 'religion'],
     skillsAllowed: 2,
+    equipment: ['(a dungeoneer’s pack) or (an explorer’s pack)', '2 daggers'],
     wealth: 0
   },
   warlock: {
     title: 'Warlock',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    hitDie: 8,
+    feats: ['otherworldlyPatron', 'pactMagic'],
+    profCombat: ['light armor', 'simple weapons'],
     tools: [],
-    skillsChoice: [],
+    skills: ['wisdom', 'charisma'],
+    skillsChoice: ['arcana', 'deception', 'history', 'intimidation', 'investigation', 'nature', 'religion'],
     skillsAllowed: 2,
+    equipment: ['(a scholar’s pack) or (a dungeoneer’s pack)', 'leather armor', 'any simple weapon', '2 daggers'],
     wealth: 0
   },
   wizard: {
     title: 'Wizard',
-    hitDie: 10,
-    savingThrowProficiency: [],
-    feats: [],
-    profCombat: [],
+    hitDie: 6,
+    feats: ['spellcasting', 'arcaneRecovery'],
+    profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
-    skillsChoice: [],
+    skills: ['intelligence', 'wisdom'],
+    skillsChoice: ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion'],
     skillsAllowed: 2,
+    equipment: ['spellbook', '(a scholar’s pack) or (an explorer’s pack)'],
     wealth: 0
   }
 }
@@ -617,11 +632,11 @@ export const feats = {
   },
   unarmoredDefence: {
     title: 'Unarmored Defence',
-    description: 'While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit.'
+    description: 'While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your (Constitution for barbarians, Wisdom for monks) modifier. You can use a shield and still gain this benefit.'
   },
   spellcasting: {
     title: 'Spellcasting',
-    description: 'ToDo: decr.'
+    description: '(Google for full description)'
   },
   bardicInspiration: {
     title: 'Bardic Inspiration',
@@ -629,7 +644,7 @@ export const feats = {
   },
   divineDomain: {
     title: 'Divine Domain',
-    description: ''
+    description: '(Google for full description)'
   },
   criminalContact: {
     title: 'Criminal Contact',
@@ -662,6 +677,90 @@ export const feats = {
   shelterOfTheFaithful: {
     title: 'Shelter of the Faithful',
     description: 'As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle.'
+  },
+  falseIdentity: {
+    title: 'False Identity',
+    description: 'You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy. '
+  },
+  byPopularDemand: {
+    title: 'By Popular Demand',
+    description: 'You can always find a place to perform, usually in an inn or tavern but possibly with a circus, at a theater, or even in a noble’s court. At such a place, you receive free lodging and food of a modest or comfortable standard (depending on the quality of the establishment), as long as you perform each night. In addition, your performance makes you something of a local figure. When strangers recognize you in a town where you have performed, they typically take a liking to you.'
+  },
+  guildMembership: {
+    title: 'Guild Membership',
+    description: 'As an established and respected member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities and towns, a guildhall offers a central place to meet other members of your profession, which can be a good place to meet potential patrons, allies, or hirelings. Guilds often wield tremendous political power. If you are accused of a crime, your guild will support you if a good case can be made for your innocence or the crime is justifiable. You can also gain access to powerful political figures through the guild, if you are a member in good standing. Such connections might require the donation of money or magic items to the guild’s coffers. You must pay dues of 5 gp per month to the guild. If you miss payments, you must make up back dues to remain in the guild’s good graces.'
+  },
+  discovery: {
+    title: 'Discovery',
+    description: 'The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has ever seen. You might have uncovered a fact that has long been forgotten, or unearthed some relic of the past that could rewrite history. It might be information that would be damaging to the people who consigned you to exile, and hence the reason for your return to society. Work with your DM to determine the details of your discovery and its impact on the campaign.'
+  },
+  wanderer: {
+    title: 'Wanderer',
+    description: 'You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition, you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth.'
+  },
+  citySecrets: {
+    title: 'City Secrets',
+    description: 'You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow.'
+  },
+  druidic: {
+    title: 'Druidic',
+    description: 'You know Druidic, the secret language of druids. You can speak the language and use it to leave hidden messages. You and others who know this language automatically spot such a message. Others spot the message’s presence with a successful DC 15 Wisdom (Perception) check but can’t decipher it without magic.'
+  },
+  fightingStyle: {
+    title: 'Fighting Style',
+    description: '(Google for full description) You adopt a particular style of fighting as your specialty. Choose one of the following options. You can’t take a Fighting Style option more than once, even if you later get to choose again. (Archery, Defence, Dueling, Great Weapon Fighting, Protection, Two Weapon Fighting). See players handbook for more details.'
+  },
+  secondWind: {
+    title: 'Second Wind',
+    description: 'On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. You must finish a short or long rest before you can use it again.'
+  },
+  martialArts: {
+    title: 'Martial Arts',
+    description: '(Google for full description) At 1st level, your practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons, which are shortswords and any simple melee weapons that don’t have the two-handed or heavy property.'
+  },
+  divineSense: {
+    title: 'Divine Sense',
+    description: 'The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature a number of times equal to 1 + your Charisma modifier per long rest.'
+  },
+  layOnHands: {
+    title: 'Lay On Hands',
+    description: 'As an action you can touch a creature and restore a number of its HP. You have a pool of healing power that equals your paladin level x 5. Pool restores after long rest. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.'
+  },
+  favoredEnemy: {
+    title: 'Favored Enemy',
+    description: '(Google for full description) You have significant experience studying, tracking, hunting, and even talking to a certain type of enemy. You have advantage on Wisdom (Survival) checks to track your favored enemies, as well as on Intelligence checks to recall information about them. You also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.'
+  },
+  naturalExplorer: {
+    title: 'Natural Explorer',
+    description: '(Google for full description)'
+  },
+  expertise: {
+    title: 'Expertise',
+    description: 'Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.'
+  },
+  sneakAttack: {
+    title: 'Sneak Attack',
+    description: 'Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll.'
+  },
+  thievesCant: {
+    title: 'Thieves’ Cant',
+    description: 'During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly. In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.'
+  },
+  sorcerousOrigin: {
+    title: 'Sorcerous Origin',
+    description: 'Choose a sorcerous origin, which describes the source of your innate magical power: Draconic Bloodline, detailed at the end of the class description, or one from another source.'
+  },
+  otherworldlyPatron: {
+    title: 'Otherworldly Patron',
+    description: 'At 1st level, you have struck a bargain with an otherworldly being of your choice: (google class description). It grants you feats.'
+  },
+  pactMagic: {
+    title: 'Pact Magic',
+    description: 'Your arcane research and the magic bestowed on you by your patron have given you facility with spells. See Spells Rules for the general rules of spellcasting and the Spells Listing for the warlock spell list.'
+  },
+  arcaneRecovery: {
+    title: 'Arcane Recovery',
+    description: 'You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.'
   },
   spellcasting3: {
     title: '',

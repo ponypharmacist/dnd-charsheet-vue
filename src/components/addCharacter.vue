@@ -3,7 +3,7 @@
 /* eslint-disable */
 import axios from 'axios';
 import Attributes from './partials/Attributes';
-import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray } from '../helpers';
+import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray, flattenArrayMultiline } from '../helpers';
 import { races, backgrounds, classes, feats } from '../tables';
 export default {
   name: 'addCharacter',
@@ -34,6 +34,7 @@ export default {
       characterCharisma: 8,
       characterGold: 36,
       characterSkills: [],
+      characterProficienciesCombat: '',
       characterTools: '',
       characterItems: '',
       languagesString: ''
@@ -45,11 +46,11 @@ export default {
     characterItemsList: {
       get: function() {
         let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].equipment : [];
-        return flattenArray(fromBackground);
+        let fromClass = this.characterClass ? this.classes[this.characterClass].equipment : [];
+        return flattenArrayMultiline(fromBackground.concat(fromClass));
       },
       set: function(itemsString) {
         this.characterItems = itemsString;
-        console.log(this.characterItems);
         return itemsString;
       }
     },
@@ -70,8 +71,9 @@ export default {
     },
     staticSkills: function() {
       let fromRace = this.characterRace ? this.races[this.characterRace].skills ? this.races[this.characterRace].skills : [] : [];
+      let fromClass = this.characterClass ? this.classes[this.characterClass].skills ? this.classes[this.characterClass].skills : [] : [];
       let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].skills ? this.backgrounds[this.characterBackground].skills : [] : [];
-      return Array.from(new Set(fromRace.concat(fromBackground)));
+      return Array.from(new Set(fromRace.concat(fromBackground).concat(fromClass)));
     },
     skillsAllowed: function() {
       return this.characterClass ? this.classes[this.characterClass].skillsAllowed ? this.classes[this.characterClass].skillsAllowed : 0 : 0;
@@ -88,7 +90,7 @@ export default {
       let fromBackground = this.characterBackground ? this.backgrounds[this.characterBackground].feats : [];
       return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass).concat(fromBackground)));
     },
-    characterProficienciesCombat: {
+    combatProficienciesList: {
       get: function() {
         let fromRace = this.characterRace ? this.races[this.characterRace].profCombat : [];
         let fromSubrace = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].profCombat : [];
@@ -160,6 +162,9 @@ export default {
     },
     staticSkills: function () {
       this.characterSkills = this.staticSkills;
+    },
+    combatProficienciesList: function () {
+      this.characterProficienciesCombat = this.combatProficienciesList;
     }
   },
   filters: {
@@ -167,6 +172,7 @@ export default {
     getModifier,
     decoratePositive,
     flattenArray,
+    flattenArrayMultiline,
     add(number, bonus) {
       return number + bonus;
     }
@@ -233,7 +239,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
-        submitted: false
+        this.submitted = false;
       });
     }
   }

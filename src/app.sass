@@ -27,6 +27,9 @@ h4
 .title-h4
   font-weight: bold
   margin: 0.5rem 0
+  padding: 4px 8px
+  border: 1px solid #2c3e50
+  width: 80%
 
 .md-subheading
   span
@@ -181,6 +184,76 @@ h4
   span
     font-size: 1rem
     color: #aaa
+
+// Attribute columns
+.character-attributes
+  display: flex
+  flex-direction: row
+  flex-wrap: nowrap
+  justify-content: flex-start
+
+.attribute-column
+  width: 225px
+  margin-right: 2rem
+
+.attribute-name
+  font-size: 1.25rem
+  font-weight: bold
+
+.attribute-bg
+  display: inline-block
+  // background-color: rgba(236,190,90,0.15)
+  margin: 0.5rem 0
+  padding: 0
+
+.attribute-value
+  display: inline-block
+  position: relative
+  top: -0.5rem
+  padding: 0.95rem 0 0
+  width: 3rem
+  height: 3rem
+  text-align: center
+  font-size: 1.5rem
+  background: transparent url('assets/frame-square.svg') no-repeat center top / cover
+  margin-right: 0.75rem
+
+.attribute-modifier
+  display: inline-block
+  position: relative
+  top: -0.5rem
+  padding: 1.45rem 0 0
+  width: 4rem
+  height: 4rem
+  text-align: center
+  font-size: 1.5rem
+  background: transparent url('assets/frame-dodec.svg') no-repeat
+
+.attribute-skills
+
+.attribute-skills-item
+  font-size: 1rem
+  height: 24px
+  line-height: 24px
+  padding-left: 32px
+
+  &.skillStar
+    background-color: rgba(236,190,90,0.15)
+
+.skillStar::before
+  position: absolute
+  width: 16px
+  height: 16px
+  margin-left: -26px
+  margin-top: 5px
+  content: ''
+  background: transparent url('assets/attribute.svg') repeat-y center top / cover
+
+.roll-button
+  position: relative
+  float: right
+  margin: 3px 0 0
+  border: none
 
 @media screen and (max-width: 1280px)
   .feat-list
