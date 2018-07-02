@@ -876,130 +876,259 @@ export const weaponsM = {
   },
   club: {
     title: 'Club',
-    attribute: 'dexterity',
     damage: '1d4',
     damageType: 'bludgeoning',
     category: 'simple',
-    type: 'melee',
-    range: '20/60',
-    twohanded: false,
     modifiers: ['light']
   },
   dagger: {
     title: 'Dagger',
-    attribute: 'dexterity', // or strength, dex weapons is basically finesse
     damage: '1d4',
     damageType: 'piercing',
-    category: 'simple', // or martial
-    type: 'melee', // or ranged, or ... both?
+    category: 'simple',
     range: '20/60',
-    twohanded: false, // can be versatile
-    modifiers: ['finesse', 'heavy', 'light', 'reach']
-    // finesse uses str or dex, light can be used double
+    modifiers: ['finesse', 'heavy', 'light', 'reach', 'twohanded', 'thrown']
+    // finesse uses larger modifier (str or dex), light can be used double
   },
   greatclub: {
-    title: 'W'
+    title: 'Greatclub',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   handaxe: {
-    title: 'W'
+    title: 'Handaxe',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   javelin: {
-    title: 'W'
+    title: 'Javelin',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   lightHammer: {
-    title: 'W'
+    title: 'Light Hammer',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   mace: {
-    title: 'W'
+    title: 'Mace',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   quarterstaffs: {
-    title: 'W'
+    title: 'Quarterstaff',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   sickle: {
-    title: 'W'
+    title: 'Sickle',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   spear: {
-    title: 'W'
+    title: 'Spear',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   battleaxe: {
-    title: 'W'
+    title: 'Battleaxe',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   flail: {
-    title: 'W'
+    title: 'Flail',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   glaive: {
-    title: 'W'
+    title: 'Glaive',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   greataxe: {
-    title: 'W'
+    title: 'Greataxe',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   greatsword: {
-    title: 'W'
+    title: 'Greatsword',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   halberd: {
-    title: 'W'
+    title: 'Halberd',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   lance: {
-    title: 'W'
+    title: 'Lance',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   longsword: {
-    title: 'W'
+    title: 'Longsword',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   maul: {
-    title: 'W'
+    title: 'Maul',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   morningstar: {
-    title: 'W'
+    title: 'Morningstar',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   pike: {
-    title: 'W'
+    title: 'Pike',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   rapier: {
-    title: 'W'
+    title: 'Rapier',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   scimitar: {
-    title: 'W'
+    title: 'Scimitar',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   shortsword: {
-    title: 'W'
+    title: 'shortsword',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   trident: {
-    title: 'W'
+    title: 'Trident',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   warPick: {
-    title: 'W'
+    title: 'War pick',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   warhammer: {
-    title: 'W'
+    title: 'Warhammer',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   whip: {
-    title: 'W'
+    title: 'Whip',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   }
 }
 
 export const weaponsR = {
   dart: {
-    title: 'Dart'
+    title: 'Dart',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   shortbow: {
-    title: 'Shortbow'
+    title: 'Shortbow',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   sling: {
-    title: 'Sling'
+    title: 'Sling',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   blowgun: {
-    title: 'Blowgun'
+    title: 'Blowgun',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   crossbowLight: {
-    title: 'Crossbow, light'
+    title: 'Crossbow, light',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   crossbowHand: {
-    title: 'Crossbow, hand'
+    title: 'Crossbow, hand',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   crossbowHeavy: {
-    title: 'Crossbow, heavy'
+    title: 'Crossbow, heavy',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   },
   longbow: {
-    title: 'Longbow'
+    title: 'Longbow',
+    damage: '',
+    damageType: '',
+    category: '',
+    modifiers: []
   }
 }
