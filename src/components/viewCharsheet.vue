@@ -21,7 +21,7 @@ export default {
       isLoading: true,
       updated: false,
       showSnackbar: false,
-      rollQueue: ['One', 'Two', 'Three'],
+      rollQueue: ['', '', ''],
       // Character stuff
       Character: []
     }
