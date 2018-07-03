@@ -134,70 +134,70 @@
         .md-layout-item
           .md-title Skills
           .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('athletics')") star
             | Athletics
-          
-          .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
-          p
-            md-icon(v-if="characterSkills.includes('animalHandling')") star
-            | Animal Handling
-          p
-            md-icon(v-if="characterSkills.includes('medicine')") star
-            | Medicine
-          p
-            md-icon(v-if="characterSkills.includes('perception')") star
-            | Perception
-          p
-            md-icon(v-if="characterSkills.includes('survival')") star
-            | Survival
-          
-          .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
-          p
-            md-icon(v-if="characterSkills.includes('deception')") star
-            | Deception
-          p
-            md-icon(v-if="characterSkills.includes('intimidation')") star
-            | Intimidation
-          p
-            md-icon(v-if="characterSkills.includes('performance')") star
-            | Performance
-          p
-            md-icon(v-if="characterSkills.includes('persuasion')") star
-            | Persuasion
-        
-        .md-layout-item
-          .md-title &nbsp;
+            
           .title-h4 Dexterity {{ characterDexterity | getModifier | decoratePositive }}
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('acrobatics')") star
             | Acrobatics
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('sleightOfHand')") star
             | Sleight of Hand
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('stealth')") star
             | Stealth
-            
+          
+          .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('animalHandling')") star
+            | Animal Handling
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('medicine')") star
+            | Medicine
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('perception')") star
+            | Perception
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('survival')") star
+            | Survival
+        
+        .md-layout-item
+          .md-title &nbsp;  
           .title-h4 Intelligence {{ characterIntelligence | getModifier | decoratePositive }}
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('arcana')") star
             | Arcana
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('history')") star
             | History
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('investigation')") star
             | Investigation
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('nature')") star
             | Nature
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('religion')") star
             | Religion
-          p
+          .skill-plain
             md-icon(v-if="characterSkills.includes('insight')") star
             | Insight
+          
+          .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('deception')") star
+            | Deception
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('intimidation')") star
+            | Intimidation
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('performance')") star
+            | Performance
+          .skill-plain
+            md-icon(v-if="characterSkills.includes('persuasion')") star
+            | Persuasion
   
       .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-66
         .md-title Feats

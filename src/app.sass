@@ -8,7 +8,7 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: #2c3e50
+  color: #ecbe57
 
 body
   background: #000 url('assets/bg-simple-1440.56.jpg') repeat-y center top / cover
@@ -136,6 +136,9 @@ h4
   padding-left: 0
   column-count: 3
 
+.feat-list.feat-list-view
+  column-count: 2
+
 .feat-list-item
   width: 100%
   display: inline-block
@@ -197,12 +200,10 @@ h4
   top: 38px
   margin-left: -160px
   border-radius: 12px
-  background-color: rgba(0,0,0,0.5)
+  background-color: rgba(0,0,0,0.75)
   border: 1px solid rgba(255,255,255,0.25)
   padding: 10px 16px
   color: #ecbe57
-
-.roll-item
 
 .roll-date
   color: #aaa
@@ -221,9 +222,8 @@ h4
   justify-content: space-around
 
 .attribute-column
-  width: 15.1%
-  min-width: 175px
-  margin-right: 1.5%
+  min-width: 160px
+  margin: 0 0.75% 15px 0.75%
   margin-bottom: 16px
 
   &:last-child
@@ -232,8 +232,11 @@ h4
 .attribute-name
   display: inline-block
   font-size: 1.125rem
-  font-weight: bold
-  padding-right: 6px
+  margin-right: 6px
+  color: #fff
+  cursor: pointer
+  border-bottom: 1px dashed rgba(255,255,255,0.5)
+  text-decoration: none!important
 
 .attribute-bg
   display: inline-block

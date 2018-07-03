@@ -80,6 +80,25 @@ export default {
 
   // Methods
   methods: {
+    getSkillBonus (attribute, skill) {
+      let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;
+      return profBonus + getModifier(this.Character[attribute]);
+    },
+    roll (attribute, skill) {
+      let bonus = this.getSkillBonus(attribute, skill);
+      let rollResult = rollDice(20);
+      let criticalSuccess = rollResult == 20 ? ' CRITICAL SUCCESS!' : '';
+      let criticalFail = rollResult == 1 ? ' CRITICAL FAIL!' : '';
+      let updateString = 'You roll ' + capitalize(skill) + ' for ' + (rollResult + bonus) + '. ';
+      let note = criticalSuccess + criticalFail;
+      this.updateRollQueue(this.prettyDate(), updateString, note);
+    },
+    rollAttribute (attribute) {
+      let rollResult = rollDice(20);
+      let bonus = getModifier(this.Character[attribute]);
+      let updateString = 'You roll ' + capitalize(attribute) + ' for ' + (rollResult + bonus) + '. ';
+      this.updateRollQueue(this.prettyDate(), updateString);
+    },
     updateRollQueue (date, string, note) {
       let rollObject = {
         date: date,
@@ -89,21 +108,12 @@ export default {
       this.rollQueue.shift();
       this.rollQueue.push(rollObject);
     },
-    getSkillBonus (attribute, skill) {
-      let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;
-      return profBonus + getModifier(this.Character[attribute]);
-    },
-    roll(attribute, skill) {
+    prettyDate () {
       let dateWithouthSecond = new Date();
-      let prettyDate = dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      let bonus = this.getSkillBonus(attribute, skill);
-      let rollResult = rollDice(20);
-      let criticalSuccess = rollResult == 20 ? ' CRITICAL SUCCESS!' : '';
-      let criticalFail = rollResult == 1 ? ' CRITICAL FAIL!' : '';
-      let updateString = 'You roll ' + capitalize(skill) + ' for ' + (rollResult + bonus) + '. ';
-      let note = criticalSuccess + criticalFail;
-      this.updateRollQueue(prettyDate, updateString, note);
+      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     },
+
+    // API calls
     getCharacter (charID) {
       console.log(charID);
       axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`)
@@ -117,7 +127,6 @@ export default {
         });
     },
 
-    // API calls
     updateAPI () {
     let updateCharacter = this.Character;
     let charID = this.charID;
