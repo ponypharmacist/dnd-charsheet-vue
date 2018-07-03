@@ -869,10 +869,21 @@ export const armors = {
 export const weaponsM = {
   deadGoblin: {
     title: 'Dead Goblin',
-    attribute: 'strength',
     damage: '1d4',
-    type: 'melee',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: ['finesse', 'heavy', 'light', 'reach', 'twohanded', 'thrown'],
     range: '20/60'
+    // finesse uses larger modifier (str or dex), light can be used double
+    // throwind uses strength if there's no finesse modifier
+    // light weapon, You don’t add your ability modifier to the damage of the bonus attack
+  },
+  unarmed: {
+    title: 'Unarmed Strike',
+    damage: '1d1',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: []
   },
   club: {
     title: 'Club',
@@ -886,249 +897,261 @@ export const weaponsM = {
     damage: '1d4',
     damageType: 'piercing',
     category: 'simple',
-    range: '20/60',
-    modifiers: ['finesse', 'heavy', 'light', 'reach', 'twohanded', 'thrown']
-    // finesse uses larger modifier (str or dex), light can be used double
+    modifiers: ['finesse', 'light', 'thrown'],
+    range: '20/60'
   },
   greatclub: {
     title: 'Greatclub',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d8',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: ['twohanded']
   },
   handaxe: {
     title: 'Handaxe',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'slashing',
+    category: 'simple',
+    modifiers: ['light', 'thrown'],
+    range: '20/60'
   },
   javelin: {
     title: 'Javelin',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'piercing',
+    category: 'simple',
+    modifiers: ['thrown'],
+    range: '30/120'
   },
   lightHammer: {
     title: 'Light Hammer',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d4',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: ['light', 'thrown'],
+    range: '20/60'
   },
   mace: {
     title: 'Mace',
-    damage: '',
-    damageType: '',
-    category: '',
+    damage: '1d6',
+    damageType: 'bludgeoning',
+    category: 'simple',
     modifiers: []
   },
   quarterstaffs: {
     title: 'Quarterstaff',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: ['versatile'] // hits for 1d8 when twohanded
   },
   sickle: {
     title: 'Sickle',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d4',
+    damageType: 'slashing',
+    category: 'simple',
+    modifiers: ['light']
   },
   spear: {
     title: 'Spear',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'piercing',
+    category: 'simple',
+    modifiers: ['thrown', 'versatile'],
+    range: '20/60'
   },
   battleaxe: {
     title: 'Battleaxe',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d8',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['versatile'] // for 1d10 when twohanded
   },
   flail: {
     title: 'Flail',
-    damage: '',
-    damageType: '',
-    category: '',
+    damage: '1d8',
+    damageType: 'bludgeoning',
+    category: 'martial',
     modifiers: []
   },
   glaive: {
     title: 'Glaive',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d10',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['heavy', 'reach', 'twohanded']
   },
   greataxe: {
     title: 'Greataxe',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d12',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['hevay', 'twohanded']
   },
   greatsword: {
     title: 'Greatsword',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '2d6',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['heavy', 'twohanded']
   },
   halberd: {
     title: 'Halberd',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d10',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['heavy', 'reach', 'twohanded']
   },
   lance: {
     title: 'Lance',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d12',
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: ['reach', 'special'] // for mounted combat
   },
   longsword: {
     title: 'Longsword',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d8',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['versatile']
   },
   maul: {
     title: 'Maul',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '2d6',
+    damageType: 'bludgeoning',
+    category: 'martial',
+    modifiers: ['heavy', 'twohanded']
   },
   morningstar: {
     title: 'Morningstar',
-    damage: '',
-    damageType: '',
-    category: '',
+    damage: '1d8',
+    damageType: 'piercing',
+    category: 'martial',
     modifiers: []
   },
   pike: {
     title: 'Pike',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d10',
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: ['heavy', 'reach', 'twohanded']
   },
   rapier: {
     title: 'Rapier',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d8',
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: ['finesse']
   },
   scimitar: {
     title: 'Scimitar',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['finesse', 'light']
   },
   shortsword: {
-    title: 'shortsword',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    title: 'Shortsword',
+    damage: '1d6',
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: ['finesse', 'light']
   },
   trident: {
     title: 'Trident',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: ['thrown', 'versatile'],
+    range: '20/60'
   },
   warPick: {
     title: 'War pick',
-    damage: '',
-    damageType: '',
-    category: '',
+    damage: '1d8',
+    damageType: 'piercing',
+    category: 'martial',
     modifiers: []
   },
   warhammer: {
     title: 'Warhammer',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d8',
+    damageType: 'bludgeoning',
+    category: 'martial',
+    modifiers: ['versatile']
   },
   whip: {
     title: 'Whip',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d4',
+    damageType: 'slashing',
+    category: 'martial',
+    modifiers: ['finesse', 'reach']
   }
 }
 
 export const weaponsR = {
   dart: {
     title: 'Dart',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d4',
+    damageType: 'piercing',
+    category: 'simple',
+    modifiers: ['finesse'],
+    range: '20/60'
   },
   shortbow: {
     title: 'Shortbow',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d6',
+    damageType: 'piercing',
+    category: 'simple',
+    modifiers: ['twohanded'],
+    range: '80/320'
   },
   sling: {
     title: 'Sling',
-    damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damage: '1d4',
+    damageType: 'bludgeoning',
+    category: 'simple',
+    modifiers: [],
+    range: '30/120'
   },
   blowgun: {
     title: 'Blowgun',
     damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: [],
+    range: '0/0'
   },
   crossbowLight: {
     title: 'Crossbow, light',
     damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damageType: 'piercing',
+    category: 'simple',
+    modifiers: ['twohanded'],
+    range: '80/320'
   },
   crossbowHand: {
     title: 'Crossbow, hand',
     damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: [],
+    range: '0/0'
   },
   crossbowHeavy: {
     title: 'Crossbow, heavy',
     damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: [],
+    range: '0/0'
   },
   longbow: {
     title: 'Longbow',
     damage: '',
-    damageType: '',
-    category: '',
-    modifiers: []
+    damageType: 'piercing',
+    category: 'martial',
+    modifiers: [],
+    range: '0/0'
   }
 }

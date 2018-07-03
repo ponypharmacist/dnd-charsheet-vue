@@ -43,12 +43,25 @@ export default {
       languagesString: '',
       characterArmor: 'noArmor',
       characterShield: false,
-      characterWeapons: []
+      characterWeaponMelee: '',
+      characterWeaponMelee2: '',
+      characterWeaponRanged: '',
         // make computed, set -> push item (if not there), remove item (if there)
         // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
   },
   computed: {
+    wieldsTwohanded: function() {
+      return this.characterWeaponMelee ? this.weaponsM[this.characterWeaponMelee].modifiers.includes('twohanded') : false;
+    },
+    characterGoldAmount: {
+      get: function() {
+        return this.characterBackground ? this.backgrounds[this.characterBackground].money : 0;
+      },
+      set: function(goldNumber) {
+        return goldNumber;
+      }
+    },
     armorClass: function() {
       let attributeModifier = getModifier(this.characterDexterity);
       let baseAC = 10;
@@ -190,6 +203,9 @@ export default {
     },
     combatProficienciesList: function () {
       this.characterProficienciesCombat = this.combatProficienciesList;
+    },
+    characterGoldAmount: function() {
+      this.characterGold = this.characterGoldAmount;
     }
   },
   filters: {
@@ -249,6 +265,9 @@ export default {
       items: this.characterItems,
       armor: this.characterArmor,
       shield: this.characterShield,
+      weaponMelee: this.characterWeaponMelee,
+      weaponMelee2: this.characterWeaponMelee2,
+      weaponRanged: this.characterWeaponRanged,
 
       languages: this.languagesString,
       proficienciesCombat: this.characterProficienciesCombat.toString(),

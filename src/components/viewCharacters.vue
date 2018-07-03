@@ -21,6 +21,7 @@ export default {
         this.Character = response.data;
       })
       .catch((error) => {
+        // ToDo: display UI message failed loading
         console.log(error);
       });
   },
@@ -37,14 +38,14 @@ export default {
       },
       withCredentials: false
       })
-        .then((response) => {
-          console.log(response);
-          this.isLoading = false;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.isLoading = false;
-        });
+      .then((response) => {
+        console.log(response);
+        this.isLoading = false;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.isLoading = false;
+      });
     }
   }
 }

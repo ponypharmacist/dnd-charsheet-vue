@@ -214,16 +214,22 @@
             md-option(v-for="(armor, key) in armors" v-bind:key="armors[armor]" v-bind:value="key") (AC: {{ armor.ac }}) {{ armor.title }}
         
         md-field
-          label(for="charWeapon") Weapon Melee
-          md-select(v-model="characterWeapon" name="charWeapon")
+          label(for="charWeapon1") Weapon Melee
+          md-select(v-model="characterWeaponMelee" name="charWeapon1")
             md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
         
         md-field
-          label(for="charWeapon") Weapon Ranged
-          md-select(v-model="characterWeapon" name="charWeapon")
+          label(for="charWeapon2") Weapon Melee Alternative
+          md-select(v-model="characterWeaponMelee2" name="charWeapon2")
+            md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+        
+        md-field
+          label(for="charWeapon3") Weapon Ranged
+          md-select(v-model="characterWeaponRanged" name="charWeapon3")
             md-option(v-for="(weapon, key) in weaponsR" v-bind:key="weaponsR[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
         
-        md-checkbox(v-model="characterShield") Shield
+        md-checkbox(v-model="characterShield" v-bind:disabled="wieldsTwohanded") Shield
+          span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
 
     .md-layout
       .md-layout-item
