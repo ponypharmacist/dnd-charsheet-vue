@@ -101,7 +101,7 @@
           |  AC: {{ armorClass }}
         .md-title
           md-icon favorite 
-          |  Health: {{ characterMaxHealth }}
+          |  Health: {{ maxHealth }}
         .md-title
           md-icon track_changes 
           |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
@@ -206,7 +206,7 @@
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
 
-      .md-layout-item.golden-border.md-large-size-33.md-xlarge-size-33
+      .md-layout-item.golden-border.md-medium-size-100.md-large-size-33.md-xlarge-size-33
         .md-title Armor &amp; Weapons
         md-field
           label(for="charArmor") Armor

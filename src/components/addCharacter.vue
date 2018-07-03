@@ -166,14 +166,10 @@ export default {
         return langString;
       }
     },
-    healthBonusFromFeats: function() {
-      return this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
-    },
-    healthBonus: function() {
-      return getModifier(this.characterConstitution);
-    },
-    characterMaxHealth: function() {
-      return this.characterClass ? this.classes[this.characterClass].hitDie + this.healthBonus + this.healthBonusFromFeats : 0;
+    maxHealth: function() {
+      let toughness = this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
+      let bonus = getModifier(this.characterConstitution);
+      return this.characterClass ? this.classes[this.characterClass].hitDie + bonus + toughness : 0;
     },
     strengthBonus: function() { return this.hasBonus('strength'); },
     dexterityBonus: function() { return this.hasBonus('dexterity'); },
@@ -258,8 +254,7 @@ export default {
       wisdom: this.characterWisdom,
       charisma: this.characterCharisma,
 
-      healthBonusFromFeats: this.healthBonusFromFeats,
-      maxHealth: this.characterMaxHealth,
+      currentHealth: this.maxHealth,
       speed: this.characterSpeed,
       gold: this.characterGold,
       items: this.characterItems,

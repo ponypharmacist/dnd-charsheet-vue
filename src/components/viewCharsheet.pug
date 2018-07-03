@@ -20,99 +20,123 @@
         span lv. 
         | {{ Character.level }}
 
-    .character-attributes.golden-border
-      .attribute-column
-        .attribute-name Strength
-        .attribute-bg
-          .attribute-value {{ Character.strength }}
-          .attribute-modifier {{ Character.strength | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('strength') ? 'skillStar' : '' ]")
-            a(@click="roll('strength', 'strength')") Saving Throw {{ getSkillBonus('strength', 'strength') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('athletics') ? 'skillStar' : '' ]")
-            a(@click="roll('strength', 'athletics')") Athletics {{ getSkillBonus('strength', 'athletics') | decoratePositive }}
+    .md-layout
+      .md-layout-item.character-attributes.golden-border.md-large-size-50.md-xlarge-size-50
+        .attribute-column
+          .attribute-bg
+            .attribute-name STR
+            .attribute-value {{ Character.strength }}
+            .attribute-modifier {{ Character.strength | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('strength') ? 'skillStar' : '' ]")
+              a(@click="roll('strength', 'strength')") Saving Throw {{ getSkillBonus('strength', 'strength') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('athletics') ? 'skillStar' : '' ]")
+              a(@click="roll('strength', 'athletics')") Athletics {{ getSkillBonus('strength', 'athletics') | decoratePositive }}
 
-      .attribute-column
-        .attribute-name Dexterity
-        .attribute-bg
-          .attribute-value {{ Character.dexterity }}
-          .attribute-modifier {{ Character.dexterity | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('dexterity') ? 'skillStar' : '' ]")
-            a(@click="roll('dexterity', 'dexterity')") Saving Throw {{ getSkillBonus('dexterity', 'dexterity') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('acrobatics') ? 'skillStar' : '' ]")
-            a(@click="roll('dexterity', 'acrobatics')") Acrobatics {{ getSkillBonus('dexterity', 'acrobatics') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('sleightOfHand') ? 'skillStar' : '' ]")
-            a(@click="roll('dexterity', 'sleightOfHand')") Sleight of Hand {{ getSkillBonus('dexterity', 'sleightOfHand') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('stealth') ? 'skillStar' : '' ]")
-            a(@click="roll('dexterity', 'stealth')") Stealth {{ getSkillBonus('dexterity', 'stealth') | decoratePositive }}
+        .attribute-column
+          .attribute-bg
+            .attribute-name DEX
+            .attribute-value {{ Character.dexterity }}
+            .attribute-modifier {{ Character.dexterity | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('dexterity') ? 'skillStar' : '' ]")
+              a(@click="roll('dexterity', 'dexterity')") Saving Throw {{ getSkillBonus('dexterity', 'dexterity') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('acrobatics') ? 'skillStar' : '' ]")
+              a(@click="roll('dexterity', 'acrobatics')") Acrobatics {{ getSkillBonus('dexterity', 'acrobatics') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('sleightOfHand') ? 'skillStar' : '' ]")
+              a(@click="roll('dexterity', 'sleightOfHand')") Sleight of Hand {{ getSkillBonus('dexterity', 'sleightOfHand') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('stealth') ? 'skillStar' : '' ]")
+              a(@click="roll('dexterity', 'stealth')") Stealth {{ getSkillBonus('dexterity', 'stealth') | decoratePositive }}
 
-      .attribute-column
-        .attribute-name Constitution
-        .attribute-bg
-          .attribute-value {{ Character.constitution }}
-          .attribute-modifier {{ Character.constitution | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('constitution') ? 'skillStar' : '' ]")
-            a(@click="roll('constitution', 'constitution')") Saving Throw {{ getSkillBonus('constitution', 'constitution') | decoratePositive }}
+        .attribute-column
+          .attribute-bg
+            .attribute-name CON
+            .attribute-value {{ Character.constitution }}
+            .attribute-modifier {{ Character.constitution | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('constitution') ? 'skillStar' : '' ]")
+              a(@click="roll('constitution', 'constitution')") Saving Throw {{ getSkillBonus('constitution', 'constitution') | decoratePositive }}
 
-      .attribute-column
-        .attribute-name Intelligence
-        .attribute-bg
-          .attribute-value {{ Character.intelligence }}
-          .attribute-modifier {{ Character.intelligence | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('intelligence') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'intelligence')") Saving Throw {{ getSkillBonus('intelligence', 'intelligence') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('arcana') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'arcana')") Arcana {{ getSkillBonus('intelligence', 'arcana') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('history') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'history')") History {{ getSkillBonus('intelligence', 'history') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('investigation') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'investigation')") Investigation {{ getSkillBonus('intelligence', 'investigation') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('nature') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'nature')") Nature {{ getSkillBonus('intelligence', 'nature') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('religion') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'religion')") Religion {{ getSkillBonus('intelligence', 'religion') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('insight') ? 'skillStar' : '' ]")
-            a(@click="roll('intelligence', 'insight')") Insight {{ getSkillBonus('intelligence', 'insight') | decoratePositive }}
+        .attribute-column
+          .attribute-bg
+            .attribute-name INT
+            .attribute-value {{ Character.intelligence }}
+            .attribute-modifier {{ Character.intelligence | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('intelligence') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'intelligence')") Saving Throw {{ getSkillBonus('intelligence', 'intelligence') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('arcana') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'arcana')") Arcana {{ getSkillBonus('intelligence', 'arcana') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('history') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'history')") History {{ getSkillBonus('intelligence', 'history') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('investigation') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'investigation')") Investigation {{ getSkillBonus('intelligence', 'investigation') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('nature') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'nature')") Nature {{ getSkillBonus('intelligence', 'nature') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('religion') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'religion')") Religion {{ getSkillBonus('intelligence', 'religion') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('insight') ? 'skillStar' : '' ]")
+              a(@click="roll('intelligence', 'insight')") Insight {{ getSkillBonus('intelligence', 'insight') | decoratePositive }}
 
-      .attribute-column
-        .attribute-name Wisdom
-        .attribute-bg
-          .attribute-value {{ Character.wisdom }}
-          .attribute-modifier {{ Character.wisdom | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('wisdom') ? 'skillStar' : '' ]")
-            a(@click="roll('wisdom', 'wisdom')") Saving Throw {{ getSkillBonus('wisdom', 'wisdom') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('animalHandling') ? 'skillStar' : '' ]")
-            a(@click="roll('wisdom', 'animalHandling')") Animal Handling {{ getSkillBonus('wisdom', 'animalHandling') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('medicine') ? 'skillStar' : '' ]")
-            a(@click="roll('wisdom', 'medicine')") Medicine {{ getSkillBonus('wisdom', 'medicine') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('perception') ? 'skillStar' : '' ]")
-            a(@click="roll('wisdom', 'perception')") Perception {{ getSkillBonus('wisdom', 'perception') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('survival') ? 'skillStar' : '' ]")
-            a(@click="roll('wisdom', 'survival')") Survival {{ getSkillBonus('wisdom', 'survival') | decoratePositive }}
+        .attribute-column
+          .attribute-bg
+            .attribute-name WIS
+            .attribute-value {{ Character.wisdom }}
+            .attribute-modifier {{ Character.wisdom | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('wisdom') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'wisdom')") Saving Throw {{ getSkillBonus('wisdom', 'wisdom') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('animalHandling') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'animalHandling')") Animal Handling {{ getSkillBonus('wisdom', 'animalHandling') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('medicine') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'medicine')") Medicine {{ getSkillBonus('wisdom', 'medicine') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('perception') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'perception')") Perception {{ getSkillBonus('wisdom', 'perception') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('survival') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'survival')") Survival {{ getSkillBonus('wisdom', 'survival') | decoratePositive }}
 
-      .attribute-column
-        .attribute-name Charisma
-        .attribute-bg
-          .attribute-value {{ Character.charisma }}
-          .attribute-modifier {{ Character.charisma | getModifier | decoratePositive }}
-        .attribute-skills
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('charisma') ? 'skillStar' : '' ]")
-            a(@click="roll('charisma', 'charisma')") Saving Throw {{ getSkillBonus('charisma', 'charisma') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('deception') ? 'skillStar' : '' ]")
-            a(@click="roll('charisma', 'deception')") Deception {{ getSkillBonus('charisma', 'deception') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('intimidation') ? 'skillStar' : '' ]")
-            a(@click="roll('charisma', 'intimidation')") Intimidation {{ getSkillBonus('charisma', 'intimidation') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('performance') ? 'skillStar' : '' ]")
-            a(@click="roll('charisma', 'performance')") Performance {{ getSkillBonus('charisma', 'performance') | decoratePositive }}
-          .attribute-skills-item(v-bind:class="[ Character.skills.includes('persuasion') ? 'skillStar' : '' ]")
-            a(@click="roll('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
+        .attribute-column
+          .attribute-bg
+            .attribute-name CHA
+            .attribute-value {{ Character.charisma }}
+            .attribute-modifier {{ Character.charisma | getModifier | decoratePositive }}
+          .attribute-skills
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('charisma') ? 'skillStar' : '' ]")
+              a(@click="roll('charisma', 'charisma')") Saving Throw {{ getSkillBonus('charisma', 'charisma') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('deception') ? 'skillStar' : '' ]")
+              a(@click="roll('charisma', 'deception')") Deception {{ getSkillBonus('charisma', 'deception') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('intimidation') ? 'skillStar' : '' ]")
+              a(@click="roll('charisma', 'intimidation')") Intimidation {{ getSkillBonus('charisma', 'intimidation') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('performance') ? 'skillStar' : '' ]")
+              a(@click="roll('charisma', 'performance')") Performance {{ getSkillBonus('charisma', 'performance') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('persuasion') ? 'skillStar' : '' ]")
+              a(@click="roll('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
+
+      .md-layout.md-layout-item.golden-border.md-large-size-50.md-xlarge-size-50
+        .md-layout-item.md-large-size-33 {{ armorClass }} Armor Class
+        .md-layout-item.md-large-size-33 {{ maxHealth }} Hit Points
+        .md-layout-item.md-large-size-33 Initiative
+        .md-layout-item.md-large-size-100
+          table(width="100%")
+            tr
+              td Attack
+              td With
+              td Damage
+            tr
+              td +7
+              td
+                md-field
+                  label(for="charWeapon1") Weapon Melee
+                  md-select(v-model="Character.weaponMelee" name="charWeapon1")
+                    md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }} {{ weapon.damageType}})
+              td 1d6 + 7
 
     .md-layout.golden-border
       .md-layout-item Something
+         md-field
+          label Name
+          md-input(v-model="Character.name")
+      
     
     .md-layout
       .md-layout-item

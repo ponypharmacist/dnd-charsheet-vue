@@ -17,6 +17,9 @@ export default {
       classes: classes,
       backgrounds: backgrounds,
       feats: feats,
+      armors: armors,
+      weaponsM: weaponsM,
+      weaponsR: weaponsR,
       // UI stuff
       isLoading: true,
       updated: false,
@@ -26,15 +29,44 @@ export default {
       Character: []
     }
   },
+
+  // Mounted
   mounted() {
     this.charID = this.$route.params.charID;
     this.getCharacter(this.charID);
   },
+
+  // Computed
   computed: {
     proficiencyBonus: function() {
       return 2;
+    },
+    armorClass: function() {
+      let attributeModifier = getModifier(this.Character.dexterity);
+      let baseAC = 10;
+      let shield = this.Character.shield ? 2 : 0;
+      if (this.Character.clas == 'barbarian' && this.Character.armor == 'noArmor' && !this.Character.shield) {
+        attributeModifier += getModifier(this.Character.Constitution);
+      } else if (this.Character.clas == 'monk' && this.Character.armor == 'noArmor' && !this.Character.shield) {
+        attributeModifier += getModifier(this.Character.wisdom);
+      } else if (this.armors[this.Character.armor].type == 'heavy') {
+        baseAC = this.armors[this.Character.armor].ac;
+        attributeModifier = 0;
+      } else if (this.armors[this.Character.armor].type == 'medium') {
+        baseAC = this.armors[this.Character.armor].ac;
+        attributeModifier = getModifier(this.Character.dexterity) >= 2 ? 2 : getModifier(this.Character.dexterity);
+      } else {
+        baseAC = this.armors[this.Character.armor].ac;
+      }
+      return baseAC + attributeModifier + shield;
+    },
+    maxHealth: function() {
+      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
+      let bonus = getModifier(this.Character.constitution);
+      return this.classes[this.Character.clas].hitDie + bonus + toughness;
     }
   },
+
   // Filters
   filters: {
     capitalize,
@@ -45,6 +77,7 @@ export default {
       return number + bonus;
     }
   },
+
   // Methods
   methods: {
     updateRollQueue (date, string, note) {
@@ -76,48 +109,22 @@ export default {
       axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`)
         .then((response) => {
           this.isLoading = false;
-          console.log(response.data);
+          console.log('Got my character from API!');
           this.Character = response.data;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
     // API calls
     updateAPI () {
-    let updateCharacter = {
-      name: this.Character.name,
-      level: this.Character.level,
-      race: this.Character.race,
-      subrace: this.Character.subrace,
-      clas: this.Character.clas,
-      background: this.Character.background,
-
-      strength: this.Character.strength,
-      dexterity: this.Character.dexterity,
-      constitution: this.Character.constitution,
-      intelligence: this.Character.intelligence,
-      wisdom: this.Character.wisdom,
-      charisma: this.Character.charisma,
-
-      healthBonusFromFeats: this.Character.healthBonusFromFeats,
-      maxHealth: this.Character.maxHealth,
-      speed: this.Character.speed,
-      gold: this.Character.gold,
-      items: this.Character.items,
-
-      languages: this.Character.languages,
-      proficienciesCombat: this.Character.proficienciesCombat,
-      tools: this.Character.tools,
-      feats: this.Character.feats,
-      skills: this.Character.skills
-    }
-    console.log(updateCharacter);
+    let updateCharacter = this.Character;
     let charID = this.charID;
     console.log(charID);
     axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
       .then((response) => {
-        console.log(response);
+      console.log('Sent my character to API!');
         this.updated = true;
       })
       .catch((error) => {
