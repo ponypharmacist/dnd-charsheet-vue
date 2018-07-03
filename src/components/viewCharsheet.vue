@@ -5,7 +5,7 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
-import { races, backgrounds, classes, feats, armors, weapons } from '../tables';
+import { races, backgrounds, classes, feats, armors, weaponsM, weaponsR } from '../tables';
 export default {
   name:'viewCharsheet',
   components: { Spinner },
@@ -21,7 +21,7 @@ export default {
       isLoading: true,
       updated: false,
       showSnackbar: false,
-      snackMessage: 'none',
+      rollQueue: ['One', 'Two', 'Three'],
       // Character stuff
       Character: []
     }
@@ -35,6 +35,7 @@ export default {
       return 2;
     }
   },
+  // Filters
   filters: {
     capitalize,
     decoratePositive,
@@ -44,17 +45,31 @@ export default {
       return number + bonus;
     }
   },
+  // Methods
   methods: {
+    updateRollQueue (date, string, note) {
+      let rollObject = {
+        date: date,
+        string: string,
+        note: note
+      };
+      this.rollQueue.shift();
+      this.rollQueue.push(rollObject);
+    },
     getSkillBonus (attribute, skill) {
       let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;
       return profBonus + getModifier(this.Character[attribute]);
     },
     roll(attribute, skill) {
+      let dateWithouthSecond = new Date();
+      let prettyDate = dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       let bonus = this.getSkillBonus(attribute, skill);
       let rollResult = rollDice(20);
       let criticalSuccess = rollResult == 20 ? ' CRITICAL SUCCESS!' : '';
       let criticalFail = rollResult == 1 ? ' CRITICAL FAIL!' : '';
-      this.snackMessage = 'You roll ' + skill + ' for ' + (rollResult + bonus) + '.' + criticalSuccess + criticalFail;
+      let updateString = 'You roll ' + capitalize(skill) + ' for ' + (rollResult + bonus) + '. ';
+      let note = criticalSuccess + criticalFail;
+      this.updateRollQueue(prettyDate, updateString, note);
     },
     getCharacter (charID) {
       console.log(charID);
@@ -68,6 +83,7 @@ export default {
           console.log(error);
         });
     },
+    // API calls
     updateAPI () {
     let updateCharacter = {
       name: this.Character.name,
@@ -109,7 +125,7 @@ export default {
         this.updated = false;
       });
     }
-  }
+  } // end of methods
 }
 </script>
 

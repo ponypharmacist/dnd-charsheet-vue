@@ -53,6 +53,9 @@ h4
 .mt-1
   margin-top: 1rem
 
+.ml-1
+  margin-left: 1rem
+
 // Dialogs
 .dialog
 
@@ -185,6 +188,31 @@ h4
     font-size: 1rem
     color: #aaa
 
+// Roll log window
+.roll-queue
+  position: absolute
+  z-index: 10
+  width: 420px
+  left: 50%
+  top: 12px
+  margin-left: -200px
+  border-radius: 12px
+  background-color: rgba(0,0,0,0.5)
+  border: 1px solid rgba(255,255,255,0.25)
+  padding: 10px 16px
+  color: #ecbe57
+
+.roll-item
+
+.roll-date
+  color: #aaa
+  font-size: 10px
+
+.roll-string
+
+.roll-note
+  font-weight: bold
+
 // Attribute columns
 .character-attributes
   display: flex
@@ -208,26 +236,24 @@ h4
 
 .attribute-value
   display: inline-block
-  position: relative
-  top: -0.5rem
-  padding: 0.95rem 0 0
+  padding: 0
   width: 3rem
   height: 3rem
+  line-height: 3rem
   text-align: center
   font-size: 1.5rem
-  background: transparent url('assets/frame-square.svg') no-repeat center top / cover
+  background-color: rgba(236,190,90,0.15)
   margin-right: 0.75rem
 
 .attribute-modifier
   display: inline-block
-  position: relative
-  top: -0.5rem
-  padding: 1.45rem 0 0
-  width: 4rem
-  height: 4rem
+  padding: 0
+  width: 3rem
+  height: 3rem
+  line-height: 3rem
   text-align: center
   font-size: 1.5rem
-  background: transparent url('assets/frame-dodec.svg') no-repeat
+  background-color: rgba(236,190,90,0.15)
 
 .attribute-skills
 
@@ -240,6 +266,12 @@ h4
   &.skillStar
     background-color: rgba(236,190,90,0.15)
 
+  a
+    color: #ecbe57
+    cursor: pointer
+    border-bottom: 1px dashed
+    text-decoration: none!important
+
 .skillStar::before
   position: absolute
   width: 16px
@@ -248,12 +280,6 @@ h4
   margin-top: 5px
   content: ''
   background: transparent url('assets/attribute.svg') repeat-y center top / cover
-
-.roll-button
-  position: relative
-  float: right
-  margin: 3px 0 0
-  border: none
 
 @media screen and (max-width: 1280px)
   .feat-list
