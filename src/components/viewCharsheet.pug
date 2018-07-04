@@ -144,10 +144,27 @@
               td 1d6 + 7
 
     .md-layout
-      .md-layout-item.golden-border.md-xlarge-size-30
-        md-field
-          label Items
-          md-textarea(v-model="Character.items" md-autogrow)
+      .md-layout.md-layout-item.golden-border.md-xlarge-size-30
+        .md-layout-item.md-xlarge-size-25
+          md-field.money-input
+            label Copper
+            md-input(v-model="Character.copper" type="number")
+        .md-layout-item.md-xlarge-size-25
+          md-field.money-input
+            label Silver
+            md-input(v-model="Character.copper" type="number")
+        .md-layout-item.md-xlarge-size-25
+          md-field.money-input
+            label Gold
+            md-input(v-model="Character.copper" type="number")
+        .md-layout-item.md-xlarge-size-25
+          md-field.money-input
+            label Platinum
+            md-input(v-model="Character.copper" type="number")
+        .md-layout-item.md-xlarge-size-100
+          md-field
+            label Items
+            md-textarea(v-model="Character.items" md-autogrow)
 
       .md-layout-item.golden-border.md-xlarge-size-30
         md-field
