@@ -1116,15 +1116,15 @@ export const weaponsR = {
   },
   blowgun: {
     title: 'Blowgun',
-    damage: '',
+    damage: '1',
     damageType: 'piercing',
     category: 'martial',
     modifiers: [],
-    range: '0/0'
+    range: '25/100'
   },
   crossbowLight: {
     title: 'Crossbow, light',
-    damage: '',
+    damage: '1d8',
     damageType: 'piercing',
     category: 'simple',
     modifiers: ['twohanded'],
@@ -1132,26 +1132,26 @@ export const weaponsR = {
   },
   crossbowHand: {
     title: 'Crossbow, hand',
-    damage: '',
+    damage: '1d6',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: [],
-    range: '0/0'
+    modifiers: ['light'],
+    range: '30/120'
   },
   crossbowHeavy: {
     title: 'Crossbow, heavy',
-    damage: '',
+    damage: '1d10',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: [],
-    range: '0/0'
+    modifiers: ['heavy', 'twohanded'],
+    range: '100/400'
   },
   longbow: {
     title: 'Longbow',
-    damage: '',
+    damage: '1d8',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: [],
-    range: '0/0'
+    modifiers: ['heavy', 'twohanded'],
+    range: '150/600'
   }
 }
