@@ -269,7 +269,6 @@ export default {
       tools: this.characterTools,
       feats: this.characterFeats,
       skills: this.characterSkills
-      // ToDo: weapons, armor, saving throws
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)

@@ -64,6 +64,16 @@ export default {
       let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.Character.constitution);
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
+    },
+    weaponMeleeAttack: function() {
+      let finesse = this.weaponsM[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
+      let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
+      let modifier = finesse ? highestModifier : getModifier(this.Character.strength);
+      // ToDo: is proficient with this weapon?
+      return modifier + this.proficiencyBonus;
+    },
+    weaponRangedAttack: function() {
+      return getModifier(this.Character.dexterity) + this.proficiencyBonus;
     }
   },
 
@@ -91,17 +101,54 @@ export default {
       let criticalFail = rollResult == 1 ? ' CRITICAL FAIL!' : '';
       let updateString = 'You roll ' + capitalize(skill) + ' for ' + (rollResult + bonus) + '. ';
       let note = criticalSuccess + criticalFail;
-      this.updateRollQueue(this.prettyDate(), updateString, note);
+      this.updateRollQueue(updateString, note);
     },
-    rollAttribute (attribute) {
+    rollAttribute (attribute, title = false) {
       let rollResult = rollDice(20);
       let bonus = getModifier(this.Character[attribute]);
-      let updateString = 'You roll ' + capitalize(attribute) + ' for ' + (rollResult + bonus) + '. ';
-      this.updateRollQueue(this.prettyDate(), updateString);
+      let name = title ? title : attribute;
+      let updateString = 'You roll ' + capitalize(name) + ' for ' + (rollResult + bonus) + '. ';
+      this.updateRollQueue(updateString);
     },
-    updateRollQueue (date, string, note) {
+    rollAttack (weapon) {
+      let weaponName = this.weaponsM[this.Character[weapon]].title;
+      let rollResult = rollDice(20);
+      let bonus = this.weaponMeleeAttack;
+      let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
+      let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
+      let note = criticalSuccess + criticalFail;
+      let updateString = 'You attack with ' + weaponName + ' and roll ' + (rollResult + bonus) + '. ';
+      this.updateRollQueue(updateString, note);
+    },
+    rollDamage (weapon) {
+      let weaponName = this.weaponsM[this.Character[weapon]].title;
+      let weaponDamage = this.weaponsM[this.Character[weapon]].damage;
+      let rollResult = rollString(weaponDamage);
+      let bonus = this.weaponMeleeAttack;
+      let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
+      this.updateRollQueue(updateString);
+    },
+    rollAttackRanged (weapon) {
+      let weaponName = this.weaponsR[this.Character[weapon]].title;
+      let rollResult = rollDice(20);
+      let bonus = this.weaponMeleeAttack;
+      let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
+      let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
+      let note = criticalSuccess + criticalFail;
+      let updateString = 'You attack with ' + weaponName + ' and roll ' + (rollResult + bonus) + '. ';
+      this.updateRollQueue(updateString, note);
+    },
+    rollDamageRanged (weapon) {
+      let weaponName = this.weaponsR[this.Character[weapon]].title;
+      let weaponDamage = this.weaponsR[this.Character[weapon]].damage;
+      let rollResult = rollString(weaponDamage);
+      let bonus = this.weaponMeleeAttack;
+      let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
+      this.updateRollQueue(updateString);
+    },
+    updateRollQueue (string, note) {
       let rollObject = {
-        date: date,
+        date: this.prettyDate(),
         string: string,
         note: note
       };

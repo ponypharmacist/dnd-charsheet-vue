@@ -112,52 +112,78 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('persuasion') ? 'skillStar' : '' ]")
               a(@click="roll('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
 
-      .md-layout.md-layout-item.golden-border.md-large-size-50.md-xlarge-size-40
-        .md-layout-item.md-xlarge-size-33 {{ armorClass }} Armor Class
-        .md-layout-item.md-xlarge-size-33 {{ maxHealth }} Hit Points
-        .md-layout-item.md-xlarge-size-33 Initiative
-        .md-layout-item.md-xlarge-size-100
+      .md-layout.md-layout-item.golden-border.md-large-size-50.md-xlarge-size-40.align-top
+        .md-layout-item.md-medium-size-100
+          .armor-class
+            .armor-class-value {{ armorClass }} 
+            .armor-class-text Armor Class
+          .hp
+            .hp-wrap
+              .hp-controls
+                .hp-controls-plus(@click="Character.currentHealth++")
+                .hp-controls-minus(@click="Character.currentHealth--")
+              .hp-value-current     
+                input(v-model="Character.currentHealth")
+              .hp-value {{ Character.maxHealth }}
+            .hp-text Hit Points
+          .initiative
+            .initiative-value {{ Character.dexterity | getModifier | decoratePositive }}
+            .initiative-text
+              a.roll-link(@click="rollAttribute('dexterity', 'Initiative')") Initiative
+        .md-layout-item.md-medium-size-100
           table(width="100%")
             tr
-              td +7
-              td
+              td(colspan="2")
                 md-field
                   label(for="charArmor") Armor
                   md-select(v-model="Character.armor" name="charArmor")
                     md-option(v-for="(armor, key) in armors" v-bind:key="armors[armor]" v-bind:value="key") {{ armor.title }} (AC: {{ armor.ac }})
-              td 1d6 + 7
             tr
-              td +7
               td
                 md-field
-                  label(for="charWeapon1") Weapon Melee
+                  label(for="charWeapon1") Melee Weapon
                   md-select(v-model="Character.weaponMelee" name="charWeapon1")
-                    md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }} {{ weapon.damageType}})
-              td 1d6 + 7
+                    md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+              td
+                a.roll-link(@click="rollAttack('weaponMelee')") {{ weaponMeleeAttack | decoratePositive }} Attack
+                | , 
+                a.roll-link(@click="rollDamage('weaponMelee')") {{ this.weaponsM[this.Character.weaponMelee].damage }} + {{ weaponMeleeAttack }} Damage
             tr
-              td +7
               td
                 md-field
-                  label(for="charWeapon2") Weapon Melee Alternative
+                  label(for="charWeapon2") Alternative Melee Weapon
                   md-select(v-model="Character.weaponMelee2" name="charWeapon2")
-                    md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }} {{ weapon.damageType}})
-              td 1d6 + 7
+                    md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+              td
+                a.roll-link(@click="rollAttack('weaponMelee2')") {{ weaponMeleeAttack | decoratePositive }} Attack
+                | , 
+                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMeleeAttack }} Damage
+            tr
+              td
+                md-field
+                  label(for="charWeaponRanged") Ranged Weapon
+                  md-select(v-model="Character.weaponRanged" name="charWeaponRanged")
+                    md-option(v-for="(weapon, key) in weaponsR" v-bind:key="weaponsR[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+              td
+                a.roll-link(@click="rollAttackRanged('weaponRanged')") {{ weaponRangedAttack | decoratePositive }} Attack
+                | , 
+                a.roll-link(@click="rollDamageRanged('weaponRanged')") {{ this.weaponsR[this.Character.weaponRanged].damage }} + {{ weaponRangedAttack }} Damage
 
     .md-layout
-      .md-layout.md-layout-item.golden-border.md-xlarge-size-30
-        .md-layout-item.md-xlarge-size-25
+      .md-layout.md-layout-item.golden-border.md-xlarge-size-50.align-top
+        .md-layout-item.md-large-size-25.md-xlarge-size-25
           md-field.money-input
             label Copper
             md-input(v-model="Character.copper" type="number")
-        .md-layout-item.md-xlarge-size-25
+        .md-layout-item.md-large-size-25.md-xlarge-size-25
           md-field.money-input
             label Silver
             md-input(v-model="Character.copper" type="number")
-        .md-layout-item.md-xlarge-size-25
+        .md-layout-item.md-large-size-25.md-xlarge-size-25
           md-field.money-input
             label Gold
             md-input(v-model="Character.copper" type="number")
-        .md-layout-item.md-xlarge-size-25
+        .md-layout-item.md-large-size-25.md-xlarge-size-25
           md-field.money-input
             label Platinum
             md-input(v-model="Character.copper" type="number")
@@ -165,19 +191,17 @@
           md-field
             label Items
             md-textarea(v-model="Character.items" md-autogrow)
+          md-field
+            label Combat Proficiencies
+            md-textarea(v-model="Character.proficienciesCombat" md-autogrow)
+          md-field
+            label Tool Proficiencies
+            md-textarea(v-model="Character.tools" md-autogrow)
+          md-field
+            label Languages
+            md-textarea(v-model="Character.languages" md-autogrow)
 
-      .md-layout-item.golden-border.md-xlarge-size-30
-        md-field
-          label Combat Proficiencies
-          md-textarea(v-model="Character.proficienciesCombat" md-autogrow)
-        md-field
-          label Tool Proficiencies
-          md-textarea(v-model="Character.tools" md-autogrow)
-        md-field
-          label Items
-          md-textarea(v-model="Character.languages" md-autogrow)
-
-      .md-layout-item.golden-border.md-xlarge-size-40
+      .md-layout-item.golden-border.md-xlarge-size-50
         .md-title Feats
         ul.feat-list.feat-list-view
           li.feat-list-item(v-for="feat in Character.feats")

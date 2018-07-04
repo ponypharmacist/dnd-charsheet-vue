@@ -38,6 +38,9 @@ h4
 // Tables
 
 // Kostyli
+.align-top
+  align-content: flex-start
+
 .m-1
   margin: 1rem
 
@@ -233,10 +236,6 @@ h4
   display: inline-block
   font-size: 1.125rem
   margin-right: 6px
-  color: #fff
-  cursor: pointer
-  border-bottom: 1px dashed rgba(255,255,255,0.5)
-  text-decoration: none!important
 
 .attribute-bg
   display: inline-block
@@ -271,7 +270,9 @@ h4
   height: 26px
   line-height: 26px
 
-.attribute-skills-item a
+.attribute-skills-item a,
+.attribute-name,
+.roll-link
   color: #fff
   cursor: pointer
   border-bottom: 1px dashed rgba(255,255,255,0.5)
@@ -281,8 +282,102 @@ h4
   font-weight: bold
   color: #ecbe57!important
 
+// AC, HP, Initiative
+.armor-class,
+.hp,
+.initiative
+  text-align: center
+  width: 30%
+  margin: 0 1.5%
+  float: left
+  height: 80px
+
+.armor-class-value,
+.initiative-value
+  display: inline-block
+  height: 48px
+  line-height: 48px
+  text-align: center
+  width: 48px
+  font-size: 1.5rem
+  font-weight: bold
+  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
+
+.armor-class-text,
+.initiative-text
+  font-size: 1rem
+  padding-top: 8px
+
+.hp-text
+  font-size: 1rem
+  padding-top: 5px
+
+.hp-wrap
+  display: inline-block
+
+.hp-value-current,
+.hp-value
+  float: left
+  display: inline-block
+  font-size: 1rem
+  font-weight: bold
+  width: 48px
+  height: 48px
+  line-height: 48px
+  text-align: center
+  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
+
+.hp-value-current
+  margin-right: 12px
+  background: transparent url('assets/deco-sq-plain.svg') no-repeat 50% 50% / cover
+
+.hp-value-current input
+  font-size: 1rem
+  font-weight: bold
+  width: 48px
+  height: 48px
+  text-align: center
+  color: #fff
+  background-color: rgba(255,255,255,0.15)
+  border: none
+
+.hp-controls
+  float: left
+  display: inline-block
+  width: 24px
+  height: 48px
+  margin-right: 6px
+
+.hp-controls-plus,
+.hp-controls-minus
+  display: block
+  width: 20px
+  height: 20px
+  border-radius: 3px
+  margin: 2px 2px 2px
+
+.hp-controls-plus
+  background: rgba(255,255,255,0.09) url('assets/plus.svg') no-repeat 50% 50% / 12px 12px
+
+.hp-controls-minus
+  margin-top: 4px
+  background: rgba(255,255,255,0.09) url('assets/minus.svg') no-repeat 50% 50% / 12px 12px
+
+.hp-controls-plus:hover,
+.hp-controls-minus:hover
+  background-color: rgba(255,255,255,0.16)
+  cursor: pointer
+
 // Money and loot inputs
 .money-input
+  width: 90%
+
+.money-input .md-input
+  min-width: 50px
+
+@media screen and (max-width: 1920px)
+  .attribute-column
+    width: 15%
 
 @media screen and (max-width: 1280px)
   .feat-list

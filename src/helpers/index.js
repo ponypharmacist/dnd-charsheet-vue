@@ -17,8 +17,8 @@ export const rollDice = (die, times = 1, modifier = 0) => {
 // Dice expression (e.g. '2d6+2') roller. Expression is a String.
 export const rollString = (expression) => {
   let times = parseInt(expression.split(/[d+]/)[0])
-  let die = parseInt(expression.split(/[d+]/)[1])
-  let modifier = parseInt(expression.split(/[d+]/)[2])
+  let die = parseInt(expression.split(/[d+]/)[1]) ? parseInt(expression.split(/[d+]/)[1]) : 1
+  let modifier = parseInt(expression.split(/[d+]/)[2]) ? parseInt(expression.split(/[d+]/)[2]) : 0
   return rollDice(die, times, modifier)
 }
 
