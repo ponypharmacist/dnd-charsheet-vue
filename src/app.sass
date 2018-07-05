@@ -1,7 +1,7 @@
 @import "./sass/golden-borders"
 
 @import "~vue-material/dist/theme/engine"
-@include md-register-theme("default", (primary: white, accent: #ecbe57, theme: dark))
+@include md-register-theme("default", (primary: #fff, accent: #ecbe57, theme: dark))
 @import "~vue-material/dist/theme/all"
 
 #app
@@ -11,11 +11,14 @@
   color: #ecbe57
 
 body
-  background: #000 url('assets/bg-simple-1440.56.jpg') repeat-y center top / cover
+  background: #1e1f24 url('assets/bg-simple-1440.56.jpg') repeat-y center top / cover
   background-attachment: fixed
 
 .container
   margin: 0
+
+a
+  color: #fff
 
 // Grand Typographics
 h3
@@ -41,23 +44,14 @@ h4
 .align-top
   align-content: flex-start
 
-.m-1
-  margin: 1rem
-
 .mt-0
   margin-top: 0!important
 
-.mb-1
-  margin-bottom: 1rem
-
-.mb-2
-  margin-bottom: 2rem
+.pr-1
+  padding-right: 1rem
 
 .mt-1
   margin-top: 1rem
-
-.ml-1
-  margin-left: 1rem
 
 // Dialogs
 .dialog
@@ -67,6 +61,7 @@ h4
 
 // View Characters
 .delete-icon
+  display: none
   cursor: pointer
   text-decoration: none
 
@@ -85,9 +80,6 @@ h4
 
 .md-field
   margin-bottom: 12px
-
-.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
-  min-height: 76px
 
 .md-checkbox .md-checkbox-container::before
   width: 24px
@@ -133,23 +125,47 @@ h4
   &:nth-child(2)
     margin: 0
 
+.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
+  min-height: 76px
+
+.md-has-textarea
+  background-color: rgba(255,255,255,0.05)
+  padding-left: 6px
+
+.md-field.md-has-textarea .md-textarea
+  padding: 4px 8px 8px
+
+.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
+  padding: 0 12px
+
+.md-field.md-has-textarea label
+  padding-left: 12px
+
+.md-field.md-has-textarea:not(.md-autogrow) label
+  padding-left: 0
+
+.combat-stat-title
+  display: inline-block
+  margin-right: 12px
+
 // == Texts
 .feat-list
   list-style-type: none
   padding-left: 0
+  margin: 0.25rem 0
   column-count: 3
 
-.feat-list.feat-list-view
+.view-charsheet .feat-list
   column-count: 2
 
 .feat-list-item
   width: 100%
   display: inline-block
-  margin-bottom: 0.75rem
+  margin-bottom: 0.5rem
 
 .feat-name
   font-weight: bold
-  font-size: 1rem
+  font-size: 0.875rem
 
 .feat-description
   font-style: italic
@@ -164,7 +180,7 @@ h4
   position: relative
   background-color: #111
   color: #ecbe57
-  padding: 0.5rem 1.5rem
+  margin: 0 0 1rem
 
 .character-name
   font-size: 1.75rem
@@ -175,37 +191,18 @@ h4
   color: #aaa
   font-style: italic
 
-.character-level
-  position: absolute
-  right: 1rem
-  top: 50%
-  margin-top: -2.25rem
-  border: 3px solid #ecbe57
-  border-radius: 50%
-  width: 4.5rem
-  height: 4.5rem
-  text-align: center
-  font-weight: bold
-  font-size: 1.5rem
-  line-height: 2rem
-  padding: 1rem 0
-
-  span
-    font-size: 1rem
-    color: #aaa
-
 // Roll log window
 .roll-queue
   position: absolute
+  text-align: center
   z-index: 10
-  width: 320px
+  width: 440px
   left: 50%
-  top: 38px
-  margin-left: -160px
-  border-radius: 12px
-  background-color: rgba(0,0,0,0.75)
-  border: 1px solid rgba(255,255,255,0.25)
-  padding: 10px 16px
+  top: 4px
+  margin-left: -220px
+  border-radius: 6px
+  background-color: rgba(255,255,255,0.1)
+  padding: 12px 16px 2px
   color: #ecbe57
 
 .roll-date
@@ -264,9 +261,9 @@ h4
   background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
 
 .attribute-skills
+  font-size: 16px
 
 .attribute-skills-item
-  font-size: 16px
   height: 26px
   line-height: 26px
 
@@ -288,12 +285,15 @@ h4
 .initiative
   text-align: center
   width: 30%
-  margin: 0 1.5%
+  margin: 4px 1.5% 0
   float: left
-  height: 80px
+  height: 48px
 
 .armor-class-value,
-.initiative-value
+.initiative-value,
+.hp-value-current,
+.hp-value
+  position: relative
   display: inline-block
   height: 48px
   line-height: 48px
@@ -303,29 +303,42 @@ h4
   font-weight: bold
   background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
 
-.armor-class-text,
-.initiative-text
-  font-size: 1rem
-  padding-top: 8px
+.initiative-value
+  border-bottom: none
+  background-color: rgba(255,255,255,0.075)
 
-.hp-text
-  font-size: 1rem
-  padding-top: 5px
+  &:hover
+    background-color: rgba(255,255,255,0.15)
+
+.armor-class-value::before,
+.hp-wrap::before,
+.initiative-value::before
+  position: absolute
+  content: "Armor Class"
+  font-size: 12px
+  line-height: 10px
+  font-weight: bold
+  width: 80px
+  top: -16px
+  left: 50%
+  margin-left: -40px
+
+.initiative-value::before
+  content: "Initiative"
+
+.hp-wrap::before
+  content: "HP Current / Max"
+  width: 100px
+  margin-left: -50px
 
 .hp-wrap
+  position: relative
   display: inline-block
 
 .hp-value-current,
 .hp-value
   float: left
-  display: inline-block
   font-size: 1rem
-  font-weight: bold
-  width: 48px
-  height: 48px
-  line-height: 48px
-  text-align: center
-  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
 
 .hp-value-current
   margin-right: 12px
@@ -345,7 +358,6 @@ h4
   float: left
   display: inline-block
   width: 24px
-  height: 48px
   margin-right: 6px
 
 .hp-controls-plus,
@@ -370,15 +382,147 @@ h4
 
 // Money and loot inputs
 .money-input
-  width: 90%
+  width: 30%
+  padding-left: 36px
+  background-color: rgba(255,255,255,0.1)
+  border-radius: 6px
+  background-repeat: no-repeat
+  background-position: 12px 9px
+  background-size: 30px 30px
+
+  &::after
+    display: none
+
+  label
+    text-align: center
+    width: 100%
+    padding-left: 36px
+
+  input
+    text-align: center
+
+.view-charsheet .money-input
+  width: 100%
+
+.money-wrap
+  padding-right: 16px
+
+.money-wrap:nth-child(4)
+  padding-right: 0
 
 .money-input .md-input
   min-width: 50px
 
+.copper-coin
+  background-image: url('assets/coin-copper.svg')
+
+.silver-coin
+  background-image: url('assets/coin-silver.svg')
+
+.gold-coin
+  background-image: url('assets/coin-gold.svg')
+
+.platinum-coin
+  background-image: url('assets/coin-platinum.svg')
+
 @media screen and (max-width: 1920px)
+  // Container
+  .view-charsheet
+    width: 1200px
+    margin: 24px auto
+
   .attribute-column
-    width: 15%
+    width: auto
 
 @media screen and (max-width: 1280px)
+  // Container
+  .view-charsheet
+    margin: 24px auto
+
   .feat-list
     column-count: 1
+
+@media screen and (max-width: 960px)
+  // Container
+  .view-charsheet
+    width: 100%
+    margin: 0
+
+  .roll-queue
+    display: block
+    position: relative
+    width: 100%
+    left: 0
+    margin-left: 0
+    margin-bottom: 10px
+    padding: 4px 0
+
+  .attribute-column
+    min-width: 145px
+
+  .view-charsheet .feat-list
+    column-count: 1
+
+@media screen and (max-width: 600px)
+
+  .attribute-column
+    margin-bottom: 8px
+
+  .attribute-skills-item
+    height: 24px
+    line-height: 24px
+    font-size: 14px
+
+  .attribute-value,
+  .attribute-modifier
+    display: inline-block
+    height: 36px
+    line-height: 36px
+    text-align: center
+
+  .attribute-value
+    width: 36px
+    font-size: 1.125rem
+    color: #fff
+    margin-right: 0.25rem
+
+  .attribute-modifier
+    width: 36px
+    font-size: 1.25rem
+
+  .combat-stats
+    margin-top: 15px
+
+  .armor-class-value,
+  .initiative-value,
+  .hp-value-current,
+  .hp-value
+    height: 36px
+    line-height: 36px
+    width: 36px
+    font-size: 1.25rem
+
+  .hp-value-current
+    margin-right: 4px
+
+  .hp-value-current input
+    width: 36px
+    height: 36px
+
+  .armor-class,
+  .hp,
+  .initiative
+    width: 30%
+    margin: 0
+    height: 60px
+
+  .hp
+    width: 40%
+
+  .hp-controls-plus,
+  .hp-controls-minus
+    display: block
+    width: 18px
+    height: 18px
+    border-radius: 3px
+    margin: 0 2px

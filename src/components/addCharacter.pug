@@ -60,7 +60,7 @@
   
   form(v-if="!submitted")
     .md-layout
-      .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-50.md-medium-size-50.md-large-size-33.md-xlarge-size-33
+      .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-title Rejoice, for it is...
         md-field
           label Character Name
@@ -96,21 +96,21 @@
                      :charismaBonus="charismaBonus")
 
       .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
-        .md-title
+        .combat-stat-title
           md-icon security 
           |  AC: {{ armorClass }}
-        .md-title
+        .combat-stat-title
           md-icon favorite 
           |  Health: {{ maxHealth }}
-        .md-title
+        .combat-stat-title
           md-icon track_changes 
           |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
-        .md-title
+        .combat-stat-title
           md-icon verified_user 
           |  Speed: {{ characterSpeed }}
-        .md-title
+        .combat-stat-title
           md-icon vibration 
-          |  Awareness: {{ characterWisdom | getModifier | add(10) }}
+          |  Passive Perception: {{ characterWisdom | getModifier | add(10) }}
           
         md-field
           md-icon sms
@@ -122,10 +122,9 @@
         md-field.mt-0
           label Tool proficiencies
           md-textarea(v-model="characterToolsList")           
-        md-field
-          md-icon fingerprint
+        md-field.money-input.gold-coin
           label Gold
-          md-input(v-model="characterGold" type="number")
+          md-input(v-model="characterGold")
         md-field.mt-0
           label Equipment and loot
           md-textarea(v-model="characterItemsList")

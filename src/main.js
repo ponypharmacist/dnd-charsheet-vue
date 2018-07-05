@@ -9,7 +9,6 @@ import VueMaterial from 'vue-material'
 // separate components can also be imported
 // import { MdField, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.css'
-import 'vue-material/dist/theme/default-dark.css'
 
 Vue.use(VueSweetalert2)
 Vue.use(VueMaterial)

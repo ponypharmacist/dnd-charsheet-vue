@@ -1,27 +1,25 @@
-.container
+.container.view-charsheet.golden-border
   .md-layout.mt-1(v-if="isLoading")
     template
       spinner
 
   .character-sheet(v-if="!isLoading")
+    .character-bar
+      .character-name {{ Character.name | capitalize }}
+      .character-race-class 
+        span Lvl. {{ Character.level }} 
+        span(v-if="!Character.subrace") {{ Character.race | capitalize }}
+        span(v-if="Character.subrace")  {{ Character.subrace | capitalize }} 
+        span {{ Character.clas | capitalize }}
+
     .roll-queue
       .queue-item(v-for="roll in rollQueue") 
         span.roll-date {{ roll.date }} 
         span.roll-string {{ roll.string }} 
         span.roll-note {{ roll.note }}
-    
-    .character-bar
-      .character-name {{ Character.name | capitalize }}
-      .character-race-class 
-        span(v-if="!Character.subrace") {{ Character.race | capitalize }}
-        span(v-if="Character.subrace")  {{ Character.subrace | capitalize }} 
-        span {{ Character.clas | capitalize }}
-      .character-level 
-        span lv. 
-        | {{ Character.level }}
 
     .md-layout
-      .md-layout-item.character-attributes.golden-border.md-large-size-50.md-xlarge-size-60
+      .md-layout-item.character-attributes.md-medium-size-100.md-large-size-100.md-xlarge-size-100
         .attribute-column
           .attribute-bg
             a.attribute-name(@click="rollAttribute('strength')") STR
@@ -112,11 +110,10 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('persuasion') ? 'skillStar' : '' ]")
               a(@click="roll('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
 
-      .md-layout.md-layout-item.golden-border.md-large-size-50.md-xlarge-size-40.align-top
-        .md-layout-item.md-medium-size-100
+      .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top.pr-1
+        .md-layout-item.combat-stats.md-medium-size-100
           .armor-class
-            .armor-class-value {{ armorClass }} 
-            .armor-class-text Armor Class
+            .armor-class-value {{ armorClass }}
           .hp
             .hp-wrap
               .hp-controls
@@ -125,11 +122,8 @@
               .hp-value-current     
                 input(v-model="Character.currentHealth")
               .hp-value {{ maxHealth }}
-            .hp-text Hit Points
           .initiative
-            .initiative-value {{ Character.dexterity | getModifier | decoratePositive }}
-            .initiative-text
-              a.roll-link(@click="rollAttribute('dexterity', 'Initiative')") Initiative
+            .initiative-value.roll-link(@click="rollAttribute('dexterity', 'Initiative')") {{ Character.dexterity | getModifier | decoratePositive }}
         .md-layout-item.md-medium-size-100
           table(width="100%")
             tr
@@ -169,24 +163,23 @@
                 | , 
                 a.roll-link(@click="rollDamageRanged('weaponRanged')") {{ this.weaponsR[this.Character.weaponRanged].damage }} + {{ weaponRangedAttack }} Damage
 
-    .md-layout
-      .md-layout.md-layout-item.golden-border.md-xlarge-size-50.align-top
-        .md-layout-item.md-large-size-25.md-xlarge-size-25
-          md-field.money-input
+      .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
+        .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
+          md-field.money-input.copper-coin
             label Copper
-            md-input(v-model="Character.copper" type="number")
-        .md-layout-item.md-large-size-25.md-xlarge-size-25
-          md-field.money-input
+            md-input(v-model="Character.copper")
+        .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
+          md-field.money-input.silver-coin
             label Silver
-            md-input(v-model="Character.silver" type="number")
-        .md-layout-item.md-large-size-25.md-xlarge-size-25
-          md-field.money-input
+            md-input(v-model="Character.silver")
+        .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
+          md-field.money-input.gold-coin
             label Gold
-            md-input(v-model="Character.gold" type="number")
-        .md-layout-item.md-large-size-25.md-xlarge-size-25
-          md-field.money-input
+            md-input(v-model="Character.gold")
+        .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
+          md-field.money-input.platinum-coin
             label Platinum
-            md-input(v-model="Character.platinum" type="number")
+            md-input(v-model="Character.platinum")
         .md-layout-item.md-xlarge-size-100
           md-field
             label Items
@@ -201,9 +194,9 @@
             label Languages
             md-textarea(v-model="Character.languages" md-autogrow)
 
-      .md-layout-item.golden-border.md-xlarge-size-50
+      .md-layout-item.md-xlarge-size-50
         .md-title Feats
-        ul.feat-list.feat-list-view
+        ul.feat-list
           li.feat-list-item(v-for="feat in Character.feats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
