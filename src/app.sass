@@ -1,3 +1,4 @@
+@import "~vue-material/dist/vue-material.css"
 @import "./sass/golden-borders"
 
 @import "~vue-material/dist/theme/engine"
@@ -43,6 +44,11 @@ h4
 // Kostyli
 .align-top
   align-content: flex-start
+
+.overflow-scroll
+  overflow-y: scroll
+  overflow-x: hidden
+  max-height: 240px
 
 .mt-0
   margin-top: 0!important
@@ -136,7 +142,7 @@ h4
   padding: 4px 8px 8px
 
 .md-field.md-has-textarea:not(.md-autogrow) .md-textarea
-  padding: 0 12px
+  padding-left: 12px
 
 .md-field.md-has-textarea label
   padding-left: 12px
@@ -282,17 +288,27 @@ h4
 // AC, HP, Initiative
 .armor-class,
 .hp,
-.initiative
+.initiative,
+.speed
   text-align: center
-  width: 30%
+  min-width: 80px
   margin: 4px 1.5% 0
   float: left
   height: 48px
 
+.hp
+  min-width: 138px
+
+.hp-wrap
+  position: relative
+  display: inline-block
+  white-space: nowrap
+
 .armor-class-value,
 .initiative-value,
 .hp-value-current,
-.hp-value
+.hp-value,
+.speed-value
   position: relative
   display: inline-block
   height: 48px
@@ -312,7 +328,8 @@ h4
 
 .armor-class-value::before,
 .hp-wrap::before,
-.initiative-value::before
+.initiative-value::before,
+.speed-value::before
   position: absolute
   content: "Armor Class"
   font-size: 12px
@@ -323,29 +340,28 @@ h4
   left: 50%
   margin-left: -40px
 
-.initiative-value::before
-  content: "Initiative"
-
 .hp-wrap::before
   content: "HP Current / Max"
   width: 100px
-  margin-left: -50px
+  margin-left: -36px
 
-.hp-wrap
-  position: relative
-  display: inline-block
+.initiative-value::before
+  content: "Initiative"
+
+.speed-value::before
+  content: "Speed"
 
 .hp-value-current,
 .hp-value
   float: left
-  font-size: 1rem
 
 .hp-value-current
-  margin-right: 12px
+  margin-right: 8px
   background: transparent url('assets/deco-sq-plain.svg') no-repeat 50% 50% / cover
 
 .hp-value-current input
-  font-size: 1rem
+  float: left
+  font-size: 1.25rem
   font-weight: bold
   width: 48px
   height: 48px
@@ -496,7 +512,8 @@ h4
   .armor-class-value,
   .initiative-value,
   .hp-value-current,
-  .hp-value
+  .hp-value,
+  .speed-value
     height: 36px
     line-height: 36px
     width: 36px
@@ -511,13 +528,13 @@ h4
 
   .armor-class,
   .hp,
-  .initiative
-    width: 30%
+  .initiative,
+  .speed
     margin: 0
     height: 60px
 
   .hp
-    width: 40%
+    min-width: 114px
 
   .hp-controls-plus,
   .hp-controls-minus

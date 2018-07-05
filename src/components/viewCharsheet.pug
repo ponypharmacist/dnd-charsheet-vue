@@ -119,11 +119,13 @@
               .hp-controls
                 .hp-controls-plus(@click="Character.currentHealth++")
                 .hp-controls-minus(@click="Character.currentHealth--")
-              .hp-value-current     
+              .hp-value-current
                 input(v-model="Character.currentHealth")
               .hp-value {{ maxHealth }}
           .initiative
             .initiative-value.roll-link(@click="rollAttribute('dexterity', 'Initiative')") {{ Character.dexterity | getModifier | decoratePositive }}
+          .speed
+            .speed-value {{ Character.speed }}
         .md-layout-item.md-medium-size-100
           table(width="100%")
             tr
@@ -162,6 +164,11 @@
                 a.roll-link(@click="rollAttackRanged('weaponRanged')") {{ weaponRangedAttack | decoratePositive }} Attack
                 | , 
                 a.roll-link(@click="rollDamageRanged('weaponRanged')") {{ this.weaponsR[this.Character.weaponRanged].damage }} + {{ weaponRangedAttack }} Damage
+            tr
+              td(colspan="2")
+                md-field
+                  label Notes
+                  md-textarea(v-model="Character.notes" md-autogrow)
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
         .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap

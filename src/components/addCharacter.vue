@@ -271,7 +271,8 @@ export default {
       proficienciesCombat: this.characterProficienciesCombat.toString(),
       tools: this.characterTools,
       feats: this.characterFeats,
-      skills: this.characterSkills
+      skills: this.characterSkills,
+      notes: ''
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)

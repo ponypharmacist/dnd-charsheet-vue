@@ -31,8 +31,8 @@
   // Remaining skills dialog
   md-dialog.dialog(:md-active.sync="skillsDialogNext" :md-fullscreen="false")
     md-dialog-title Select {{ skillpoints }} skills
-    .md-layout(md-dynamic-height)
-      .md-layout-item
+    .md-layout
+      .md-layout-item.overflow-scroll
         md-checkbox(v-model="characterSkills" value="athletics") Athletics (Str)
         md-checkbox(v-model="characterSkills" value="animalHandling") Animal Handling (Wis)
         md-checkbox(v-model="characterSkills" value="medicine") Medicine (Wis)
