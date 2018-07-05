@@ -308,7 +308,8 @@ h4
 .initiative-value,
 .hp-value-current,
 .hp-value,
-.speed-value
+.speed-value,
+.profbonus-value
   position: relative
   display: inline-block
   height: 48px
@@ -329,7 +330,8 @@ h4
 .armor-class-value::before,
 .hp-wrap::before,
 .initiative-value::before,
-.speed-value::before
+.speed-value::before,
+.profbonus-value::before
   position: absolute
   content: "Armor Class"
   font-size: 12px
@@ -350,6 +352,9 @@ h4
 
 .speed-value::before
   content: "Speed"
+
+.profbonus-value::before
+  content: "Prof.Bonus"
 
 .hp-value-current,
 .hp-value

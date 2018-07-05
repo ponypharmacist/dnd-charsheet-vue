@@ -126,6 +126,8 @@
             .initiative-value.roll-link(@click="rollAttribute('dexterity', 'Initiative')") {{ Character.dexterity | getModifier | decoratePositive }}
           .speed
             .speed-value {{ Character.speed }}
+          .speed
+            .profbonus-value {{ proficiencyBonus | decoratePositive }}
         .md-layout-item.md-medium-size-100
           table(width="100%")
             tr
