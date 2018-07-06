@@ -145,7 +145,7 @@
               td
                 a.roll-link(@click="rollAttack('weaponMelee')") {{ weaponMeleeAttack | decoratePositive }} Attack
                 | , 
-                a.roll-link(@click="rollDamage('weaponMelee')") {{ this.weaponsM[this.Character.weaponMelee].damage }} + {{ weaponMeleeAttack }} Damage
+                a.roll-link(@click="rollDamage('weaponMelee')") {{ this.weaponsM[this.Character.weaponMelee].damage }} + {{ weaponMeleeDamage }} Damage
             tr
               td
                 md-field
@@ -155,7 +155,7 @@
               td
                 a.roll-link(@click="rollAttack('weaponMelee2')") {{ weaponMelee2Attack | decoratePositive }} Attack
                 | , 
-                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMelee2Attack }} Damage
+                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMelee2Damage }} Damage
             tr
               td
                 md-field

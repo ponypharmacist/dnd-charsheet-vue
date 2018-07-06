@@ -79,18 +79,21 @@ export default {
       let bonus = getModifier(this.Character.constitution);
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
     },
-    weaponMeleeAttack: function() {
+    weaponMeleeDamage: function() {
       let finesse = this.weaponsM[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
       let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
-      let modifier = finesse ? highestModifier : getModifier(this.Character.strength);
-      // ToDo: is proficient with this weapon?
-      return modifier + this.proficiencyBonus;
+      return finesse ? highestModifier : getModifier(this.Character.strength);
     },
-    weaponMelee2Attack: function() {
+    weaponMelee2Damage: function() {
       let finesse = this.weaponsM[this.Character.weaponMelee2].modifiers.includes('finesse') ? true : false;
       let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
-      let modifier = finesse ? highestModifier : getModifier(this.Character.strength);
-      return modifier + this.proficiencyBonus;
+      return finesse ? highestModifier : getModifier(this.Character.strength);
+    },
+    weaponMeleeAttack: function() {
+      return this.weaponMeleeDamage + this.proficiencyBonus;
+    },
+    weaponMelee2Attack: function() {
+      return this.weaponMeleeDamage + this.proficiencyBonus;
     },
     weaponRangedAttack: function() {
       return getModifier(this.Character.dexterity) + this.proficiencyBonus;
@@ -147,7 +150,7 @@ export default {
       let weaponName = this.weaponsM[this.Character[weapon]].title;
       let weaponDamage = this.weaponsM[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
-      let bonus = this[weapon + 'Attack'];
+      let bonus = this[weapon + 'Damage'];
       let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
