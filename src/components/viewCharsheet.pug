@@ -9,7 +9,7 @@
       .character-race-class 
         span Lvl. {{ Character.level }} 
         span(v-if="!Character.subrace") {{ Character.race | capitalize }}
-        span(v-if="Character.subrace")  {{ Character.subrace | capitalize }} 
+        span(v-if="Character.subrace")  {{ subraceTitle }} 
         span {{ Character.clas | capitalize }}
 
     .roll-queue
@@ -153,9 +153,9 @@
                   md-select(v-model="Character.weaponMelee2" name="charWeapon2")
                     md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
               td
-                a.roll-link(@click="rollAttack('weaponMelee2')") {{ weaponMeleeAttack | decoratePositive }} Attack
+                a.roll-link(@click="rollAttack('weaponMelee2')") {{ weaponMelee2Attack | decoratePositive }} Attack
                 | , 
-                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMeleeAttack }} Damage
+                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMelee2Attack }} Damage
             tr
               td
                 md-field

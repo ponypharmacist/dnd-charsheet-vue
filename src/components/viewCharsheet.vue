@@ -38,6 +38,9 @@ export default {
 
   // Computed
   computed: {
+    subraceTitle: function() {
+      return this.races[this.Character.race].subraces[this.Character.subrace].title;
+    },
     proficiencyBonus: function() {
       let profBonus = 2;
       if (this.Character.level >= 17) {
@@ -82,6 +85,12 @@ export default {
       // ToDo: is proficient with this weapon?
       return modifier + this.proficiencyBonus;
     },
+    weaponMelee2Attack: function() {
+      let finesse = this.weaponsM[this.Character.weaponMelee2].modifiers.includes('finesse') ? true : false;
+      let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
+      let modifier = finesse ? highestModifier : getModifier(this.Character.strength);
+      return modifier + this.proficiencyBonus;
+    },
     weaponRangedAttack: function() {
       return getModifier(this.Character.dexterity) + this.proficiencyBonus;
     }
@@ -123,7 +132,7 @@ export default {
     rollAttack (weapon) {
       let weaponName = this.weaponsM[this.Character[weapon]].title;
       let rollResult = rollDice(20);
-      let bonus = this.weaponMeleeAttack;
+      let bonus = this[weapon + 'Attack'];
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
       let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
       let note = criticalSuccess + criticalFail;
@@ -134,14 +143,14 @@ export default {
       let weaponName = this.weaponsM[this.Character[weapon]].title;
       let weaponDamage = this.weaponsM[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
-      let bonus = this.weaponMeleeAttack;
+      let bonus = this[weapon + 'Attack'];
       let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
     rollAttackRanged (weapon) {
       let weaponName = this.weaponsR[this.Character[weapon]].title;
       let rollResult = rollDice(20);
-      let bonus = this.weaponMeleeAttack;
+      let bonus = this.weaponRangedAttack;
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
       let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
       let note = criticalSuccess + criticalFail;
@@ -152,7 +161,7 @@ export default {
       let weaponName = this.weaponsR[this.Character[weapon]].title;
       let weaponDamage = this.weaponsR[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
-      let bonus = this.weaponMeleeAttack;
+      let bonus = this.weaponRangedAttack;
       let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
