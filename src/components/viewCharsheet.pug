@@ -170,9 +170,15 @@
               td(colspan="2")
                 md-field
                   label Notes
-                  md-textarea(v-model="Character.notes" md-autogrow)
+                  md-textarea(v-model="Character.notes" md-autogrow) Slot
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
+        //.md-layout-item.md-medium-size-100
+          .md-title Spellslots
+            .md-layout
+              .md-layout-item
+                | lv.1
+                md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="spellslots" v-bind:value="spellslot") {{ spellslot }}
         .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
           md-field.money-input.copper-coin
             label Copper

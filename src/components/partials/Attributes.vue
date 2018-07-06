@@ -5,7 +5,15 @@
 import { getModifier, decoratePositive, rollDice } from '../../helpers'
 export default {
   name: 'Attributes',
-  props: [ 'updateCharacter', 'strengthBonus', 'dexterityBonus', 'constitutionBonus', 'intelligenceBonus', 'wisdomBonus', 'charismaBonus' ],
+  props: {
+    updateCharacter: Object, // ToDo does not seem to work
+    strengthBonus: Number,
+    dexterityBonus: Number,
+    constitutionBonus: Number,
+    intelligenceBonus: Number,
+    wisdomBonus: Number,
+    charismaBonus: Number
+  },
   data () {
     return {
       strength: 12,
