@@ -26,8 +26,7 @@ export default {
       showSnackbar: false,
       rollQueue: ['', '', ''],
       // Character stuff
-      Character: [],
-      spellslots: ''
+      Character: []
     }
   },
 
@@ -100,6 +99,10 @@ export default {
     }
   },
 
+  // Watch
+  watch: {
+  },
+
   // Filters
   filters: {
     capitalize,
@@ -114,7 +117,7 @@ export default {
   // Methods
   methods: {
     spellsLvl (lvl) {
-      return this.Character.clas ? this.classes[this.Character.clas].spellslots[this.Character.level][lvl] : 0;
+      return this.classes[this.Character.clas].spellslots ? this.classes[this.Character.clas].spellslots[this.Character.level][lvl] : 0;
     },
     getSkillBonus (attribute, skill) {
       let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;

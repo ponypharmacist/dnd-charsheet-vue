@@ -1,4 +1,4 @@
-.container
+.container  
   // Class skills dialog
   md-dialog.dialog(:md-active.sync="skillsDialog" :md-fullscreen="false")
     md-dialog-title Select {{ skillsAllowed }} skills from Class
@@ -86,14 +86,94 @@
           md-select(v-model="characterBackground" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
-        template
-          attributes(@updateCharacter="updateCharacter"
-                     :strengthBonus="strengthBonus"
-                     :dexterityBonus="dexterityBonus"
-                     :constitutionBonus="constitutionBonus"
-                     :intelligenceBonus="intelligenceBonus"
-                     :wisdomBonus="wisdomBonus"
-                     :charismaBonus="charismaBonus")
+        .md-layout.ability.md-layout-item
+          .md-layout-item.mt-1
+            .md-layout.md-alignment-top-left
+              .md-layout-item
+                md-button.md-dense.md-raised(@click="roll4d6") Roll attributes (4d6)
+              .md-layout-item
+                .md-subheading.mt-1 
+                  | Total: {{ sumOfStats }} 
+                  span (70-80 is ok)
+        
+            .md-layout
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="strengthBonus > 0") {{ strengthBonus | decoratePositive }}
+                  md-input(v-model="characterStrength")
+                  span.md-helper-text
+                    | Str 
+                    span.modifier-bubble {{ characterStrength | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterStrength', 'characterCharisma')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterStrength', 'characterDexterity')")
+                    md-icon keyboard_arrow_right
+                  
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="dexterityBonus > 0") {{ dexterityBonus | decoratePositive }}
+                  md-input(v-model="characterDexterity")
+                  span.md-helper-text
+                    | Dex 
+                    span.modifier-bubble {{ characterDexterity | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterDexterity', 'characterStrength')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterDexterity', 'characterConstitution')")
+                    md-icon keyboard_arrow_right
+        
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="constitutionBonus > 0") {{ constitutionBonus | decoratePositive }}
+                  md-input(v-model="characterConstitution")
+                  span.md-helper-text
+                    | Con 
+                    span.modifier-bubble {{ characterConstitution | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterConstitution', 'characterDexterity')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterConstitution', 'characterIntelligence')")
+                    md-icon keyboard_arrow_right
+        
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="intelligenceBonus > 0") {{ intelligenceBonus | decoratePositive }}
+                  md-input(v-model="characterIntelligence")
+                  span.md-helper-text
+                    | Int 
+                    span.modifier-bubble {{ characterIntelligence | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterIntelligence', 'characterConstitution')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterIntelligence', 'wisdom')")
+                    md-icon keyboard_arrow_right
+        
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="wisdomBonus > 0") {{ wisdomBonus | decoratePositive }}
+                  md-input(v-model="characterWisdom")
+                  span.md-helper-text
+                    | Wis 
+                    span.modifier-bubble {{ characterWisdom | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterWisdom', 'characterIntelligence')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterWisdom', 'characterCharisma')")
+                    md-icon keyboard_arrow_right
+        
+              .md-layout-item
+                md-field.ability-input
+                  label(v-if="charismaBonus > 0") {{ charismaBonus | decoratePositive }}
+                  md-input(v-model="characterCharisma")
+                  span.md-helper-text
+                    | Cha 
+                    span.modifier-bubble {{ characterCharisma | getModifier | decoratePositive }}
+                .ability-swap-container
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterCharisma', 'characterWisdom')")
+                    md-icon keyboard_arrow_left
+                  md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterCharisma', 'characterStrength')")
+                    md-icon keyboard_arrow_right
 
       .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .combat-stat-title
@@ -125,87 +205,11 @@
         md-field.money-input.gold-coin
           label Gold
           md-input(v-model="characterGold")
-        md-field.mt-0
+        md-field.mt-0.equipment-textarea
           label Equipment and loot
           md-textarea(v-model="characterItemsList")
 
-      .md-layout.md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
-        .md-layout-item
-          .md-title Skills
-          .title-h4 Strength {{ characterStrength | getModifier | decoratePositive }}
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('athletics')") star
-            | Athletics
-            
-          .title-h4 Dexterity {{ characterDexterity | getModifier | decoratePositive }}
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('acrobatics')") star
-            | Acrobatics
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('sleightOfHand')") star
-            | Sleight of Hand
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('stealth')") star
-            | Stealth
-          
-          .title-h4 Wisdom {{ characterWisdom | getModifier | decoratePositive }}
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('animalHandling')") star
-            | Animal Handling
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('medicine')") star
-            | Medicine
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('perception')") star
-            | Perception
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('survival')") star
-            | Survival
-        
-        .md-layout-item
-          .md-title &nbsp;  
-          .title-h4 Intelligence {{ characterIntelligence | getModifier | decoratePositive }}
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('arcana')") star
-            | Arcana
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('history')") star
-            | History
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('investigation')") star
-            | Investigation
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('nature')") star
-            | Nature
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('religion')") star
-            | Religion
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('insight')") star
-            | Insight
-          
-          .title-h4 Charisma {{ characterCharisma | getModifier | decoratePositive }}
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('deception')") star
-            | Deception
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('intimidation')") star
-            | Intimidation
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('performance')") star
-            | Performance
-          .skill-plain
-            md-icon(v-if="characterSkills.includes('persuasion')") star
-            | Persuasion
-  
-      .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-66
-        .md-title Feats
-        ul.feat-list
-          li.feat-list-item(v-for="feat in characterFeats")
-            .feat-name {{ feats[feat].title }}
-            .feat-description {{ feats[feat].description }}
-
-      .md-layout-item.golden-border.md-medium-size-100.md-large-size-33.md-xlarge-size-33
+      .md-layout.md-layout-item.golden-border.align-top.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-title Armor &amp; Weapons
         md-field
           label(for="charArmor") Armor
@@ -229,6 +233,34 @@
         
         md-checkbox(v-model="characterShield" v-bind:disabled="wieldsTwohanded") Shield
           span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
+            
+        .md-title.mt-1 Skills
+        .skill-plain-list
+          li(v-bind:class="{ starskill: characterSkills.includes('athletics') }") Athletics (str)
+          li(v-bind:class="{ starskill: characterSkills.includes('acrobatics') }") Acrobatics (dex)
+          li(v-bind:class="{ starskill: characterSkills.includes('sleightOfHand') }") Sleight of Hand (dex)
+          li(v-bind:class="{ starskill: characterSkills.includes('stealth') }") Stealth (dex)
+          li(v-bind:class="{ starskill: characterSkills.includes('animalHandling') }") Animal Handling (wis)
+          li(v-bind:class="{ starskill: characterSkills.includes('insight') }") Insight (wis)
+          li(v-bind:class="{ starskill: characterSkills.includes('medicine') }") Medicine (wis)
+          li(v-bind:class="{ starskill: characterSkills.includes('perception') }") Perception (wis)
+          li(v-bind:class="{ starskill: characterSkills.includes('survival') }") Survival (wis)
+          li(v-bind:class="{ starskill: characterSkills.includes('arcana') }") Arcana (int)
+          li(v-bind:class="{ starskill: characterSkills.includes('history') }") History (int)
+          li(v-bind:class="{ starskill: characterSkills.includes('investigation') }") Investigation (int)
+          li(v-bind:class="{ starskill: characterSkills.includes('nature') }") Nature (int)
+          li(v-bind:class="{ starskill: characterSkills.includes('religion') }") Religion (int)
+          li(v-bind:class="{ starskill: characterSkills.includes('deception') }") Deception (cha)
+          li(v-bind:class="{ starskill: characterSkills.includes('intimidation') }") Intimidation (cha)
+          li(v-bind:class="{ starskill: characterSkills.includes('performance') }") Performance (cha)
+          li(v-bind:class="{ starskill: characterSkills.includes('persuasion') }") Persuasion (cha)
+  
+      .md-layout-item.golden-border.md-small-size-100.md-medium-size-50.md-large-size-100
+        .md-title Feats
+        ul.feat-list
+          li.feat-list-item(v-for="feat in characterFeats")
+            .feat-name {{ feats[feat].title }}
+            .feat-description {{ feats[feat].description }}
 
     .md-layout
       .md-layout-item

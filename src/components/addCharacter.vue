@@ -10,6 +10,7 @@ export default {
   components: { Attributes },
   data() {
     return {
+      location: 'addCharacter',
       // tables of stuff
       races: races,
       classes: classes,
@@ -29,12 +30,12 @@ export default {
       characterSubrace: '',
       characterClass: '',
       characterBackground: '',
-      characterStrength: 12,
-      characterDexterity: 12,
-      characterConstitution: 12,
+      characterStrength: 16,
+      characterDexterity: 14,
+      characterConstitution: 13,
       characterIntelligence: 12,
-      characterWisdom: 12,
-      characterCharisma: 8,
+      characterWisdom: 10,
+      characterCharisma: 9,
       characterGold: 0,
       characterSkills: [],
       characterProficienciesCombat: '',
@@ -43,9 +44,9 @@ export default {
       languagesString: '',
       characterArmor: 'noArmor',
       characterShield: false,
-      characterWeaponMelee: '',
-      characterWeaponMelee2: '',
-      characterWeaponRanged: '',
+      characterWeaponMelee: 'club',
+      characterWeaponMelee2: 'dagger',
+      characterWeaponRanged: 'dart',
         // make computed, set -> push item (if not there), remove item (if there)
         // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
@@ -181,6 +182,9 @@ export default {
       let raceSpeed = this.characterRace ? this.races[this.characterRace].speed : 30;
       let subraceSpeed = this.characterSubrace ? this.races[this.characterRace].subraces[this.characterSubrace].speed ? this.races[this.characterRace].subraces[this.characterSubrace].speed : false : false;
       return subraceSpeed ? subraceSpeed : raceSpeed;
+    },
+    sumOfStats: function () {
+      return parseInt(this.characterStrength) + parseInt(this.characterDexterity) + parseInt(this.characterConstitution) + parseInt(this.characterIntelligence) + parseInt(this.characterWisdom) + parseInt(this.characterCharisma)
     }
   },
   watch: {
@@ -232,10 +236,26 @@ export default {
     clearSubrace () {
       this.characterSubrace = undefined;
     },
-    testDice () {
-      console.log('Rolled 2d10+2, result is: ' + rollString('2d10+2'));
-      console.log('Rolled 2d10-2, result is: ' + rollDice(10, 2, -2));
-      console.log('Rolled a d20, result is: ' + rollDice(20));
+    swap (from, to) {
+      let buffer = this[to]
+      this[to] = this[from]
+      this[from] = buffer
+    },
+    roll4d6 () {
+      this.characterStrength = this.rollAttribute()
+      this.characterDexterity = this.rollAttribute()
+      this.characterConstitution = this.rollAttribute()
+      this.characterIntelligence = this.rollAttribute()
+      this.characterWisdom = this.rollAttribute()
+      this.characterCharisma = this.rollAttribute()
+    },
+    rollAttribute () {
+      let fourDice = [rollDice(6), rollDice(6), rollDice(6), rollDice(6)]
+      const smallest = Math.min.apply(null, fourDice)
+      const pos = fourDice.indexOf(smallest)
+      const reducer = (accumulator, currentValue) => accumulator + currentValue
+      let result = fourDice.slice(0, pos).concat(fourDice.slice(pos + 1)).reduce(reducer)
+      return result
     },
     // Last method, sends new character to database
     addToAPI () {
@@ -247,12 +267,12 @@ export default {
       clas: this.characterClass,
       background: this.characterBackground,
 
-      strength: this.characterStrength,
-      dexterity: this.characterDexterity,
-      constitution: this.characterConstitution,
-      intelligence: this.characterIntelligence,
-      wisdom: this.characterWisdom,
-      charisma: this.characterCharisma,
+      strength: this.characterStrength + this.strengthBonus,
+      dexterity: this.characterDexterity + this.dexterityBonus,
+      constitution: this.characterConstitution + this.constitutionBonus,
+      intelligence: this.characterIntelligence + this.intelligenceBonus,
+      wisdom: this.characterWisdom + this.wisdomBonus,
+      charisma: this.characterCharisma + this.charismaBonus,
 
       currentHealth: this.maxHealth,
       speed: this.characterSpeed,
@@ -263,16 +283,18 @@ export default {
       items: this.characterItems,
       armor: this.characterArmor,
       shield: this.characterShield,
-      weaponMelee: this.characterWeaponMelee,
-      weaponMelee2: this.characterWeaponMelee2,
-      weaponRanged: this.characterWeaponRanged,
+      weaponMelee: this.characterWeaponMelee ? this.characterWeaponMelee : '',
+      weaponMelee2: this.characterWeaponMelee2 ? this.characterWeaponMelee2 : '',
+      weaponRanged: this.characterWeaponRanged ? this.characterWeaponRanged : '',
 
       languages: this.languagesString,
       proficienciesCombat: this.characterProficienciesCombat.toString(),
       tools: this.characterTools,
       feats: this.characterFeats,
       skills: this.characterSkills,
-      notes: ''
+      notes: '',
+      flavor: '',
+      spellslots: [[], [], [], [], [], [], [], [], [], []]
     }
     console.log(newCharacter);
     axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)

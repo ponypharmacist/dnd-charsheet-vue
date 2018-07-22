@@ -16,12 +16,12 @@ export default {
   },
   data () {
     return {
-      strength: 12,
-      dexterity: 12,
-      constitution: 12,
+      strength: 16,
+      dexterity: 14,
+      constitution: 13,
       intelligence: 12,
-      wisdom: 12,
-      charisma: 8
+      wisdom: 10,
+      charisma: 9
     }
   },
   filters: {

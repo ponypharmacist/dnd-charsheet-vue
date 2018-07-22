@@ -1,9 +1,9 @@
-.container.view-charsheet.golden-border
+.container.view-charsheet
   .md-layout.mt-1(v-if="isLoading")
     template
       spinner
 
-  .character-sheet(v-if="!isLoading")
+  .character-sheet.golden-border(v-if="!isLoading")
     .character-bar
       .character-name {{ Character.name | capitalize }}
       .character-race-class 
@@ -73,8 +73,6 @@
               a(@click="roll('intelligence', 'nature')") Nature {{ getSkillBonus('intelligence', 'nature') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('religion') ? 'skillStar' : '' ]")
               a(@click="roll('intelligence', 'religion')") Religion {{ getSkillBonus('intelligence', 'religion') | decoratePositive }}
-            .attribute-skills-item(v-bind:class="[ Character.skills.includes('insight') ? 'skillStar' : '' ]")
-              a(@click="roll('intelligence', 'insight')") Insight {{ getSkillBonus('intelligence', 'insight') | decoratePositive }}
 
         .attribute-column
           .attribute-bg
@@ -86,6 +84,8 @@
               a(@click="roll('wisdom', 'wisdom')") Saving Throw {{ getSkillBonus('wisdom', 'wisdom') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('animalHandling') ? 'skillStar' : '' ]")
               a(@click="roll('wisdom', 'animalHandling')") Animal Handling {{ getSkillBonus('wisdom', 'animalHandling') | decoratePositive }}
+            .attribute-skills-item(v-bind:class="[ Character.skills.includes('insight') ? 'skillStar' : '' ]")
+              a(@click="roll('wisdom', 'insight')") Insight {{ getSkillBonus('wisdom', 'insight') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('medicine') ? 'skillStar' : '' ]")
               a(@click="roll('wisdom', 'medicine')") Medicine {{ getSkillBonus('wisdom', 'medicine') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('perception') ? 'skillStar' : '' ]")
@@ -145,7 +145,7 @@
               td
                 a.roll-link(@click="rollAttack('weaponMelee')") {{ weaponMeleeAttack | decoratePositive }} Attack
                 | , 
-                a.roll-link(@click="rollDamage('weaponMelee')") {{ this.weaponsM[this.Character.weaponMelee].damage }} + {{ weaponMeleeDamage }} Damage
+                a.roll-link(@click="rollDamage('weaponMelee')") {{ this.weaponsM[this.Character.weaponMelee].damage }} {{ weaponMeleeDamage | decoratePositive }} Damage
             tr
               td
                 md-field
@@ -155,7 +155,7 @@
               td
                 a.roll-link(@click="rollAttack('weaponMelee2')") {{ weaponMelee2Attack | decoratePositive }} Attack
                 | , 
-                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} + {{ weaponMelee2Damage }} Damage
+                a.roll-link(@click="rollDamage('weaponMelee2')") {{ this.weaponsM[this.Character.weaponMelee2].damage }} {{ weaponMelee2Damage | decoratePositive }} Damage
             tr
               td
                 md-field
@@ -166,19 +166,26 @@
                 a.roll-link(@click="rollAttackRanged('weaponRanged')") {{ weaponRangedAttack | decoratePositive }} Attack
                 | , 
                 a.roll-link(@click="rollDamageRanged('weaponRanged')") {{ this.weaponsR[this.Character.weaponRanged].damage }} + {{ weaponRangedAttack }} Damage
+            tr(v-if="classes[this.Character.clas].spellslots")
+              td(colspan="2")
+                .md-title Spellslots
+                  .md-layout
+                    .md-layout-item
+                      | lv.1
+                      md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="Character.spellslots[1]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(2) != 0")
+                      | lv.2
+                      md-checkbox(v-for="spellslot in spellsLvl(2)" v-bind:key="spellslot" v-model="Character.spellslots[2]" v-bind:value="spellslot")
             tr
               td(colspan="2")
                 md-field
                   label Notes
                   md-textarea(v-model="Character.notes" md-autogrow) Slot
+                md-field
+                  label Flavor: backstory, ideals, flaws, bonds, goals
+                  md-textarea(v-model="Character.flavor" md-autogrow)
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
-        //.md-layout-item.md-medium-size-100
-          .md-title Spellslots
-            .md-layout
-              .md-layout-item
-                | lv.1
-                md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="spellslots" v-bind:value="spellslot") {{ spellslot }}
         .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
           md-field.money-input.copper-coin
             label Copper
@@ -209,7 +216,7 @@
             label Languages
             md-textarea(v-model="Character.languages" md-autogrow)
 
-      .md-layout-item.md-xlarge-size-50
+      .md-layout-item.md-xlarge-size-100
         .md-title Feats
         ul.feat-list
           li.feat-list-item(v-for="feat in Character.feats")

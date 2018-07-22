@@ -350,7 +350,7 @@ export const classes = {
     skills: ['strength', 'constitution'],
     skillsChoice: ['animalHandling', 'athletics', 'intimidation', 'nature', 'perception', 'survival'],
     skillsAllowed: 2,
-    equipment: ['an explorer’s pack', '4 javelins'],
+    equipment: ['(any martial melee weapon)', '(two handaxes) or (any simple weapon)', 'an explorer’s pack', '4 javelins'],
     wealth: 0
   },
   bard: {
@@ -361,7 +361,7 @@ export const classes = {
     skills: ['dexterity', 'charisma'],
     tools: ['Three musical instruments of your choice'],
     skillpoints: 3, // any 3, yes
-    equipment: ['(a diplomat’s pack) or (an entertainer’s pack)', '(a lute) or (any other musical instrument)', 'leather armor', 'a dagger'],
+    equipment: ['(a rapier), (longsword), or (any simple weapon)', '(a diplomat’s pack) or (an entertainer’s pack)', '(a lute) or (any other musical instrument)', 'leather armor', 'a dagger'],
     wealth: 0,
     cantripsKnown: [0, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
     spellsKnown: [0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 15, 16, 18, 19, 19, 20, 22, 22, 22],
@@ -398,7 +398,7 @@ export const classes = {
     skills: ['wisdom', 'charisma'],
     skillsChoice: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
-    equipment: ['(a priest’s pack) or (an explorer’s pack)', 'a shield', 'a holy symbol'],
+    equipment: ['(a mace) or (a warhammer (if proficient))', '(scale mail), (leather armor), or (chain mail (if proficient))', '(a light crossbow and 20 bolts) or (any simple weapon)', '(a priest’s pack) or (an explorer’s pack)', 'a shield', 'a holy symbol'],
     wealth: 0
   },
   druid: {
@@ -410,7 +410,7 @@ export const classes = {
     skills: ['intelligence', 'wisdom'],
     skillsChoice: ['arcana', 'animalHandling', 'insight', 'medicine', 'nature', 'perception', 'religion', 'survival'],
     skillsAllowed: 2,
-    equipment: ['wooden shield', 'leather armor', 'an explorer’s pack', 'a druidic focus', '(druids will not wear armor or use shields made of metal)'],
+    equipment: ['(a wooden shield) or (any simple weapon)', '(a scimitar) or (any simple melee weapon)', 'an explorer’s pack', 'a druidic focus', '(druids will not wear armor or use shields made of metal)'],
     wealth: 0
   },
   fighter: {
@@ -422,7 +422,7 @@ export const classes = {
     skills: ['strength', 'constitution'],
     skillsChoice: ['acrobatics', 'animalHandling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival'],
     skillsAllowed: 2,
-    equipment: ['(chain mail) or (leather armor, longbow, and 20 arrows)', '(a dungeoneer’s pack) or (an explorer’s pack)'],
+    equipment: ['(a martial weapon and a shield) or (two martial weapons)', '(a light crossbow and 20 bolts) or (two handaxes)', '(chain mail) or (leather armor, longbow, and 20 arrows)', '(a dungeoneer’s pack) or (an explorer’s pack)'],
     wealth: 0
   },
   monk: {
@@ -434,7 +434,7 @@ export const classes = {
     skills: ['strength', 'dexterity'],
     skillsChoice: ['acrobatics', 'athletics', 'history', 'insight', 'religion', 'stealth'],
     skillsAllowed: 2,
-    equipment: ['(a dungeoneer’s pack) or (an explorer’s pack)', '10 darts'],
+    equipment: ['(a shortsword) or (any simple weapon)', '(a dungeoneer’s pack) or (an explorer’s pack)', '10 darts'],
     wealth: 0
   },
   paladin: {
@@ -446,7 +446,7 @@ export const classes = {
     skills: ['wisdom', 'charisma'],
     skillsChoice: ['athletics', 'insight', 'intimidation', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
-    equipment: ['(a priest’s pack) or (an explorer’s pack)', 'chain mail', 'a holy symbol'],
+    equipment: ['(a martial weapon and a shield) or (two martial weapons)', '(5 javelins) or (any simple melee weapon)', '(a priest’s pack) or (an explorer’s pack)', 'chain mail', 'a holy symbol'],
     wealth: 0
   },
   ranger: {
@@ -458,7 +458,7 @@ export const classes = {
     skills: ['strength', 'dexterity'],
     skillsChoice: ['animalHandling', 'athletics', 'insight', 'investigation', 'nature', 'perception', 'stealth', 'survival'],
     skillsAllowed: 3,
-    equipment: ['(scale mail) or (leather armor)', '(a dungeoneer’s pack) or (an explorer’s pack)', 'a longbow', 'a quiver of 20 arrows'],
+    equipment: ['(two shortswords) or (two simple melee weapons)', '(scale mail) or (leather armor)', '(a dungeoneer’s pack) or (an explorer’s pack)', 'a longbow', 'a quiver of 20 arrows'],
     wealth: 0
   },
   rogue: {
@@ -470,7 +470,7 @@ export const classes = {
     skills: ['dexterity', 'intelligence'],
     skillsChoice: ['acrobatics', 'athletics', 'deception', 'insight', 'intimidation', 'investigation', 'perception', 'performance', 'persuasion', 'sleightOfHand', 'stealth'],
     skillsAllowed: 4,
-    equipment: ['(a burglar’s pack), (a dungeoneer’s pack), or (an explorer’s pack)', 'leather armor', 'two daggers', 'thieves’ tools'],
+    equipment: ['(a rapier) or (a shortsword)', '(a shortbow and quiver of 20 arrows) or (a shortsword)', '(a burglar’s pack), (a dungeoneer’s pack), or (an explorer’s pack)', 'leather armor', 'two daggers', 'thieves’ tools'],
     wealth: 0
   },
   sorcerer: {
@@ -482,7 +482,7 @@ export const classes = {
     skills: ['constitution', 'charisma'],
     skillsChoice: ['arcana', 'deception', 'insight', 'intimidation', 'persuasion', 'religion'],
     skillsAllowed: 2,
-    equipment: ['(a dungeoneer’s pack) or (an explorer’s pack)', '2 daggers'],
+    equipment: ['(a light crossbow and 20 bolts) or (any simple weapon)', '(a dungeoneer’s pack) or (an explorer’s pack)', '2 daggers'],
     wealth: 0
   },
   warlock: {
@@ -494,7 +494,7 @@ export const classes = {
     skills: ['wisdom', 'charisma'],
     skillsChoice: ['arcana', 'deception', 'history', 'intimidation', 'investigation', 'nature', 'religion'],
     skillsAllowed: 2,
-    equipment: ['(a scholar’s pack) or (a dungeoneer’s pack)', 'leather armor', 'any simple weapon', '2 daggers'],
+    equipment: ['(a light crossbow and 20 bolts) or (any simple weapon)', '(a scholar’s pack) or (a dungeoneer’s pack)', 'leather armor', 'any simple weapon', '2 daggers'],
     wealth: 0
   },
   wizard: {
@@ -506,7 +506,7 @@ export const classes = {
     skills: ['intelligence', 'wisdom'],
     skillsChoice: ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion'],
     skillsAllowed: 2,
-    equipment: ['spellbook', '(a scholar’s pack) or (an explorer’s pack)'],
+    equipment: ['(a quarterstaff) or (a dagger)', 'spellbook', '(a scholar’s pack) or (an explorer’s pack)'],
     wealth: 0
   }
 }

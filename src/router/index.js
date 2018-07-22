@@ -10,6 +10,7 @@ export default new Router({
   mode: 'history',
   routes: [
     { path: '/', component: viewCharacters },
+    { path: '/home', redirect: '/' },
     { path: '/add-character', component: addCharacter },
     { path: '/charsheet/:charID', component: viewCharsheet }
   ]
