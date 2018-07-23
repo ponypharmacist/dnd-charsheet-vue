@@ -267,12 +267,12 @@ export default {
       clas: this.characterClass,
       background: this.characterBackground,
 
-      strength: this.characterStrength + this.strengthBonus,
-      dexterity: this.characterDexterity + this.dexterityBonus,
-      constitution: this.characterConstitution + this.constitutionBonus,
-      intelligence: this.characterIntelligence + this.intelligenceBonus,
-      wisdom: this.characterWisdom + this.wisdomBonus,
-      charisma: this.characterCharisma + this.charismaBonus,
+      strength: parseInt(this.characterStrength) + parseInt(this.strengthBonus),
+      dexterity: parseInt(this.characterDexterity) + parseInt(this.dexterityBonus),
+      constitution: parseInt(this.characterConstitution) + parseInt(this.constitutionBonus),
+      intelligence: parseInt(this.characterIntelligence) + parseInt(this.intelligenceBonus),
+      wisdom: parseInt(this.characterWisdom) + parseInt(this.wisdomBonus),
+      charisma: parseInt(this.characterCharisma) + parseInt(this.charismaBonus),
 
       currentHealth: this.maxHealth,
       speed: this.characterSpeed,
@@ -292,7 +292,7 @@ export default {
       tools: this.characterTools,
       feats: this.characterFeats,
       skills: this.characterSkills,
-      notes: '',
+      notes: 'Alignment: pick one!',
       flavor: '',
       spellslots: [[], [], [], [], [], [], [], [], [], []]
     }

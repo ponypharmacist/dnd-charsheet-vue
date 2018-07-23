@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       charID: '',
+      errorMessage: 'test',
       // tables of stuff
       races: races,
       classes: classes,
@@ -200,6 +201,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.errorMessage = error;
         });
     },
 
@@ -209,12 +211,14 @@ export default {
     console.log(charID);
     axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
       .then((response) => {
-      console.log('Sent my character to API!');
+        console.log('Sent my character to API!');
         this.updated = true;
+        this.updateRollQueue('Saved changes successfully.');
       })
       .catch((error) => {
         console.log(error);
         this.updated = false;
+        this.updateRollQueue('Failed to save changes! =( Try again later.');
       });
     }
   } // end of methods

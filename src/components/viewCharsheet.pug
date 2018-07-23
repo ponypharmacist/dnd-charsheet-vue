@@ -1,5 +1,7 @@
 .container.view-charsheet
   .md-layout.mt-1(v-if="isLoading")
+    span {{ errorMessage }}
+    
     template
       spinner
 
