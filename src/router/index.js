@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import viewCharacters from '@/components/viewCharacters'
-import addCharacter from '@/components/addCharacter'
-import viewCharsheet from '@/components/viewCharsheet'
+import tavern from '@/components/tavern'
+import create from '@/components/create'
+import charsheet from '@/components/charsheet'
 Vue.use(Router)
 
 export default new Router({
   base: '/',
   mode: 'history',
   routes: [
-    { path: '/', component: viewCharacters },
+    { path: '/', component: tavern },
     { path: '/home', redirect: '/' },
-    { path: '/add-character', component: addCharacter },
-    { path: '/charsheet/:charID', component: viewCharsheet }
+    { path: '/create', component: create },
+    { path: '/charsheet/:charID', component: charsheet }
   ]
 })

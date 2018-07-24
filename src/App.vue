@@ -1,16 +1,16 @@
 <template lang="pug">
   #app(md-theme="dark" class="md-theme-dark md-theme-default-dark")
-    app-head
+    // app-head
     router-view
 </template>
 
 <script>
-import Navigation from '@/components/common/Navigation'
+// import Navigation from '@/components/common/Navigation'
 export default {
 
   name: 'app',
   components: {
-    'app-head': Navigation
+  //  'app-head': Navigation
   }
 }
 </script>

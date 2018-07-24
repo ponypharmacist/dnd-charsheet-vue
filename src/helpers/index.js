@@ -41,3 +41,7 @@ export const flattenArray = (array) => {
 export const flattenArrayMultiline = (array) => {
   return array.join(', \n')
 }
+
+export const add = (number, bonus) => {
+  return number + bonus
+}

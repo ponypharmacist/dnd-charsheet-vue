@@ -1,4 +1,14 @@
-.container  
+.container
+  #navigation
+    md-button.md-dense.md-raised(to="/home") Tavern
+    md-button.md-dense.md-raised.md-accent(type="button" @click="addToAPI") Save Character
+
+  .md-layout(v-if="isLoading")
+    .md-layout-item.text-center
+      .error-message {{ errorMessage }}
+      template
+        spinner
+
   // Class skills dialog
   md-dialog.dialog(:md-active.sync="skillsDialog" :md-fullscreen="false")
     md-dialog-title Select {{ skillsAllowed }} skills from Class
@@ -58,32 +68,32 @@
   
   h3(v-if="submitted") Thanks for adding your character!
   
-  form(v-if="!submitted")
+  form(v-if="!submitted || isLoading")
     .md-layout
       .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-title Rejoice, for it is...
         md-field
           label Character Name
-          md-input(v-model="characterName")
+          md-input(v-model="name")
 
         md-field
           label(for="charRace") Race
-          md-select(v-model="characterRace" name="charRace")
+          md-select(v-model="race" name="charRace")
             md-option(v-for="(race, key) in races" v-bind:key="races[race]" v-bind:value="key") {{ race.title }}
 
-        md-field(v-if="characterRace && races[characterRace].subraces")
+        md-field(v-if="race && races[race].subraces")
           label(for="charSubrace") Subrace
-          md-select(v-model="characterSubrace" name="charSubrace")
-            md-option(v-for="(subrace, key) in races[characterRace].subraces" v-bind:key="races[characterRace].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
+          md-select(v-model="subrace" name="charSubrace")
+            md-option(v-for="(subrace, key) in races[race].subraces" v-bind:key="races[race].subraces[subrace]" v-bind:value="key") {{ subrace.title }}
 
         md-field
           label(for="charClass") Class
-          md-select(v-model="characterClass" name="charClass")
+          md-select(v-model="clas" name="charClass")
             md-option(v-for="(aClass, key) in classes" v-bind:key="classes[aClass]" v-bind:value="key") {{ aClass.title }}
 
         md-field
           label(for="charBackground") Background
-          md-select(v-model="characterBackground" name="charBackground")
+          md-select(v-model="background" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
         .md-layout.ability.md-layout-item
@@ -216,17 +226,17 @@
         md-field
           label(for="charWeapon1") Weapon Melee
           md-select(v-model="characterWeaponMelee" name="charWeapon1")
-            md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+            md-option(v-for="(weapon, key) in meleeWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
         
         md-field
           label(for="charWeapon2") Weapon Melee Alternative
           md-select(v-model="characterWeaponMelee2" name="charWeapon2")
-            md-option(v-for="(weapon, key) in weaponsM" v-bind:key="weaponsM[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+            md-option(v-for="(weapon, key) in meleeWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
         
         md-field
           label(for="charWeapon3") Weapon Ranged
           md-select(v-model="characterWeaponRanged" name="charWeapon3")
-            md-option(v-for="(weapon, key) in weaponsR" v-bind:key="weaponsR[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
+            md-option(v-for="(weapon, key) in rangedWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
         
         md-checkbox(v-model="characterShield" v-bind:disabled="wieldsTwohanded") Shield
           span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
@@ -258,7 +268,3 @@
           li.feat-list-item(v-for="feat in characterFeats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
-
-    .md-layout
-      .md-layout-item
-        md-button.md-primary.md-raised(type="button" @click="addToAPI") Save Character

@@ -799,7 +799,7 @@ export const feats = {
 export const armors = {
   noArmor: {
     title: 'No Armor',
-    type: 'none',
+    type: 'light',
     stealth: true,
     ac: 10
   },
@@ -891,14 +891,13 @@ export const armors = {
 
 // Weapons
 // one can silver a weapon for 100 gp
-export const weaponsM = {
+export const weapons = {
   deadGoblin: {
     title: 'Dead Goblin',
     damage: '1d4',
     damageType: 'bludgeoning',
     category: 'simple',
-    modifiers: ['finesse', 'heavy', 'light', 'reach', 'twohanded', 'thrown'],
-    range: '20/60'
+    modifiers: ['heavy', 'light', 'reach', 'twohanded', 'thrown']
     // finesse uses larger modifier (str or dex), light can be used double
     // throwind uses strength if there's no finesse modifier
     // light weapon, You don’t add your ability modifier to the damage of the bonus attack
@@ -1111,10 +1110,7 @@ export const weaponsM = {
     damageType: 'slashing',
     category: 'martial',
     modifiers: ['finesse', 'reach']
-  }
-}
-
-export const weaponsR = {
+  },
   dart: {
     title: 'Dart',
     damage: '1d4',
@@ -1128,7 +1124,7 @@ export const weaponsR = {
     damage: '1d6',
     damageType: 'piercing',
     category: 'simple',
-    modifiers: ['twohanded'],
+    modifiers: ['twohanded', 'finesse'],
     range: '80/320'
   },
   sling: {
@@ -1144,7 +1140,7 @@ export const weaponsR = {
     damage: '1',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: [],
+    modifiers: ['finesse'],
     range: '25/100'
   },
   crossbowLight: {
@@ -1152,7 +1148,7 @@ export const weaponsR = {
     damage: '1d8',
     damageType: 'piercing',
     category: 'simple',
-    modifiers: ['twohanded'],
+    modifiers: ['twohanded', 'finesse'],
     range: '80/320'
   },
   crossbowHand: {
@@ -1160,7 +1156,7 @@ export const weaponsR = {
     damage: '1d6',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: ['light'],
+    modifiers: ['light', 'finesse'],
     range: '30/120'
   },
   crossbowHeavy: {
@@ -1168,7 +1164,7 @@ export const weaponsR = {
     damage: '1d10',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: ['heavy', 'twohanded'],
+    modifiers: ['heavy', 'twohanded', 'finesse'],
     range: '100/400'
   },
   longbow: {
@@ -1176,7 +1172,7 @@ export const weaponsR = {
     damage: '1d8',
     damageType: 'piercing',
     category: 'martial',
-    modifiers: ['heavy', 'twohanded'],
+    modifiers: ['heavy', 'twohanded', 'finesse'],
     range: '150/600'
   }
 }

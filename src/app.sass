@@ -16,12 +16,13 @@ body
   background-attachment: fixed
 
 .container
-  margin: 0
+  max-width: 1200px
+  margin: 0 auto
 
+// Grand Typographics
 a
   color: #fff
 
-// Grand Typographics
 h3
   margin: 0 0 1rem
 
@@ -43,10 +44,16 @@ h4
 .align-top
   align-content: flex-start
 
+.text-center
+  text-align: center
+
 .overflow-scroll
   overflow-y: scroll
   overflow-x: hidden
   max-height: 240px
+
+.stick-right
+  margin-left: auto!important
 
 .mt-0
   margin-top: 0!important
@@ -57,11 +64,28 @@ h4
 .mt-1
   margin-top: 1rem
 
+// Navigation
+#navigation
+  display: flex
+  flex-direction: row
+  padding: 12px 0 8px
+
+.dice-button
+
+.dice-button::before
+
+.md-button
+  min-width: 32px
+
 // Dialogs
 .dialog
 
   .md-layout
     padding: 0 24px
+
+.error-message
+  width: 100%
+  padding: 0 0 12px
 
 // View Characters
 .delete-icon
@@ -155,7 +179,7 @@ h4
   display: inline-block
   margin-right: 12px
 
-// == Texts
+// Texts
 .skill-plain-list
   width: 100%
   list-style-type: none
@@ -190,16 +214,7 @@ h4
 // =======================
 // View and edit charsheet
 // =======================
-.view-charsheet
-  width: 1200px
-  margin: 0 auto
-  padding: 24px 0
-
-.character-sheet
-
 .character-bar
-  position: relative
-  color: #ecbe57
   margin: 0 0 1rem
 
 .character-name
@@ -212,20 +227,22 @@ h4
 
 // Roll log window
 .roll-queue
-  position: absolute
-  text-align: center
+  position: fixed
+  text-align: left
   z-index: 10
-  width: 440px
-  left: 50%
-  top: 4px
-  margin-left: -220px
-  border-radius: 6px
-  background-color: rgba(255,255,255,0.1)
-  padding: 12px 16px 2px
-  color: #ecbe57
+  width: 420px
+  right: 16px
+  top: 12px
+  color: #000
+
+.queue-item
+  background-color: rgba(255,255,255,1)
+  padding: 3px 12px 3px
+  margin: 4px 0
+  border-radius: 2px
 
 .roll-date
-  color: #aaa
+  color: #999
   font-size: 10px
 
 .roll-string
@@ -427,7 +444,7 @@ h4
   background-color: rgba(255,255,255,0.1)
   border-radius: 6px
   background-repeat: no-repeat
-  background-position: 12px 9px
+  background-position: 12px 10px
   background-size: 30px 30px
 
   &::after
@@ -454,16 +471,16 @@ h4
   min-width: 50px
 
 .copper-coin
-  background-image: url('assets/coin-copper.svg')
+  background-image: url('assets/coin-copper-alt.svg')
 
 .silver-coin
-  background-image: url('assets/coin-silver.svg')
+  background-image: url('assets/coin-silver-alt.svg')
 
 .gold-coin
-  background-image: url('assets/coin-gold.svg')
+  background-image: url('assets/coin-gold-alt.svg')
 
 .platinum-coin
-  background-image: url('assets/coin-platinum.svg')
+  background-image: url('assets/coin-platinum-alt.svg')
 
 //Weapons
 td .roll-link
@@ -475,9 +492,6 @@ td .roll-link
 
 @media screen and (max-width: 1280px)
   // Container
-  .view-charsheet
-    margin: 24px auto
-
   .feat-list
     column-count: 1
 

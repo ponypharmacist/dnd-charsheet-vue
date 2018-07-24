@@ -1,16 +1,17 @@
-<template lang="pug" src="./viewCharacters.pug"></template>
+<template lang="pug" src="./tavern.pug"></template>
 
 <script>
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
 export default {
-  name:'viewCharacters',
+  name:'tavern',
   components: { Spinner },
   data() {
     return {
       Character: [],
-      isLoading: true
+      isLoading: true,
+      errorMessage: 'Starting up, may take some time.'
     }
   },
   mounted() {

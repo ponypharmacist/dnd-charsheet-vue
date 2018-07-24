@@ -1,31 +1,30 @@
-<template lang="pug" src="./viewCharsheet.pug"></template>
+<template lang="pug" src="./charsheet.pug"></template>
 
 <script>
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
-import { races, backgrounds, classes, feats, armors, weaponsM, weaponsR } from '../tables';
+import { races, backgrounds, classes, feats, armors, weapons } from '../tables';
 export default {
-  name:'viewCharsheet',
+  name:'charsheet',
   components: { Spinner },
   data() {
     return {
       charID: '',
-      errorMessage: 'test',
+      errorMessage: '',
       // tables of stuff
       races: races,
       classes: classes,
       backgrounds: backgrounds,
       feats: feats,
       armors: armors,
-      weaponsM: weaponsM,
-      weaponsR: weaponsR,
+      weapons: weapons,
       // UI stuff
       isLoading: true,
       updated: false,
       showSnackbar: false,
-      rollQueue: ['', '', ''],
+      rollQueue: [],
       // Character stuff
       Character: []
     }
@@ -60,7 +59,7 @@ export default {
       let baseAC = 10;
       let shield = this.Character.shield ? 2 : 0;
       if (this.Character.clas == 'barbarian' && this.Character.armor == 'noArmor' && !this.Character.shield) {
-        attributeModifier += getModifier(this.Character.Constitution);
+        attributeModifier += getModifier(this.Character.constitution);
       } else if (this.Character.clas == 'monk' && this.Character.armor == 'noArmor' && !this.Character.shield) {
         attributeModifier += getModifier(this.Character.wisdom);
       } else if (this.armors[this.Character.armor].type == 'heavy') {
@@ -79,15 +78,39 @@ export default {
       let bonus = getModifier(this.Character.constitution);
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
     },
+
+    rangedWeapons: function() {
+      let shortlist = {};
+      for (let weapon in this.weapons) {
+        if (this.weapons[weapon].range) {
+          shortlist[weapon] = this.weapons[weapon];
+        }
+      }
+      return shortlist;
+    },
+    meleeWeapons: function() {
+      let shortlist = {};
+      for (let weapon in this.weapons) {
+        if (!this.weapons[weapon].range || this.weapons[weapon].modifiers.includes('thrown')) {
+          shortlist[weapon] = this.weapons[weapon];
+        }
+      }
+      return shortlist;
+    },
+
     weaponMeleeDamage: function() {
-      let finesse = this.weaponsM[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
+      let finesse = this.weapons[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
       let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
       return finesse ? highestModifier : getModifier(this.Character.strength);
     },
     weaponMelee2Damage: function() {
-      let finesse = this.weaponsM[this.Character.weaponMelee2].modifiers.includes('finesse') ? true : false;
+      let finesse = this.weapons[this.Character.weaponMelee2].modifiers.includes('finesse') ? true : false;
       let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
       return finesse ? highestModifier : getModifier(this.Character.strength);
+    },
+    weaponRangedDamage: function() {
+      let finesse = this.weapons[this.Character.weaponRanged].modifiers.includes('finesse') ? true : false;
+      return finesse ? getModifier(this.Character.dexterity) : getModifier(this.Character.strength);
     },
     weaponMeleeAttack: function() {
       return this.weaponMeleeDamage + this.proficiencyBonus;
@@ -109,10 +132,7 @@ export default {
     capitalize,
     decoratePositive,
     flattenArray,
-    getModifier,
-    add(number, bonus) {
-      return number + bonus;
-    }
+    getModifier
   },
 
   // Methods
@@ -120,11 +140,12 @@ export default {
     spellsLvl (lvl) {
       return this.classes[this.Character.clas].spellslots ? this.classes[this.Character.clas].spellslots[this.Character.level][lvl] : 0;
     },
+
     getSkillBonus (attribute, skill) {
       let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;
       return profBonus + getModifier(this.Character[attribute]);
     },
-    roll (attribute, skill) {
+    rollSkill (attribute, skill) {
       let bonus = this.getSkillBonus(attribute, skill);
       let rollResult = rollDice(20);
       let criticalSuccess = rollResult == 20 ? ' CRITICAL SUCCESS!' : '';
@@ -140,8 +161,9 @@ export default {
       let updateString = 'You roll ' + capitalize(name) + ' for ' + (rollResult + bonus) + '. ';
       this.updateRollQueue(updateString);
     },
+
     rollAttack (weapon) {
-      let weaponName = this.weaponsM[this.Character[weapon]].title;
+      let weaponName = this.weapons[this.Character[weapon]].title;
       let rollResult = rollDice(20);
       let bonus = this[weapon + 'Attack'];
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
@@ -151,15 +173,15 @@ export default {
       this.updateRollQueue(updateString, note);
     },
     rollDamage (weapon) {
-      let weaponName = this.weaponsM[this.Character[weapon]].title;
-      let weaponDamage = this.weaponsM[this.Character[weapon]].damage;
+      let weaponName = this.weapons[this.Character[weapon]].title;
+      let weaponDamage = this.weapons[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
       let bonus = this[weapon + 'Damage'];
       let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
     rollAttackRanged (weapon) {
-      let weaponName = this.weaponsR[this.Character[weapon]].title;
+      let weaponName = this.weapons[this.Character[weapon]].title;
       let rollResult = rollDice(20);
       let bonus = this.weaponRangedAttack;
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
@@ -169,30 +191,40 @@ export default {
       this.updateRollQueue(updateString, note);
     },
     rollDamageRanged (weapon) {
-      let weaponName = this.weaponsR[this.Character[weapon]].title;
-      let weaponDamage = this.weaponsR[this.Character[weapon]].damage;
+      let weaponName = this.weapons[this.Character[weapon]].title;
+      let weaponDamage = this.weapons[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
       let bonus = this.weaponRangedAttack;
       let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
+
+    prettyDate () {
+      let dateWithouthSecond = new Date();
+      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    },
+
+    rollDiceSingle(sides) {
+      let updateString = 'You roll a d' + sides + ' for ' + rollDice(sides) +  '.';
+      this.updateRollQueue(updateString);
+    },
+
     updateRollQueue (string, note) {
       let rollObject = {
         date: this.prettyDate(),
         string: string,
         note: note
       };
-      this.rollQueue.shift();
+      if (this.rollQueue.length >= 3) {
+        this.rollQueue.shift();
+      }
       this.rollQueue.push(rollObject);
-    },
-    prettyDate () {
-      let dateWithouthSecond = new Date();
-      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     },
 
     // API calls
     getCharacter (charID) {
       console.log(charID);
+      this.errorMessage = 'Starting up, may take some time.';
       axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`)
         .then((response) => {
           this.isLoading = false;
@@ -206,10 +238,10 @@ export default {
     },
 
     updateAPI () {
-    let updateCharacter = this.Character;
-    let charID = this.charID;
-    console.log(charID);
-    axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
+      let updateCharacter = this.Character;
+      let charID = this.charID;
+      console.log(charID);
+      axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
       .then((response) => {
         console.log('Sent my character to API!');
         this.updated = true;

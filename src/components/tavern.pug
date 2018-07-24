@@ -1,6 +1,10 @@
 .container
+  #navigation
+    md-button.md-dense.md-raised.md-primary(to="/create") Add Character
+
   .md-layout(v-if="isLoading")
-    .md-layout-item
+    .md-layout-item.text-center
+      .error-message {{ errorMessage }}
       template
         spinner
 

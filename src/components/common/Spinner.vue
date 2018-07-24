@@ -12,8 +12,4 @@ export default {
 .spinner
   width: 128px
   height: 128px
-  position: relative
-  top: 50%
-  left: 50%
-  margin-left: -64px
 </style>
