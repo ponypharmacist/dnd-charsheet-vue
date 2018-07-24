@@ -51,6 +51,8 @@ export default {
       // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
     }
   },
+
+  // Computed
   computed: {
     characterLanguages: function() {
       let fromRace = this.race ? this.races[this.race].languages : [];

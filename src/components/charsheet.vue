@@ -23,7 +23,8 @@ export default {
       // UI stuff
       isLoading: true,
       updated: false,
-      showSnackbar: false,
+      levelUpOne: false,
+      levelUpTwo: false,
       rollQueue: [],
       // Character stuff
       Character: []
@@ -77,6 +78,9 @@ export default {
       let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.Character.constitution);
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
+    },
+    wieldsTwohanded: function() {
+      return this.Character.weaponMelee ? this.weapons[this.Character.weaponMelee].modifiers.includes('twohanded') : false;
     },
 
     rangedWeapons: function() {
@@ -137,6 +141,12 @@ export default {
 
   // Methods
   methods: {
+    levelUp () {
+      if (this.Character.level < 20) {
+        this.levelUpOne = true;
+      }
+    },
+
     spellsLvl (lvl) {
       return this.classes[this.Character.clas].spellslots ? this.classes[this.Character.clas].spellslots[this.Character.level][lvl] : 0;
     },
@@ -232,6 +242,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          console.log('catch.error fired')
           this.errorMessage = error;
         });
     },
@@ -255,5 +266,4 @@ export default {
   } // end of methods
 }
 </script>
-
 <style></style>

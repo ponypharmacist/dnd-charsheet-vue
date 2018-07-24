@@ -19,11 +19,14 @@ export default {
       .then((response) => {
         this.isLoading = false;
         console.log(response.data);
+        console.log('response.data came in');
         this.Character = response.data;
       })
       .catch((error) => {
         // ToDo: display UI message failed loading
         console.log(error);
+        console.log('catch(error) fired');
+        this.errorMessage = error;
       });
   },
   methods: {
