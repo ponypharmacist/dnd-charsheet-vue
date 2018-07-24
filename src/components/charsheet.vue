@@ -224,7 +224,6 @@ export default {
     // API calls
     getCharacter (charID) {
       console.log(charID);
-      this.errorMessage = 'Starting up, may take some time.';
       axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`)
         .then((response) => {
           this.isLoading = false;
