@@ -1,9 +1,0 @@
-Попробовать собрать:
-Dependencies
-- axios
-- vue
-- vue-router
-- vue-sweetalert2 (?)
-
-Dev Dependencies
-- ???

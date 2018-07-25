@@ -2,7 +2,7 @@
   "name": "client",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Aneeta Sharma <get.aneeta@gmail.com>",
+  "author": "ponyPharmacist",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
