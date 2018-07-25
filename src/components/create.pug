@@ -113,7 +113,7 @@
                   md-input(v-model="characterStrength")
                   span.md-helper-text
                     | Str 
-                    span.modifier-bubble {{ characterStrength | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ strength | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterStrength', 'characterCharisma')")
                     md-icon keyboard_arrow_left
@@ -126,7 +126,7 @@
                   md-input(v-model="characterDexterity")
                   span.md-helper-text
                     | Dex 
-                    span.modifier-bubble {{ characterDexterity | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ dexterity | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterDexterity', 'characterStrength')")
                     md-icon keyboard_arrow_left
@@ -139,7 +139,7 @@
                   md-input(v-model="characterConstitution")
                   span.md-helper-text
                     | Con 
-                    span.modifier-bubble {{ characterConstitution | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ constitution | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterConstitution', 'characterDexterity')")
                     md-icon keyboard_arrow_left
@@ -152,7 +152,7 @@
                   md-input(v-model="characterIntelligence")
                   span.md-helper-text
                     | Int 
-                    span.modifier-bubble {{ characterIntelligence | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ intelligence | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterIntelligence', 'characterConstitution')")
                     md-icon keyboard_arrow_left
@@ -165,7 +165,7 @@
                   md-input(v-model="characterWisdom")
                   span.md-helper-text
                     | Wis 
-                    span.modifier-bubble {{ characterWisdom | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ wisdom | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterWisdom', 'characterIntelligence')")
                     md-icon keyboard_arrow_left
@@ -178,7 +178,7 @@
                   md-input(v-model="characterCharisma")
                   span.md-helper-text
                     | Cha 
-                    span.modifier-bubble {{ characterCharisma | getModifier | decoratePositive }}
+                    span.modifier-bubble {{ charisma | getModifier | decoratePositive }}
                 .ability-swap-container
                   md-button.md-icon-button.md-dense.md-primary.ability-swap(@click="swap('characterCharisma', 'characterWisdom')")
                     md-icon keyboard_arrow_left
@@ -194,7 +194,7 @@
           |  Health: {{ maxHealth }}
         .combat-stat-title
           md-icon track_changes 
-          |  Initiative: {{ characterDexterity | getModifier | decoratePositive }}
+          |  Initiative: {{ dexterity | getModifier | decoratePositive }}
         .combat-stat-title
           md-icon verified_user 
           |  Speed: {{ characterSpeed }}

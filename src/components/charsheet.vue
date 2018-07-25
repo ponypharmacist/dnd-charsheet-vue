@@ -5,7 +5,12 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
-import { races, backgrounds, classes, feats, armors, weapons } from '../tables';
+import { races } from '../tables/races';
+import { backgrounds } from '../tables/backgrounds';
+import { classes } from '../tables/classes';
+import { feats } from '../tables/feats';
+import { armors } from '../tables/armors';
+import { weapons } from '../tables/weapons';
 export default {
   name:'charsheet',
   components: { Spinner },
@@ -26,6 +31,9 @@ export default {
       levelUpOne: false,
       levelUpTwo: false,
       rollQueue: [],
+      // Level Up stuff
+      levelUpHealthMethod: 'maximum',
+      levelUpHealthRandom: 0,
       // Character stuff
       Character: []
     }
@@ -42,6 +50,7 @@ export default {
     subraceTitle: function() {
       return this.races[this.Character.race].subraces[this.Character.subrace].title;
     },
+
     proficiencyBonus: function() {
       let profBonus = 2;
       if (this.Character.level >= 17) {
@@ -74,15 +83,11 @@ export default {
       }
       return baseAC + attributeModifier + shield;
     },
-    maxHealth: function() {
-      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
-      let bonus = getModifier(this.Character.constitution);
-      return this.classes[this.Character.clas].hitDie + bonus + toughness;
-    },
+
+    // Weapon Related
     wieldsTwohanded: function() {
       return this.Character.weaponMelee ? this.weapons[this.Character.weaponMelee].modifiers.includes('twohanded') : false;
     },
-
     rangedWeapons: function() {
       let shortlist = {};
       for (let weapon in this.weapons) {
@@ -101,7 +106,6 @@ export default {
       }
       return shortlist;
     },
-
     weaponMeleeDamage: function() {
       let finesse = this.weapons[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
       let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
@@ -124,6 +128,13 @@ export default {
     },
     weaponRangedAttack: function() {
       return getModifier(this.Character.dexterity) + this.proficiencyBonus;
+    },
+
+    // Level Up stuff
+    levelUpHealthMax: function() {
+      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
+      let bonus = getModifier(this.Character.constitution);
+      return this.classes[this.Character.clas].hitDie + bonus + toughness;
     }
   },
 
@@ -145,6 +156,24 @@ export default {
       if (this.Character.level < 20) {
         this.levelUpOne = true;
       }
+    },
+    levelUpRollHealth () {
+      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
+      let bonus = getModifier(this.Character.constitution);
+      this.levelUpHealthRandom = rollDice(this.classes[this.Character.clas].hitDie) + bonus + toughness;
+    },
+    levelUpStepTwo () {
+      this.levelUpOne = false;
+      this.levelUpTwo = true;
+    },
+    levelUpComplete () {
+      this.levelUpOne = false;
+      if (this.levelUpHealthMethod == 'maximum') {
+        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthMax;
+      } else {
+        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthRandom;
+      }
+      this.Character.level = ++this.Character.level;
     },
 
     spellsLvl (lvl) {

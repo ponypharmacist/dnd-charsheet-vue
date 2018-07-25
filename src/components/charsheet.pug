@@ -1,16 +1,4 @@
 .container.view-charsheet
-  // Class skills dialog
-  md-dialog.dialog(:md-active.sync="levelUpOne" :md-fullscreen="false")
-    md-dialog-title Health from level up
-    .md-layout(md-dynamic-height)
-      .md-layout-item
-        span Athletics (Str)
-      
-    md-dialog-actions
-      md-button.md-primary(@click="levelUpOne = false") Close
-      md-button.md-primary(@click="levelUpOne = false, levelUpTwo = true") Next
-      // ToDo: disable next if no result selected or make one selected by default
-      // ToDo: don't forget toughness bonus and constitution modifier
 
   .roll-queue
     .queue-item(v-for="roll in rollQueue") 
@@ -37,6 +25,22 @@
         spinner
 
   .golden-border(v-if="!isLoading")
+    // Class skills dialog
+    md-dialog.dialog(:md-active.sync="levelUpOne" :md-fullscreen="false")
+      md-dialog-title Health from level up
+      .md-layout(md-dynamic-height)
+        .md-layout-item
+          md-radio(v-model="levelUpHealthMethod" value="maximum") Maximum ({{ levelUpHealthMax }})
+          br
+          md-radio(v-model="levelUpHealthMethod" value="random") 
+            a.roll-link(@click="levelUpRollHealth") Random ({{ levelUpHealthRandom }})
+        
+      md-dialog-actions
+        md-button.md-primary(@click="levelUpOne = false") Close
+        md-button.md-primary(@click="levelUpComplete") Next
+        // ToDo: disable next if no result selected or make one selected by default
+        // ToDo: don't forget toughness bonus and constitution modifier
+
     .character-bar
       .character-name {{ Character.name | capitalize }}
       .character-race-class 
@@ -149,7 +153,7 @@
                 .hp-controls-minus(@click="Character.currentHealth--")
               .hp-value-current
                 input(v-model="Character.currentHealth")
-              .hp-value {{ maxHealth }}
+              .hp-value {{ Character.maxHealth }}
           .initiative
             .initiative-value.roll-link(@click="rollAttribute('dexterity', 'Initiative')") {{ Character.dexterity | getModifier | decoratePositive }}
           .speed

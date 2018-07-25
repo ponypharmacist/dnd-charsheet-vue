@@ -4,7 +4,12 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray, flattenArrayMultiline } from '../helpers';
-import { races, backgrounds, classes, feats, armors, weapons } from '../tables';
+import { races } from '../tables/races';
+import { backgrounds } from '../tables/backgrounds';
+import { classes } from '../tables/classes';
+import { feats } from '../tables/feats';
+import { armors } from '../tables/armors';
+import { weapons } from '../tables/weapons';
 export default {
   name: 'create',
   components: { Spinner },
@@ -164,6 +169,7 @@ export default {
       }
       return baseAC + attributeModifier + shield;
     },
+
     skillsChoice: function() {
       return this.clas ? this.classes[this.clas].skillsChoice ? this.classes[this.clas].skillsChoice : [] : [];
     },
@@ -181,22 +187,42 @@ export default {
       let fromClass = this.clas ? this.classes[this.clas].skillpoints ? this.classes[this.clas].skillpoints : 0 : 0;
       return fromRace + fromClass;
     },
+
     characterFeats: function() {
       let fromRace = this.race ? this.races[this.race].feats : [];
       let fromSubrace = this.subrace ? this.races[this.race].subraces[this.subrace].feats : [];
-      let fromClass = this.clas ? this.classes[this.clas].feats : [];
+      let fromClass = this.clas ? this.classes[this.clas].feats[1] : [];
       let fromBackground = this.background ? this.backgrounds[this.background].feats : [];
       return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass).concat(fromBackground)));
     },
     maxHealth: function() {
       let toughness = this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
-      let bonus = getModifier(this.characterConstitution);
+      let bonus = getModifier(this.constitution);
       return this.clas ? this.classes[this.clas].hitDie + bonus + toughness : 0;
     },
     characterSpeed: function() {
       let raceSpeed = this.race ? this.races[this.race].speed : 30;
       let subraceSpeed = this.subrace ? this.races[this.race].subraces[this.subrace].speed ? this.races[this.race].subraces[this.subrace].speed : false : false;
       return subraceSpeed ? subraceSpeed : raceSpeed;
+    },
+
+    strength: function() {
+      return parseInt(this.characterStrength) + parseInt(this.strengthBonus);
+    },
+    dexterity: function() {
+      return parseInt(this.characterDexterity) + parseInt(this.dexterityBonus);
+    },
+    constitution: function() {
+      return parseInt(this.characterConstitution) + parseInt(this.constitutionBonus);
+    },
+    intelligence: function() {
+      return parseInt(this.characterIntelligence) + parseInt(this.intelligenceBonus);
+    },
+    wisdom: function() {
+      return parseInt(this.characterWisdom) + parseInt(this.wisdomBonus);
+    },
+    charisma: function() {
+      return parseInt(this.characterCharisma) + parseInt(this.charismaBonus);
     },
 
     strengthBonus: function() { return this.hasBonus('strength'); },
@@ -207,7 +233,7 @@ export default {
     charismaBonus: function() { return this.hasBonus('charisma'); },
 
     sumOfStats: function () {
-      return parseInt(this.characterStrength) + parseInt(this.characterDexterity) + parseInt(this.characterConstitution) + parseInt(this.characterIntelligence) + parseInt(this.characterWisdom) + parseInt(this.characterCharisma)
+      return parseInt(this.strength) + parseInt(this.dexterity) + parseInt(this.constitution) + parseInt(this.intelligence) + parseInt(this.wisdom) + parseInt(this.charisma);
     }
   },
 
@@ -293,13 +319,14 @@ export default {
       clas: this.clas,
       background: this.background,
 
-      strength: parseInt(this.characterStrength) + parseInt(this.strengthBonus),
-      dexterity: parseInt(this.characterDexterity) + parseInt(this.dexterityBonus),
-      constitution: parseInt(this.characterConstitution) + parseInt(this.constitutionBonus),
-      intelligence: parseInt(this.characterIntelligence) + parseInt(this.intelligenceBonus),
-      wisdom: parseInt(this.characterWisdom) + parseInt(this.wisdomBonus),
-      charisma: parseInt(this.characterCharisma) + parseInt(this.charismaBonus),
+      strength: this.strength,
+      dexterity: this.dexterity,
+      constitution: this.constitution,
+      intelligence: this.intelligence,
+      wisdom: this.wisdom,
+      charisma: this.charisma,
 
+      maxHealth: this.maxHealth,
       currentHealth: this.maxHealth,
       speed: this.characterSpeed,
       copper: 0,
