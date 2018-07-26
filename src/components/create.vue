@@ -151,19 +151,19 @@ export default {
       return this.characterWeaponMelee ? this.weapons[this.characterWeaponMelee].modifiers.includes('twohanded') : false;
     },
     armorClass: function() {
-      let attributeModifier = getModifier(this.characterDexterity);
+      let attributeModifier = getModifier(this.dexterity);
       let baseAC = 10;
       let shield = this.characterShield ? 2 : 0;
       if (this.clas == 'barbarian' && this.characterArmor == 'noArmor' && !this.characterShield) {
-        attributeModifier += getModifier(this.characterConstitution);
+        attributeModifier += getModifier(this.constitution);
       } else if (this.clas == 'monk' && this.characterArmor == 'noArmor' && !this.characterShield) {
-        attributeModifier += getModifier(this.characterWisdom);
+        attributeModifier += getModifier(this.wisdom);
       } else if (this.armors[this.characterArmor].type == 'heavy') {
         baseAC = this.armors[this.characterArmor].ac;
         attributeModifier = 0;
       } else if (this.armors[this.characterArmor].type == 'medium') {
         baseAC = this.armors[this.characterArmor].ac;
-        attributeModifier = getModifier(this.characterDexterity) >= 2 ? 2 : getModifier(this.characterDexterity);
+        attributeModifier = getModifier(this.dexterity) >= 2 ? 2 : getModifier(this.dexterity);
       } else {
         baseAC = this.armors[this.characterArmor].ac;
       }
