@@ -263,7 +263,9 @@ export default {
     // API calls
     getCharacter (charID) {
       console.log(charID);
-      axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`)
+      axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`, {
+        timeout: 5000
+      })
         .then((response) => {
           this.isLoading = false;
           console.log('Got my character from API!');

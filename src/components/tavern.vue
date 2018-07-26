@@ -15,7 +15,9 @@ export default {
     }
   },
   mounted() {
-    axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets')
+    axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets', {
+      timeout: 5000
+    })
       .then((response) => {
         this.isLoading = false;
         console.log(response.data);
@@ -33,21 +35,13 @@ export default {
     deleteCharacter(charID) {
       console.log('Trying to delete: ' + charID);
       this.isLoading = true;
-      axios.delete('https://dnd-charsheet-api.herokuapp.com/charsheets/delete/' + charID, {
-      method: 'DELETE',
-      mode: 'no-cors',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',
-      },
-      withCredentials: false
-      })
+      axios.delete('https://dnd-charsheet-api.herokuapp.com/charsheets/delete/' + charID)
       .then((response) => {
-        console.log(response);
+        console.log('Success deleting.');
         this.isLoading = false;
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Failed to delete. ' + error);
         this.isLoading = false;
       });
     }
