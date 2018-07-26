@@ -419,29 +419,35 @@ h4
   background-color: rgba(255,255,255,0.15)
   border: none
 
-.hp-controls
-  float: left
+.controls-block
   display: inline-block
   width: 24px
+
+.hp-controls
+  float: left
   margin-right: 6px
 
-.hp-controls-plus,
-.hp-controls-minus
+.stat-controls
+  float: right
+  margin-left: 6px
+
+.controls-plus,
+.controls-minus
   display: block
   width: 20px
   height: 20px
   border-radius: 3px
   margin: 2px 2px 2px
 
-.hp-controls-plus
+.controls-plus
   background: rgba(255,255,255,0.09) url('assets/plus.svg') no-repeat 50% 50% / 12px 12px
 
-.hp-controls-minus
+.controls-minus
   margin-top: 4px
   background: rgba(255,255,255,0.09) url('assets/minus.svg') no-repeat 50% 50% / 12px 12px
 
-.hp-controls-plus:hover,
-.hp-controls-minus:hover
+.controls-plus:hover,
+.controls-minus:hover
   background-color: rgba(255,255,255,0.16)
   cursor: pointer
 
@@ -619,8 +625,8 @@ td .roll-link
   .hp-controls
     margin-right: 0
 
-  .hp-controls-plus,
-  .hp-controls-minus
+  .controls-plus,
+  .controls-minus
     display: block
     width: 18px
     height: 18px

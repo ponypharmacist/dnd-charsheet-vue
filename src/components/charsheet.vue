@@ -34,6 +34,7 @@ export default {
       // Level Up stuff
       levelUpHealthMethod: 'maximum',
       levelUpHealthRandom: 0,
+      editStats: false,
       // Character stuff
       Character: []
     }

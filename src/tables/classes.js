@@ -6,7 +6,26 @@ export const classes = {
     hitDie: 12,
     feats: [
       [],
-      ['rage', 'unarmoredDefence']
+      ['rage', 'unarmoredDefence'],
+      ['recklessAttack', 'dangerSense'],
+      ['primalPath'],
+      [],
+      ['extraAttack', 'fastMovement'],
+      ['pathFeature'],
+      ['feralInstinct'],
+      [],
+      ['brutalCritical'], // ToDo: lv 9, 13, 17
+      ['pathFeature'],
+      ['relentlessRage'],
+      [],
+      [],
+      ['pathFeature'],
+      ['persistentRage'],
+      [],
+      [],
+      ['indomitableMight'],
+      [],
+      ['primalChampion']
     ],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     tools: [],
@@ -23,7 +42,7 @@ export const classes = {
       [],
       ['spellcasting', 'bardicInspiration'],
       ['jackOfAllTrades', 'songOfRest'],
-      ['bardCollege', 'expertise'],
+      ['bardCollege', 'expertiseBard3'],
       [],
       ['fontOfInspiration'],
       ['countercharm', 'bardCollegeFeature'],
@@ -79,7 +98,26 @@ export const classes = {
     hitDie: 8,
     feats: [
       [],
-      ['spellcasting', 'divineDomain']
+      ['spellcasting', 'divineDomain'],
+      ['Channel Divinity (1/rest)', 'Divine Domain Feature'],
+      [],
+      [],
+      ['Destroy Undead (CR 1/2)'],
+      ['Channel Divinity (2/rest)', 'Divine Domain Feature'],
+      [],
+      ['Destroy Undead (CR 1)', 'Divine Domain Feature'],
+      [],
+      ['Divine Intervention'],
+      ['Destroy Undead (CR 2)'],
+      [],
+      [],
+      ['Destroy Undead (CR 3)'],
+      [],
+      [],
+      ['Destroy Undead (CR 4)', 'Divine Domain Feature'],
+      ['Channel Divinity (3/rest)'],
+      [],
+      ['divineInterventionImprovement']
     ],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
     tools: [],
@@ -87,7 +125,30 @@ export const classes = {
     skillsChoice: ['history', 'insight', 'medicine', 'persuasion', 'religion'],
     skillsAllowed: 2,
     equipment: ['(a mace) or (a warhammer (if proficient))', '(scale mail), (leather armor), or (chain mail (if proficient))', '(a light crossbow and 20 bolts) or (any simple weapon)', '(a priest’s pack) or (an explorer’s pack)', 'a shield', 'a holy symbol'],
-    wealth: 0
+    wealth: 0,
+    spellslots: [
+      [0],
+      [0, 2, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 2, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 2, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 0, 0, 0, 0, 0, 0], // 6
+      [0, 4, 3, 3, 1, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 2, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 1, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0], // 12
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 2, 1, 1]
+    ]
   },
   druid: {
     title: 'Druid',

@@ -151,18 +151,33 @@ export const feats = {
     title: 'Spellcasting',
     description: '(Google for full description)'
   },
+  // Bard
   bardicInspiration: {
     title: 'Bardic Inspiration',
     description: 'As a bonus action give one creature an Inspiration 1d6 die. It lasts 10 minutes, allows to add 1d6 to ability check, attack roll or saving throw it makes. It upgrades to 1d8 at lvl 5, to 1d10 at lvl 10 and 1d12 at lvl 15.'
+  },
+  jackOfAllTrades: {
+    title: 'Jack of all Trades',
+    description: '+1 to all skill checks you are not proficient with.'
   },
   songOfRest: {
     title: 'Song of Rest',
     description: 'It upgrades to 1d8 at lvl 9, to 1d10 at lvl 13 and 1d12 at lvl 17.'
   },
+  bardCollege: {
+    title: 'Bard College',
+    description: '(ToDo)'
+  },
+  expertiseBard3: {
+    title: 'Expertise (bard lvl. 3)',
+    description: '(ToDo)'
+  },
+  // Cleric
   divineDomain: {
     title: 'Divine Domain',
     description: '(Google for full description)'
   },
+  // Rogue
   criminalContact: {
     title: 'Criminal Contact',
     description: 'You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.'
