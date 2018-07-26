@@ -4,7 +4,10 @@ export const classes = {
   barbarian: {
     title: 'Barbarian',
     hitDie: 12,
-    feats: ['rage', 'unarmoredDefence'],
+    feats: [
+      [],
+      ['rage', 'unarmoredDefence']
+    ],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons', 'martial weapons'],
     tools: [],
     skills: ['strength', 'constitution'],
@@ -74,7 +77,10 @@ export const classes = {
   cleric: {
     title: 'Cleric',
     hitDie: 8,
-    feats: ['spellcasting', 'divineDomain'],
+    feats: [
+      [],
+      ['spellcasting', 'divineDomain']
+    ],
     profCombat: ['light armor', 'medium armor', 'shields', 'simple weapons'],
     tools: [],
     skills: ['wisdom', 'charisma'],
@@ -86,7 +92,10 @@ export const classes = {
   druid: {
     title: 'Druid',
     hitDie: 8,
-    feats: ['spellcasting', 'druidic'],
+    feats: [
+      [],
+      ['spellcasting', 'druidic']
+    ],
     profCombat: ['light armor', 'medium armor', 'shields', 'clubs', 'daggers', 'darts', 'javelins', 'maces', 'quarterstaffs', 'scimitars', 'sickles', 'slings', 'spears'],
     tools: ['Herbalism kit'],
     skills: ['intelligence', 'wisdom'],
@@ -98,7 +107,10 @@ export const classes = {
   fighter: {
     title: 'Fighter',
     hitDie: 10,
-    feats: ['fightingStyle', 'secondWind'],
+    feats: [
+      [],
+      ['fightingStyle', 'secondWind']
+    ],
     profCombat: ['light armor', 'medium armor', 'heavy armor', 'shields', 'martial weapons'],
     tools: [],
     skills: ['strength', 'constitution'],
@@ -110,7 +122,10 @@ export const classes = {
   monk: {
     title: 'Monk',
     hitDie: 8,
-    feats: ['unarmoredDefence', 'martialArts'],
+    feats: [
+      [],
+      ['unarmoredDefence', 'martialArts']
+    ],
     profCombat: ['simple weapons', 'shortswords'],
     tools: ['one type of artisan’s tools or one musical instrument'],
     skills: ['strength', 'dexterity'],
@@ -122,7 +137,10 @@ export const classes = {
   paladin: {
     title: 'Paladin',
     hitDie: 10,
-    feats: ['divineSense', 'layOnHands'],
+    feats: [
+      [],
+      ['divineSense', 'layOnHands']
+    ],
     profCombat: ['light armor', 'medium armor', 'heavy armor', 'shields', 'martial weapons'],
     tools: [],
     skills: ['wisdom', 'charisma'],
@@ -134,7 +152,10 @@ export const classes = {
   ranger: {
     title: 'Ranger',
     hitDie: 10,
-    feats: ['favoredEnemy', 'naturalExplorer'],
+    feats: [
+      [],
+      ['favoredEnemy', 'naturalExplorer']
+    ],
     profCombat: ['light armor', 'medium armor', 'shields', 'martial weapons'],
     tools: [],
     skills: ['strength', 'dexterity'],
@@ -146,7 +167,10 @@ export const classes = {
   rogue: {
     title: 'Rogue',
     hitDie: 8,
-    feats: ['expertise', 'sneakAttack', 'thievesCant'],
+    feats: [
+      [],
+      ['expertise', 'sneakAttack', 'thievesCant']
+    ],
     profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
     tools: ['Thieves’ tools'],
     skills: ['dexterity', 'intelligence'],
@@ -158,7 +182,10 @@ export const classes = {
   sorcerer: {
     title: 'Sorcerer',
     hitDie: 6,
-    feats: ['spellcasting', 'sorcerousOrigin'],
+    feats: [
+      [],
+      ['spellcasting', 'sorcerousOrigin']
+    ],
     profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
     skills: ['constitution', 'charisma'],
@@ -170,7 +197,10 @@ export const classes = {
   warlock: {
     title: 'Warlock',
     hitDie: 8,
-    feats: ['otherworldlyPatron', 'pactMagic'],
+    feats: [
+      [],
+      ['otherworldlyPatron', 'pactMagic']
+    ],
     profCombat: ['light armor', 'simple weapons'],
     tools: [],
     skills: ['wisdom', 'charisma'],
@@ -182,7 +212,10 @@ export const classes = {
   wizard: {
     title: 'Wizard',
     hitDie: 6,
-    feats: ['spellcasting', 'arcaneRecovery'],
+    feats: [
+      [],
+      ['spellcasting', 'arcaneRecovery']
+    ],
     profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
     skills: ['intelligence', 'wisdom'],

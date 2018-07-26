@@ -8,6 +8,7 @@ import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
 import { feats } from '../tables/feats';
+import { customfeats } from '../tables/customfeats';
 import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
@@ -20,6 +21,7 @@ export default {
       classes: classes,
       backgrounds: backgrounds,
       feats: feats,
+      customfeats: customfeats,
       armors: armors,
       weapons: weapons,
       // form and visuals stuff
