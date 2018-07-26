@@ -1,24 +1,17 @@
 === General Feats ===
-Actor
-Skilled at mimicry and dramatics, you gain the following benefits:
-
-    Increase your Charisma score by 1, to a maximum of 20.
-    You have an advantage on Deception and Performance checks when trying to pass yourself off as a different person.
-    You can mimic the speech of another person or the sounds made by other creatures. You must have heard the person speaking, or heard the creature make the sound, for at least 1 minute. A successful Insight check contested by your Deception check allows a listener to determine that the effect is faked.
-
 Athlete
 You have undergone extensive physical training to gain the following benefits:
 
-    Increase your Strength or Dexterity score by 1, to a maximum of 20.
-    When you are prone, standing up uses only 5 feet of your movement.
-    Climbing doesn't cost you extra movement.
-    You can make a running long jump or a running high jump after moving only 5 feet on foot, rather than 10 feet.
+    - Increase your Strength or Dexterity score by 1, to a maximum of 20.
+    - When you are prone, standing up uses only 5 feet of your movement.
+    - Climbing doesn't cost you extra movement.
+    - You can make a running long jump or a running high jump after moving only 5 feet on foot, rather than 10 feet.
 
 Alert
 Always on the lookout for danger, you gain the following benefits:
-    You can't be surprised while you are conscious.
-    You gain a +5 bonus to initiative.
-    Other creatures don't gain advantage on attack rolls against you as a result of being unseen by you.
+    - You can't be surprised while you are conscious.
+    - You gain a +5 bonus to initiative.
+    - Other creatures don't gain advantage on attack rolls against you as a result of being unseen by you.
 
 Charger
 When you use your action to Dash, you can use a bonus action to make one melee weapon attack or to shove a creature. If you move at least 10 feet in a straight line immediately before taking this bonus action, you either gain a +5 bonus to the attack's damage roll (if you chose to make a melee attack and hit) or push the target up to 10 feet away from you (if you chose to shove and you succeed).
@@ -30,23 +23,23 @@ When you are wielding a finesse weapon with which you are proficient and another
 Dual Wielder
 You master fighting with two weapons, gaining the following benefits:
 
-    You gain a +1 bonus to AC while you are wielding a separate melee weapon in each hand.
-    You can use two-weapon fighting even when the one-handed melee weapons you are wielding aren't light.
-    You can draw or stow two one-handed weapons when you would normally be able to draw or stow only one.
+    - You gain a +1 bonus to AC while you are wielding a separate melee weapon in each hand.
+    - You can use two-weapon fighting even when the one-handed melee weapons you are wielding aren't light.
+    - You can draw or stow two one-handed weapons when you would normally be able to draw or stow only one.
 
 Dungeon Delver
 Alert to the hidden traps and secret doors found in many dungeons, you gain the following benefits:
 
-    You have advantage on Perception and Investigation checks made to detect the presence of secret doors.
-    You have advantage on saving throws made to avoid or resist traps.
-    You have resistance to the damage dealt by traps.
-    You can search for traps while traveling at a normal pace, instead of a slow one.
+    - You have advantage on Perception and Investigation checks made to detect the presence of secret doors.
+    - You have advantage on saving throws made to avoid or resist traps.
+    - You have resistance to the damage dealt by traps.
+    - You can search for traps while traveling at a normal pace, instead of a slow one.
 
 Durable
 Hardy and resilient, you gain the following benefits:
 
-    Increase your Constitution score by 1, to a maximum of 20.
-    When you roll a Hit Die to regain hit points, the minimum number of hit points you regain equals twice your Constitution modifier (minimum of 2).
+    - Increase your Constitution score by 1, to a maximum of 20.
+    - When you roll a Hit Die to regain hit points, the minimum number of hit points you regain equals twice your Constitution modifier (minimum of 2).
 
 Elemental Adept
 Prerequisite: The ability to cast at least one spell
@@ -60,20 +53,20 @@ Grappler
 Prerequisite: Strength 13 or higher
 You've developed the skills necessary to hold your own in close-quarters grappling. You gain the following benefits:
 
-    You have advantage on attack rolls against a creature you are grappling.
-    You can use your action to try to pin a creature grappled by you. To do so, make another grapple check. If you succeed, you and the creature are both restrained until the grapple ends.
+    - You have advantage on attack rolls against a creature you are grappling.
+    - You can use your action to try to pin a creature grappled by you. To do so, make another grapple check. If you succeed, you and the creature are both restrained until the grapple ends.
 
 Great Weapon Master
 You've learned to put the weight of a weapon to your advantage, letting its momentum empower your strikes. You gain the following benefits:
 
-    On your turn, when you score a critical hit with a melee weapon or reduce a creature to 0 hit points with one, you can make one melee weapon attack as a bonus action.
-    Before you make a melee attack with a heavy weapon that you are proficient with, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.
+    - On your turn, when you score a critical hit with a melee weapon or reduce a creature to 0 hit points with one, you can make one melee weapon attack as a bonus action.
+    - Before you make a melee attack with a heavy weapon that you are proficient with, you can choose to take a -5 penalty to the attack roll. If the attack hits, you add +10 to the attack's damage.
 
 Healer
 You are an able physician, allowing you to mend wounds quickly and get your allies back in the fight. You gain the following benefits:
 
-    When you use a healer's kit to stabilize a dying creature, that creature also regains 1 hit point.
-    As an action, you can spend one use of a healer's kit to tend to a creature and restore 1d6 + 4 hit points to it, plus additional hit points equal to the creature's maximum number of hit dice. The creature can't regain hit points from this feat again until it finishes a short or long rest.
+    - When you use a healer's kit to stabilize a dying creature, that creature also regains 1 hit point.
+    - As an action, you can spend one use of a healer's kit to tend to a creature and restore 1d6 + 4 hit points to it, plus additional hit points equal to the creature's maximum number of hit dice. The creature can't regain hit points from this feat again until it finishes a short or long rest.
 
 Inspiring Leader
 Prerequisite: Charisma 13 or higher
@@ -82,27 +75,22 @@ You can spend 10 minutes inspiring your companions, shoring up their resolve to 
 Keen Mind
 You have a mind that can track time, direction, and detail with uncanny precision. You gain the following benefits.
 
-    Increase your Intelligence score by 1, to a maximum of 20.
-    You always know which way is north.
-    You always know the number of hours left before the next sunrise or sunset.
-    You can accurately recall anything you have seen or heard within the past month.
+    - Increase your Intelligence score by 1, to a maximum of 20.
+    - You always know which way is north.
+    - You always know the number of hours left before the next sunrise or sunset.
+    - You can accurately recall anything you have seen or heard within the past month.
 
 Linguist
 You have studied languages and codes, gaining the following benefits:
 
-    Increase your Intelligence score by 1, to a maximum of 20.
-    You learn three languages of your choice.
-    You can ably create written ciphers. Others can't decipher a code you create unless you teach them, they succeed on an Intelligence check (DC equal to your Intelligence score + your proficiency bonus), or they use magic to decipher it.
+    - Increase your Intelligence score by 1, to a maximum of 20.
+    - You learn three languages of your choice.
+    - You can ably create written ciphers. Others can't decipher a code you create unless you teach them, they succeed on an Intelligence check (DC equal to your Intelligence score + your proficiency bonus), or they use magic to decipher it.
 
 Lucky
-You have inexplicable luck that seems to kick in at just the right moment.
-
 You have 3 luck points. Whenever you make an attack roll, an ability check, or a saving throw, you can spend one luck point to roll an additional d20. You can choose to spend one of your luck points after you roll the die, but before the outcome is determined. You choose which of the d20s is used for the attack roll, ability check, or saving throw.
-
 You can also spend one luck point when an attack roll is made against you. Roll a d20, and then choose whether the attack uses the attacker's roll or yours.
-
 If more than one creature spends a luck point to influence the outcome of a roll, the points cancel each other out; no additional dice are rolled.
-
 You regain your expended luck points when you finish a long rest.
 
 Mage Slayer
@@ -155,9 +143,7 @@ Choose one ability score. You gain the following benefits:
 Ritual Caster
 Prerequisite: Intelligence or Wisdom 13 or higher
 You have learned a number of spells that you can cast as rituals. These spells are written in a ritual book, which you must have in hand while casting one of them.
-
 When you choose this feat, you acquire a ritual book holding two 1st-level spells of your choice. Choose one of the following classes: bard, cleric, druid, sorcerer, warlock, or wizard. You must choose your spells from that class's spell list, and the spells you choose must have the ritual tag. The class you choose also determines your spellcasting ability for these spells: Charisma for bard, sorcerer, or warlock; Wisdom for cleric or druid; or Intelligence for wizard.
-
 If you come across a spell in written form, such as a magical spell scroll or a wizard's spellbook, you might be able to add it to your ritual book. The spell must be on the spell list for the class you chose, the spell's level can be no higher than half your level (rounded up), and it must have the ritual tag. The process of copying the spell into your ritual book takes 2 hours per level of the spell, and costs 50 gp per level. The cost represents material components you expend as you experiment with the spell to master it, as well as the fine inks you need to record it.
 
 Savage Attacker
@@ -207,6 +193,8 @@ You have practiced casting spells in the midst of combat, learning techniques th
     You have advantage on Constitution saving throws that you make to maintain your concentration on a spell when you take damage.
     You can perform the somatic components of spells even when you have weapons or a shield in one or both hands.
     When a hostile creature's movement provokes an opportunity attack from you, you can use your reaction to cast a spell at the creature, rather than making an opportunity attack. The spell must have a casting time of 1 action and must target only that creature.
+
+
 
 === Weapon Feats ===
 Blade Mastery

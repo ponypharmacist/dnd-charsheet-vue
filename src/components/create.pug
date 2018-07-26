@@ -96,6 +96,14 @@
           md-select(v-model="background" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
+        .feat-checkbox
+          md-checkbox(v-model="extraFeat") Extra feat instead of stat bonus
+        
+        md-field(v-if="extraFeat")
+          label(for="bonusFeatList") Extra Feat
+          md-select(v-model="extraFeatList" name="bonusFeatList")
+            md-option(v-for="(feat, key) in customfeats" v-bind:key="customfeats[feat]" v-bind:value="key") {{ feat.title }}
+        
         .md-layout.ability.md-layout-item
           .md-layout-item.mt-1
             .md-layout.md-alignment-top-left

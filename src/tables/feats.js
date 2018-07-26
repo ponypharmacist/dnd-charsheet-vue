@@ -282,5 +282,135 @@ export const feats = {
   spellcasting3: {
     title: '',
     description: ''
+  },
+
+  // Custom feats
+  actor: {
+    title: 'Actor',
+    description: 'You are skilled at mimicry and dramatics: \n - Add 1 to Charisma. \n - You have advantage on Deception and Performance checks to pretend being someone else. \n - You can mimic speech or sounds of people and creatures. Success is determined by a contest of your Deception vs persons Insight.'
+  },
+  athlete: {
+    title: 'Athlete',
+    description: '(google it, sorry)'
+  },
+  alert: {
+    title: 'Alert',
+    description: '(google it, sorry)'
+  },
+  charger: {
+    title: 'Charger',
+    description: '(google it, sorry)'
+  },
+  defensiveDuelist: {
+    title: 'Defensive Duelist',
+    description: '(google it, sorry)'
+  },
+  dualWielder: {
+    title: 'Dual Wielder',
+    description: '(google it, sorry)'
+  },
+  dungeonDelver: {
+    title: 'Dungeon Delver',
+    description: '(google it, sorry)'
+  },
+  durable: {
+    title: 'Durable',
+    description: '(google it, sorry)'
+  },
+  elementalAdept: {
+    title: 'Elemental Adept',
+    description: '(google it, sorry)'
+  },
+  grappler: {
+    title: 'Grappler',
+    description: '(google it, sorry)'
+  },
+  greatWeaponMaster: {
+    title: 'Great Weapon Master',
+    description: '(google it, sorry)'
+  },
+  healer: {
+    title: 'Healer',
+    description: '(google it, sorry)'
+  },
+  inspiringLeader: {
+    title: 'Inspiring Leader',
+    description: '(google it, sorry)'
+  },
+  keenMind: {
+    title: 'Keen Mind',
+    description: '(google it, sorry)'
+  },
+  linguist: {
+    title: 'Linguist',
+    description: '(google it, sorry)'
+  },
+  luckyExtra: {
+    title: 'Lucky (optional feat)',
+    description: '(google it, sorry)'
+  },
+  mageSlayer: {
+    title: 'Mage Slayer',
+    description: '(google it, sorry)'
+  },
+  magicInitiate: {
+    title: 'Magic Initiate',
+    description: '(google it, sorry)'
+  },
+  martialAdept: {
+    title: 'Martial Adept',
+    description: '(google it, sorry)'
+  },
+  mobile: {
+    title: 'Mobile',
+    description: '(google it, sorry)'
+  },
+  mountedCombatant: {
+    title: 'Mounted Combatant',
+    description: '(google it, sorry)'
+  },
+  observant: {
+    title: 'Observant',
+    description: '(google it, sorry)'
+  },
+  resilient: {
+    title: 'Resilient',
+    description: '(google it, sorry)'
+  },
+  ritualCaster: {
+    title: 'Ritual Caster',
+    description: '(google it, sorry)'
+  },
+  savageAttacker: {
+    title: 'Savage Attacker',
+    description: '(google it, sorry)'
+  },
+  sentinel: {
+    title: 'Sentinel',
+    description: '(google it, sorry)'
+  },
+  sharpshooter: {
+    title: 'Sharpshooter',
+    description: '(google it, sorry)'
+  },
+  skilled: {
+    title: 'Skilled',
+    description: '(google it, sorry)'
+  },
+  skulker: {
+    title: 'Skulker',
+    description: '(google it, sorry)'
+  },
+  spellSniper: {
+    title: 'Spell Sniper',
+    description: '(google it, sorry)'
+  },
+  tough: {
+    title: 'Tough',
+    description: '(google it, sorry)'
+  },
+  warCaster: {
+    title: 'War Caster',
+    description: '(google it, sorry)'
   }
 }

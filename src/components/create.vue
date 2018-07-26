@@ -30,6 +30,8 @@ export default {
       skillsDialog: false,
       skillsDialogNext: false,
       errorMessage: 'Saving data, may take some time...',
+      extraFeat: false,
+      extraFeatList: 'actor',
       // character stuff
       name: '',
       level: 1,
@@ -195,8 +197,10 @@ export default {
       let fromSubrace = this.subrace ? this.races[this.race].subraces[this.subrace].feats : [];
       let fromClass = this.clas ? this.classes[this.clas].feats[1] : [];
       let fromBackground = this.background ? this.backgrounds[this.background].feats : [];
-      return Array.from(new Set(fromRace.concat(fromSubrace).concat(fromClass).concat(fromBackground)));
+      let extraFeat = this.extraFeat ? this.extraFeatList : [];
+      return Array.from(new Set(fromRace.concat(fromSubrace).concat(extraFeat).concat(fromClass).concat(fromBackground)));
     },
+
     maxHealth: function() {
       let toughness = this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.constitution);
@@ -277,39 +281,34 @@ export default {
       this.skillsDialog = (this.clas && this.background && this.race && this.skillsAllowed) ? true : false;
       this.skillsDialogNext = (this.clas && this.background && this.race && !this.skillsAllowed) ? true : false;
     },
-    updateCharacter (value, statname) {
-      let capStatname = capitalize(statname)
-      this['character' + capStatname] = value + this[statname + 'Bonus'];
-      console.log('Character ' + capStatname + ' changed: ' + this['character' + capStatname]);
-    },
     hasBonus (attribute) {
       let fromRace = this.race ? this.races[this.race][attribute] ? this.races[this.race][attribute] : 0 : 0;
       let fromSubrace = this.subrace ? this.races[this.race].subraces[this.subrace][attribute] ? this.races[this.race].subraces[this.subrace][attribute] : 0 : 0;
-      return fromRace + fromSubrace;
+      return this.extraFeat ? 0 : fromRace + fromSubrace;
     },
     clearSubrace () {
       this.subrace = undefined;
     },
     swap (from, to) {
-      let buffer = this[to]
-      this[to] = this[from]
-      this[from] = buffer
+      let buffer = this[to];
+      this[to] = this[from];
+      this[from] = buffer;
     },
     roll4d6 () {
-      this.characterStrength = this.rollAttribute()
-      this.characterDexterity = this.rollAttribute()
-      this.characterConstitution = this.rollAttribute()
-      this.characterIntelligence = this.rollAttribute()
-      this.characterWisdom = this.rollAttribute()
-      this.characterCharisma = this.rollAttribute()
+      this.characterStrength = this.rollAttribute();
+      this.characterDexterity = this.rollAttribute();
+      this.characterConstitution = this.rollAttribute();
+      this.characterIntelligence = this.rollAttribute();
+      this.characterWisdom = this.rollAttribute();
+      this.characterCharisma = this.rollAttribute();
     },
     rollAttribute () {
-      let fourDice = [rollDice(6), rollDice(6), rollDice(6), rollDice(6)]
-      const smallest = Math.min.apply(null, fourDice)
-      const pos = fourDice.indexOf(smallest)
-      const reducer = (accumulator, currentValue) => accumulator + currentValue
-      let result = fourDice.slice(0, pos).concat(fourDice.slice(pos + 1)).reduce(reducer)
-      return result
+      let fourDice = [rollDice(6), rollDice(6), rollDice(6), rollDice(6)];
+      const smallest = Math.min.apply(null, fourDice);
+      const pos = fourDice.indexOf(smallest);
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      let result = fourDice.slice(0, pos).concat(fourDice.slice(pos + 1)).reduce(reducer);
+      return result;
     },
     // Last method, sends new character to database
     addToAPI () {
