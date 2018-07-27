@@ -9,6 +9,7 @@ import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
 import { feats } from '../tables/feats';
+import { customfeats } from '../tables/customfeats';
 import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
@@ -23,18 +24,23 @@ export default {
       classes: classes,
       backgrounds: backgrounds,
       feats: feats,
+      customfeats: customfeats,
       armors: armors,
       weapons: weapons,
       // UI stuff
       isLoading: true,
       updated: false,
+      editStats: false,
       levelUpOne: false,
       levelUpTwo: false,
       rollQueue: [],
       // Level Up stuff
       levelUpHealthMethod: 'maximum',
       levelUpHealthRandom: 0,
-      editStats: false,
+      levelUpFeats: [],
+      levelUpFeatsOverAttributes: false,
+      extraFeat: false,
+      extraFeatList: 'actor',
       // Character stuff
       Character: []
     }
@@ -69,7 +75,7 @@ export default {
       let attributeModifier = getModifier(this.Character.dexterity);
       let baseAC = 10;
       let shield = this.Character.shield ? 2 : 0;
-      if (this.Character.clas == 'barbarian' && this.Character.armor == 'noArmor' && !this.Character.shield) {
+      if (this.Character.clas == 'barbarian' && this.Character.armor == 'noArmor') {
         attributeModifier += getModifier(this.Character.constitution);
       } else if (this.Character.clas == 'monk' && this.Character.armor == 'noArmor' && !this.Character.shield) {
         attributeModifier += getModifier(this.Character.wisdom);
@@ -136,7 +142,13 @@ export default {
       let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.Character.constitution);
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
+    },
+    levelUpHealthAverage: function() {
+      return this.classes[this.Character.clas].hitDie / 2 + 1;
     }
+
+    // ToDo: constitution bonus applies to all hit dice retroactively, so I need to separate base HP and HP from modifiers
+    // then current max health is to be calculated from BaseMaxHealth + Modifiers*Level
   },
 
   // Watch
@@ -158,23 +170,48 @@ export default {
         this.levelUpOne = true;
       }
     },
+    levelUpStepTwo () {
+      this.levelUpGetFeats();
+      if (this.levelUpFeats == false && this.levelUpFeatsOverAttributes == false) {
+        this.levelUpOne = false;
+        this.levelUpComplete();
+      } else {
+        this.levelUpOne = false;
+        this.levelUpTwo = true;
+      }
+    },
     levelUpRollHealth () {
       let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.Character.constitution);
       this.levelUpHealthRandom = rollDice(this.classes[this.Character.clas].hitDie) + bonus + toughness;
     },
-    levelUpStepTwo () {
-      this.levelUpOne = false;
-      this.levelUpTwo = true;
+    levelUpGetFeats () {
+      this.levelUpFeats = this.classes[this.Character.clas].feats[this.Character.level + 1];
+      if (this.levelUpFeats.includes('asImprovement')) {
+        this.levelUpFeats.splice(this.levelUpFeats.indexOf('asImprovement'), 1);
+        this.levelUpFeatsOverAttributes = true;
+      }
     },
     levelUpComplete () {
-      this.levelUpOne = false;
+      // Add health from level up to MaxHealth
       if (this.levelUpHealthMethod == 'maximum') {
         this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthMax;
+      } else if (this.levelUpHealthMethod == 'average') {
+        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthAverage;
       } else {
         this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthRandom;
       }
+      // Add new feats
+      this.Character.feats = this.Character.feats.concat(this.levelUpFeats);
+      this.Character.feats = this.extraFeat == true ? this.Character.feats.concat(this.extraFeatList) : this.Character.feats;
+      // Iterate level
       this.Character.level = ++this.Character.level;
+      // this.updateAPI();
+      // Reset booleans
+      this.levelUpTwo = false;
+      this.levelUpFeatsOverAttributes = false;
+      this.extraFeat = false;
+      this.updateRollQueue('Level up complete!');
     },
 
     spellsLvl (lvl) {

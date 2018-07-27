@@ -25,21 +25,46 @@
         spinner
 
   .golden-border(v-if="!isLoading")
-    // Class skills dialog
+    // Health from level dialog
     md-dialog.dialog(:md-active.sync="levelUpOne" :md-fullscreen="false")
       md-dialog-title Health from level up
       .md-layout(md-dynamic-height)
         .md-layout-item
           md-radio(v-model="levelUpHealthMethod" value="maximum") Maximum ({{ levelUpHealthMax }})
           br
+          md-radio(v-model="levelUpHealthMethod" value="average") Average ({{ levelUpHealthAverage }})
+          br
           md-radio(v-model="levelUpHealthMethod" value="random") 
             a.roll-link(@click="levelUpRollHealth") Random ({{ levelUpHealthRandom }})
         
       md-dialog-actions
         md-button.md-primary(@click="levelUpOne = false") Close
-        md-button.md-primary(@click="levelUpComplete") Next
-        // ToDo: disable next if no result selected or make one selected by default
-        // ToDo: don't forget toughness bonus and constitution modifier
+        md-button.md-primary(@click="levelUpStepTwo") Next
+
+    // Feats from level dialog
+    md-dialog.dialog(:md-active.sync="levelUpTwo" :md-fullscreen="false")
+      md-dialog-title New feats
+      .md-layout(md-dynamic-height)
+        .md-layout-item
+          div(v-for="(feat, key) in levelUpFeats" v-bind:key="levelUpFeats[feat]" v-bind:value="key")
+            div {{ feats[feat].title }}
+            div {{ feats[feat].description }}
+          p(v-if="levelUpFeatsOverAttributes")
+            | Attribute Score Improvement available! 
+            br
+            | You can put 2 points into any combination of attributes.
+
+          .feat-checkbox(v-if="levelUpFeatsOverAttributes")
+            md-checkbox(v-model="extraFeat") I want extra feat instead of stat bonus.
+          
+          md-field(v-if="extraFeat")
+            label(for="bonusFeatList") Extra Feat
+            md-select(v-model="extraFeatList" name="bonusFeatList")
+              md-option(v-for="(feat, key) in customfeats" v-bind:key="customfeats[feat]" v-bind:value="key") {{ feat.title }}
+  
+      md-dialog-actions
+        md-button.md-primary(@click="levelUpTwo = false, levelUpOne = true") Back
+        md-button.md-primary(@click="levelUpComplete") Complete
 
     .character-bar
       .character-name {{ Character.name | capitalize }}
@@ -66,6 +91,7 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('strength') ? 'skillStar' : '' ]")
               a(@click="rollSkill('strength', 'strength')") Saving Throw {{ getSkillBonus('strength', 'strength') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('athletics') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="athletics" class="controls-skill")
               a(@click="rollSkill('strength', 'athletics')") Athletics {{ getSkillBonus('strength', 'athletics') | decoratePositive }}
 
         .attribute-column
@@ -80,10 +106,13 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('dexterity') ? 'skillStar' : '' ]")
               a(@click="rollSkill('dexterity', 'dexterity')") Saving Throw {{ getSkillBonus('dexterity', 'dexterity') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('acrobatics') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="acrobatics" class="controls-skill")
               a(@click="rollSkill('dexterity', 'acrobatics')") Acrobatics {{ getSkillBonus('dexterity', 'acrobatics') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('sleightOfHand') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="sleightOfHand" class="controls-skill")
               a(@click="rollSkill('dexterity', 'sleightOfHand')") Sleight of Hand {{ getSkillBonus('dexterity', 'sleightOfHand') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('stealth') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="stealth" class="controls-skill")
               a(@click="rollSkill('dexterity', 'stealth')") Stealth {{ getSkillBonus('dexterity', 'stealth') | decoratePositive }}
 
         .attribute-column
@@ -110,14 +139,19 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('intelligence') ? 'skillStar' : '' ]")
               a(@click="rollSkill('intelligence', 'intelligence')") Saving Throw {{ getSkillBonus('intelligence', 'intelligence') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('arcana') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="arcana" class="controls-skill")
               a(@click="rollSkill('intelligence', 'arcana')") Arcana {{ getSkillBonus('intelligence', 'arcana') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('history') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="history" class="controls-skill")
               a(@click="rollSkill('intelligence', 'history')") History {{ getSkillBonus('intelligence', 'history') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('investigation') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="investigation" class="controls-skill")
               a(@click="rollSkill('intelligence', 'investigation')") Investigation {{ getSkillBonus('intelligence', 'investigation') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('nature') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="nature" class="controls-skill")
               a(@click="rollSkill('intelligence', 'nature')") Nature {{ getSkillBonus('intelligence', 'nature') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('religion') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="religion" class="controls-skill")
               a(@click="rollSkill('intelligence', 'religion')") Religion {{ getSkillBonus('intelligence', 'religion') | decoratePositive }}
 
         .attribute-column
@@ -132,14 +166,19 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('wisdom') ? 'skillStar' : '' ]")
               a(@click="rollSkill('wisdom', 'wisdom')") Saving Throw {{ getSkillBonus('wisdom', 'wisdom') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('animalHandling') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="animalHandling" class="controls-skill")
               a(@click="rollSkill('wisdom', 'animalHandling')") Animal Handling {{ getSkillBonus('wisdom', 'animalHandling') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('insight') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="insight" class="controls-skill")
               a(@click="rollSkill('wisdom', 'insight')") Insight {{ getSkillBonus('wisdom', 'insight') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('medicine') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="medicine" class="controls-skill")
               a(@click="rollSkill('wisdom', 'medicine')") Medicine {{ getSkillBonus('wisdom', 'medicine') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('perception') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="perception" class="controls-skill")
               a(@click="rollSkill('wisdom', 'perception')") Perception {{ getSkillBonus('wisdom', 'perception') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('survival') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="survival" class="controls-skill")
               a(@click="rollSkill('wisdom', 'survival')") Survival {{ getSkillBonus('wisdom', 'survival') | decoratePositive }}
 
         .attribute-column
@@ -154,12 +193,16 @@
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('charisma') ? 'skillStar' : '' ]")
               a(@click="rollSkill('charisma', 'charisma')") Saving Throw {{ getSkillBonus('charisma', 'charisma') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('deception') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="deception" class="controls-skill")
               a(@click="rollSkill('charisma', 'deception')") Deception {{ getSkillBonus('charisma', 'deception') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('intimidation') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="intimidation" class="controls-skill")
               a(@click="rollSkill('charisma', 'intimidation')") Intimidation {{ getSkillBonus('charisma', 'intimidation') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('performance') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="performance" class="controls-skill")
               a(@click="rollSkill('charisma', 'performance')") Performance {{ getSkillBonus('charisma', 'performance') | decoratePositive }}
             .attribute-skills-item(v-bind:class="[ Character.skills.includes('persuasion') ? 'skillStar' : '' ]")
+              md-checkbox(v-if="editStats" v-model="Character.skills" value="persuasion" class="controls-skill")
               a(@click="rollSkill('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top.pr-1

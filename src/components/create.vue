@@ -158,7 +158,7 @@ export default {
       let attributeModifier = getModifier(this.dexterity);
       let baseAC = 10;
       let shield = this.characterShield ? 2 : 0;
-      if (this.clas == 'barbarian' && this.characterArmor == 'noArmor' && !this.characterShield) {
+      if (this.clas == 'barbarian' && this.characterArmor == 'noArmor') {
         attributeModifier += getModifier(this.constitution);
       } else if (this.clas == 'monk' && this.characterArmor == 'noArmor' && !this.characterShield) {
         attributeModifier += getModifier(this.wisdom);
@@ -205,6 +205,7 @@ export default {
       let toughness = this.characterFeats.includes('dwarvenToughness') ? 1 : 0;
       let bonus = getModifier(this.constitution);
       return this.clas ? this.classes[this.clas].hitDie + bonus + toughness : 0;
+      // ToDo: custom feat bonus or something, read up
     },
     characterSpeed: function() {
       let raceSpeed = this.race ? this.races[this.race].speed : 30;

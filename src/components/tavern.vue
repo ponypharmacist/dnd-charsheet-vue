@@ -36,14 +36,15 @@ export default {
       console.log('Trying to delete: ' + charID);
       this.isLoading = true;
       axios.delete('https://dnd-charsheet-api.herokuapp.com/charsheets/delete/' + charID)
-      .then((response) => {
-        console.log('Success deleting.');
-        this.isLoading = false;
-      })
-      .catch((error) => {
-        console.log('Failed to delete. ' + error);
-        this.isLoading = false;
-      });
+      this.isLoading = false;
+      // .then((response) => {
+      //   console.log('Success deleting.');
+      //   this.isLoading = false;
+      // })
+      // .catch((error) => {
+      //   console.log('Failed to delete. ' + error);
+      //   this.isLoading = false;
+      // });
     }
   }
 }
