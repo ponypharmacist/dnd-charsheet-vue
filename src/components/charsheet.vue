@@ -206,6 +206,7 @@ export default {
       this.Character.feats = this.extraFeat == true ? this.Character.feats.concat(this.extraFeatList) : this.Character.feats;
       // Iterate level
       this.Character.level = ++this.Character.level;
+      // Save to DB
       // this.updateAPI();
       // Reset booleans
       this.levelUpTwo = false;

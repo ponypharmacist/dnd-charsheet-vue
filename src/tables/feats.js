@@ -307,21 +307,81 @@ export const feats = {
   },
   martialArchetype: {
     title: 'Martial Archetype',
-    description: 'ToDo: Martial Archetype descr.'
+    description: 'The Martial Archetype you choose grants you features at 3rd level and again at 7th, 10th, 15th, and 18th level.'
   },
   extraAttackFighter: {
-    title: 'E A F',
-    description: 'ToDo: E A F.'
+    title: 'Extra Attack (fighter)',
+    description: 'You can attack twice whenever you take the Attack action on your turn. The number of attacks increases to three at 11th level in this class and to four at 20th level.'
   },
-  indomitable {
+  indomitableFighter: {
     title: 'Indomitable',
-    description: ''
+    description: 'Once per long rest (twice at lvl. 13, three times at lvl. 17). You can reroll a failed saving throw. You must use the new roll.'
   },
 
   // Monk
   martialArts: {
     title: 'Martial Arts',
     description: '(Google for full description) At 1st level, your practice of martial arts gives you mastery of combat styles that use unarmed strikes and monk weapons, which are shortswords and any simple melee weapons that don’t have the two-handed or heavy property.'
+  },
+  ki: {
+    title: 'Ki',
+    description: '(google this monk feature, too long to describe here)'
+  },
+  unarmoredMovement: {
+    title: 'Unarmored Movement',
+    description: 'Your speed increases by 10 feet while you are not wearing armor or wielding a shield. This bonus increases when you reach certain monk levels (see Monk table).'
+  },
+  monasticTradition: {
+    title: 'Monastic Tradition',
+    description: 'Your tradition grants you features at 3rd level and again at 6th, 11th, and 17th level.'
+  },
+  deflectMissiles: {
+    title: 'Deflect Missiles',
+    description: 'You can use your reaction to deflect or catch the missile when you are hit by a ranged weapon attack. When you do so, the damage you take from the attack is reduced by 1d10 + your Dexterity modifier + your monk level. If you reduce the damage to 0, you can catch the missile.'
+  },
+  slowFall: {
+    title: 'Slow Fall',
+    description: 'You can use your reaction when you fall to reduce any falling damage you take by an amount equal to five times your monk level.'
+  },
+  extraAttack: {
+    title: 'Extra Attack (monk)',
+    description: 'You can attack twice, instead of once, whenever you take the Attack action on your turn.'
+  },
+  stunningStrike: {
+    title: 'Stunning Strike',
+    description: 'When you hit another creature with a melee weapon attack, you can spend 1 ki point to attempt a stunning strike. The target must succeed on a Constitution saving throw or be stunned until the end of your next turn.'
+  },
+  kiEmpoweredStrikes: {
+    title: 'Ki-Empowered Strikes',
+    description: 'Your unarmed strikes count as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.'
+  },
+  evasion: {
+    title: 'Evasion',
+    description: 'When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail.'
+  },
+  stillnessOfMind: {
+    title: 'Stillness Of Mind',
+    description: 'You can use your action to end one effect on yourself that is causing you to be charmed or frightened.'
+  },
+  purityOfBody: {
+    title: 'Purity Of Body',
+    description: 'You are immune to disease and poison.'
+  },
+  tongueSunMoon: {
+    title: 'Tongue of the Sun and Moon',
+    description: 'You understand all spoken languages. Moreover, any creature that can understand a language can understand what you say.'
+  },
+  diamondSoul: {
+    title: 'Diamond Soul',
+    description: 'You gain proficiency in all saving throws. Additionally, whenever you make a saving throw and fail, you can spend 1 ki point to reroll it and take the second result.'
+  },
+  emptyBody: {
+    title: 'Empty Body',
+    description: 'You can use your action to spend 4 ki points to become invisible for 1 minute. During that time, you also have resistance to all damage but force damage. Additionally, you can spend 8 ki points to cast the astral projection spell.'
+  },
+  perfectSelf: {
+    title: 'Perfect Self',
+    description: 'When you roll for initiative and have no ki points remaining, you regain 4 ki points.'
   },
 
   // Paladin
@@ -333,6 +393,38 @@ export const feats = {
     title: 'Lay On Hands',
     description: 'As an action you can touch a creature and restore a number of its HP. You have a pool of healing power that equals your paladin level x 5. Pool restores after long rest. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.'
   },
+  divineSmite: {
+    title: 'Divine Smite',
+    description: 'When you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon’s damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend.'
+  },
+  divineHealth: {
+    title: 'Divine Health',
+    description: 'You are immune to disease.'
+  },
+  sacredOath: {
+    title: 'Sacred Oath',
+    description: 'You swear the oath that binds you as a paladin forever. Your choice grants you features at 3rd level and again at 7th, 15th, and 20th level. Those features include oath spells and the Channel Divinity feature.'
+  },
+  extraAttackPaladin: {
+    title: 'Extra Attack (paladin)',
+    description: 'You can attack twice, instead of once, whenever you take the Attack action on your turn.'
+  },
+  auraOfProtection: {
+    title: 'Aura Of Protection',
+    description: 'Whenever you or a friendly creature within 10 feet (30 feet at lvl. 18) of you must make a saving throw, the creature gains a bonus to the saving throw equal to your Charisma modifier (with a minimum bonus of +1). You must be conscious to grant this bonus.'
+  },
+  auraOfCourage: {
+    title: 'Aura Of Courage',
+    description: 'You and friendly creatures within 10 feet (30 feet at lvl. 18) of you can’t be frightened while you are conscious.'
+  },
+  improvedDivineSmite: {
+    title: 'Improved Divine Smite',
+    description: 'All your melee weapon strikes deal an extra 1d8 radiant damage.'
+  },
+  cleansingTouch: {
+    title: 'Cleansing Touch',
+    description: 'You can use your action to end one spell on yourself or on one willing creature that you touch. You can use this feature a number of times equal to your Charisma modifier (a minimum of once). You regain expended uses when you finish a long rest.'
+  },
 
   // Ranger
   favoredEnemy: {
@@ -342,6 +434,34 @@ export const feats = {
   naturalExplorer: {
     title: 'Natural Explorer',
     description: '(Google for full description)'
+  },
+  rangerArchetype: {
+    title: 'Ranger Archetype',
+    description: '.'
+  },
+  primevalAwareness: {
+    title: 'Primeval Awareness',
+    description: '.'
+  },
+  landsStride: {
+    title: 'Lands Stride',
+    description: '.'
+  },
+  hideInPlainSight: {
+    title: 'Hide in Plain Sight',
+    description: '.'
+  },
+  vanish: {
+    title: 'Vanish',
+    description: '.'
+  },
+  feralSenses: {
+    title: 'Feral Senses',
+    description: '.'
+  },
+  foeSlayer: {
+    title: 'Foe Slayer',
+    description: '.'
   },
 
   // Rogue
