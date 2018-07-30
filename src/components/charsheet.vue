@@ -144,7 +144,10 @@ export default {
       return this.classes[this.Character.clas].hitDie + bonus + toughness;
     },
     levelUpHealthAverage: function() {
-      return this.classes[this.Character.clas].hitDie / 2 + 1;
+      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
+      let bonus = getModifier(this.Character.constitution);
+      let average = this.classes[this.Character.clas].hitDie / 2 + 1;
+      return average + toughness + bonus;
     }
 
     // ToDo: constitution bonus applies to all hit dice retroactively, so I need to separate base HP and HP from modifiers
