@@ -34,6 +34,8 @@ export default {
       levelUpOne: false,
       levelUpTwo: false,
       rollQueue: [],
+      armorClassBonus: 0,
+      attackBonus: 0,
       // Level Up stuff
       levelUpHealthMethod: 'maximum',
       levelUpHealthRandom: 0,

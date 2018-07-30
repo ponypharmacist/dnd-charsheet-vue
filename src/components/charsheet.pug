@@ -269,7 +269,10 @@
 
             tr(v-if="classes[this.Character.clas].spellslots")
               td(colspan="2")
-                .md-title Spellslots
+                .md-title
+                  | Spellslots (
+                  a.roll-link(@click="Character.spellslots = [[], [], [], [], [], [], [], [], [], []]") Long Rest
+                  | )
                   .md-layout
                     .md-layout-item
                       | lv.1
@@ -277,6 +280,27 @@
                     .md-layout-item(v-if="spellsLvl(2) != 0")
                       | lv.2
                       md-checkbox(v-for="spellslot in spellsLvl(2)" v-bind:key="spellslot" v-model="Character.spellslots[2]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(3) != 0")
+                      | lv.3
+                      md-checkbox(v-for="spellslot in spellsLvl(3)" v-bind:key="spellslot" v-model="Character.spellslots[3]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(4) != 0")
+                      | lv.4
+                      md-checkbox(v-for="spellslot in spellsLvl(4)" v-bind:key="spellslot" v-model="Character.spellslots[4]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(5) != 0")
+                      | lv.5
+                      md-checkbox(v-for="spellslot in spellsLvl(5)" v-bind:key="spellslot" v-model="Character.spellslots[5]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(6) != 0")
+                      | lv.6
+                      md-checkbox(v-for="spellslot in spellsLvl(6)" v-bind:key="spellslot" v-model="Character.spellslots[6]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(7) != 0")
+                      | lv.7
+                      md-checkbox(v-for="spellslot in spellsLvl(7)" v-bind:key="spellslot" v-model="Character.spellslots[7]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(8) != 0")
+                      | lv.8
+                      md-checkbox(v-for="spellslot in spellsLvl(8)" v-bind:key="spellslot" v-model="Character.spellslots[8]" v-bind:value="spellslot")
+                    .md-layout-item(v-if="spellsLvl(9) != 0")
+                      | lv.9
+                      md-checkbox(v-for="spellslot in spellsLvl(9)" v-bind:key="spellslot" v-model="Character.spellslots[9]" v-bind:value="spellslot")
             tr
               td(colspan="2")
                 md-field

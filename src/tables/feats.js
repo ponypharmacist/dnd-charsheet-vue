@@ -561,15 +561,15 @@ export const feats = {
   },
   arcaneTradition: {
     title: 'Arcane Tradition',
-    description: ''
+    description: 'You choose an arcane tradition, shaping your practice of magic through one of eight schools: Abjuration, Conjuration, Divination, Enchantment, Evocation, Illusion, Necromancy, or Transmutation. Your choice grants you features at 2nd level and again at 6th, 10th, and 14th level.'
   },
   spellMastery: {
     title: 'Spell Mastery',
-    description: ''
+    description: 'Choose a 1st-level wizard spell and a 2nd-level wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal.'
   },
   signatureSpells: {
     title: 'Signature Spells',
-    description: ''
+    description: 'You gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don’t count against the number of spells you have prepared, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can’t do so again until you finish a short or long rest.'
   },
 
   // Background feats
