@@ -433,41 +433,41 @@ export const feats = {
   },
   naturalExplorer: {
     title: 'Natural Explorer',
-    description: '(Google for full description)'
+    description: 'You are particularly familiar with one type of natural environment and are adept at traveling and surviving in such regions. (Google for full description)'
   },
   rangerArchetype: {
     title: 'Ranger Archetype',
-    description: '.'
+    description: 'At 3rd level, you choose an archetype that you strive to emulate. Your choice grants you features at 3rd level and again at 7th, 11th, and 15th level.'
   },
   primevalAwareness: {
     title: 'Primeval Awareness',
-    description: '.'
+    description: 'You can use your action and expend one ranger spell slot to focus your awareness on the region around you. For 1 minute per level of the spell slot you expend, you can sense whether the following types of creatures are present within 1 mile of you (or within up to 6 miles if you are in your favored terrain): aberrations, celestials, dragons, elementals, fey, fiends, and undead.'
   },
   landsStride: {
     title: 'Lands Stride',
-    description: '.'
+    description: 'Moving through nonmagical difficult terrain costs you no extra movement. You can also pass through nonmagical plants without being slowed by them and without taking damage from them if they have thorns, spines, or a similar hazard. You have advantage on saving throws against magic or manipulated plants'
   },
   hideInPlainSight: {
     title: 'Hide in Plain Sight',
-    description: '.'
+    description: 'You can spend 1 minute creating camouflage for yourself. You must have access to fresh mud, dirt, plants, soot, and other naturally occurring materials with which to create your camouflage. Once you are camouflaged in this way, you can try to hide by pressing yourself up against a solid surface, such as a tree or wall, that is at least as tall and wide as you are. You gain a +10 bonus to Dexterity (Stealth) checks as long as you remain there without moving or taking actions.'
   },
   vanish: {
     title: 'Vanish',
-    description: '.'
+    description: 'You can use the Hide action as a bonus action on your turn. Also, you can’t be tracked by nonmagical means, unless you choose to leave a trail.'
   },
   feralSenses: {
     title: 'Feral Senses',
-    description: '.'
+    description: 'When you attack a creature you can’t see, your inability to see it doesn’t impose disadvantage on your attack rolls. You are also aware of the location of any invisible creature within 30 feet of you.'
   },
   foeSlayer: {
     title: 'Foe Slayer',
-    description: '.'
+    description: 'Once on each of your turns, you can add your Wisdom modifier to the attack roll or the damage roll of an attack you make against one of your favored enemies. You can choose to use this feature before or after the roll, but before any effects of the roll are applied.'
   },
 
   // Rogue
-  expertise: {
+  expertiseRogue: {
     title: 'Expertise',
-    description: 'Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.'
+    description: 'Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies. At 6th level, you can choose two more of your proficiencies (in skills or with thieves’ tools) to gain this benefit.'
   },
   sneakAttack: {
     title: 'Sneak Attack',
@@ -477,21 +477,81 @@ export const feats = {
     title: 'Thieves’ Cant',
     description: 'During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly. In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.'
   },
+  cunningAction: {
+    title: 'Cunning Action',
+    description: 'You can take a bonus action on each of your turns in combat. This action can be used only to take the Dash, Disengage, or Hide action.'
+  },
+  roguishArchetype: {
+    title: 'Roguish Archetype',
+    description: 'Your archetype choice grants you features at 3rd level and then again at 9th, 13th, and 17th level.'
+  },
+  uncannyDodge: {
+    title: 'Uncanny Dodge',
+    description: 'When an attacker that you can see hits you with an attack, you can use your reaction to halve the attack’s damage against you.'
+  },
+  reliableTalent: {
+    title: 'Reliable Talent',
+    description: 'Whenever you make an ability check that lets you add your proficiency bonus, you can treat a d20 roll of 9 or lower as a 10.'
+  },
+  blindsense: {
+    title: 'Blindsense',
+    description: 'If you are able to hear, you are aware of the location of any hidden or invisible creature within 10 feet of you.'
+  },
+  slipperyMind: {
+    title: 'Slippery Mind',
+    description: 'You gain proficiency in Wisdom saving throws.'
+  },
+  elusive: {
+    title: 'Elusive',
+    description: 'No attack roll has advantage against you while you aren’t incapacitated.'
+  },
+  strokeOfLuck: {
+    title: 'Stroke of Luck',
+    description: 'Once per long or short rest. You can turn a miss into a hit. Alternatively, if you fail an ability check, you can treat the d20 roll as a 20.'
+  },
 
   // Sorcerer
   sorcerousOrigin: {
     title: 'Sorcerous Origin',
     description: 'Choose a sorcerous origin, which describes the source of your innate magical power: Draconic Bloodline, detailed at the end of the class description, or one from another source.'
   },
+  fontOfMagic: {
+    title: 'Font of Magic',
+    description: 'You tap into sorcery points, which allow you to create a variety of magical effects. (google full description pls)'
+  },
+  metamagic: {
+    title: 'Metamagic',
+    description: 'You gain two of the Metamagic options of your choice. You gain another one at 10th and 17th level. (google for metamagic options)'
+  },
+  sorcerousRestoration: {
+    title: 'Sorcerous Restoration',
+    description: 'You regain 4 expended sorcery points whenever you finish a short rest.'
+  },
+
+  // Warlock
   otherworldlyPatron: {
     title: 'Otherworldly Patron',
     description: 'At 1st level, you have struck a bargain with an otherworldly being of your choice: (google class description). It grants you feats.'
   },
-
-  // Warlock
   pactMagic: {
     title: 'Pact Magic',
     description: 'Your arcane research and the magic bestowed on you by your patron have given you facility with spells. See Spells Rules for the general rules of spellcasting and the Spells Listing for the warlock spell list.'
+  },
+  eldritchInvocations: {
+    title: 'Eldritch Invocations',
+    description: 'Your invocation options are detailed at the end of the class description. (aka google it)'
+  },
+  pactBoon: {
+    title: 'Pact Boon',
+    description: '(google full description please)'
+  },
+  mysticArcanum: {
+    title: 'Mystic Arcanum',
+    description: ' Choose one 6th-level spell from the warlock spell list as this arcanum. You can cast your arcanum spell once without expending a spell slot. You must finish a long rest before you can do so again. At higher levels, you gain more warlock spells of your choice that can be cast in this way: one 7th-level spell at 13th level, one 8th-level spell at 15th level, and one 9th-level spell at 17th level.'
+  },
+  eldritchMaster: {
+    title: 'Eldritch Master',
+    description: 'You can spend 1 minute entreating your patron for aid to regain all your expended spell slots from your Pact Magic feature. Once you regain spell slots with this feature, you must finish a long rest before you can do so again.'
   },
 
   // Wizard
@@ -499,8 +559,16 @@ export const feats = {
     title: 'Arcane Recovery',
     description: 'You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.'
   },
-  spellcasting3: {
-    title: '',
+  arcaneTradition: {
+    title: 'Arcane Tradition',
+    description: ''
+  },
+  spellMastery: {
+    title: 'Spell Mastery',
+    description: ''
+  },
+  signatureSpells: {
+    title: 'Signature Spells',
     description: ''
   },
 

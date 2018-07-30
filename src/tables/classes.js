@@ -394,7 +394,26 @@ export const classes = {
     hitDie: 8,
     feats: [
       [],
-      ['expertise', 'sneakAttack', 'thievesCant']
+      ['expertiseRogue', 'sneakAttack', 'thievesCant'],
+      ['cunningAction'],
+      ['roguishArchetype'],
+      ['asImprovement'],
+      ['uncannyDodge'],
+      [],
+      ['evasion'],
+      ['asImprovement'],
+      [],
+      ['asImprovement'],
+      ['reliableTalent'],
+      ['asImprovement'],
+      [],
+      ['blindsense'],
+      ['slipperyMind'],
+      ['asImprovement'],
+      [],
+      ['elusive'],
+      ['asImprovement'],
+      ['strokeOfLuck']
     ],
     profCombat: ['light armor', 'simple weapons', 'hand crossbows', 'longswords', 'rapiers', 'shortswords'],
     tools: ['Thieves’ tools'],
@@ -409,7 +428,26 @@ export const classes = {
     hitDie: 6,
     feats: [
       [],
-      ['spellcasting', 'sorcerousOrigin']
+      ['spellcasting', 'sorcerousOrigin'],
+      ['fontOfMagic'],
+      ['metamagic'],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      ['asImprovement'],
+      ['sorcerousRestoration']
     ],
     profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
@@ -417,14 +455,56 @@ export const classes = {
     skillsChoice: ['arcana', 'deception', 'insight', 'intimidation', 'persuasion', 'religion'],
     skillsAllowed: 2,
     equipment: ['(a light crossbow and 20 bolts) or (any simple weapon)', '(a dungeoneer’s pack) or (an explorer’s pack)', '2 daggers'],
-    wealth: 0
+    wealth: 0,
+    spellslots: [
+      [0],
+      [0, 2, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 2, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 2, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 0, 0, 0, 0, 0, 0], // 6
+      [0, 4, 3, 3, 1, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 2, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 1, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0], // 12
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 2, 1, 1]
+    ]
   },
   warlock: {
     title: 'Warlock',
     hitDie: 8,
     feats: [
       [],
-      ['otherworldlyPatron', 'pactMagic']
+      ['otherworldlyPatron', 'pactMagic'],
+      ['eldritchInvocations'],
+      ['pactBoon'],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      ['mysticArcanum'],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      ['asImprovement'],
+      ['eldritchMaster']
     ],
     profCombat: ['light armor', 'simple weapons'],
     tools: [],
@@ -439,7 +519,26 @@ export const classes = {
     hitDie: 6,
     feats: [
       [],
-      ['spellcasting', 'arcaneRecovery']
+      ['spellcasting', 'arcaneRecovery'],
+      ['arcaneTradition'],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      [],
+      [],
+      ['asImprovement'],
+      [],
+      ['spellMastery'],
+      ['asImprovement'],
+      ['signatureSpells']
     ],
     profCombat: ['daggers', 'darts', 'slings', 'quarterstaffs', 'light crossbows'],
     tools: [],
@@ -447,6 +546,29 @@ export const classes = {
     skillsChoice: ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion'],
     skillsAllowed: 2,
     equipment: ['(a quarterstaff) or (a dagger)', 'spellbook', '(a scholar’s pack) or (an explorer’s pack)'],
-    wealth: 0
+    wealth: 0,
+    spellslots: [
+      [0],
+      [0, 2, 0, 0, 0, 0, 0, 0, 0, 0], // 1
+      [0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 2, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 0, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 2, 0, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 0, 0, 0, 0, 0, 0], // 6
+      [0, 4, 3, 3, 1, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 2, 0, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 1, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 0, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 0, 0, 0], // 12
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 0, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 0],
+      [0, 4, 3, 3, 3, 2, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 1, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 1, 1, 1],
+      [0, 4, 3, 3, 3, 3, 2, 2, 1, 1]
+    ]
   }
 }
