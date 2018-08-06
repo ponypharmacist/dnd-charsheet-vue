@@ -277,7 +277,7 @@ export default {
       let weaponName = this.weapons[this.Character[weapon]].title;
       let weaponDamage = this.weapons[this.Character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
-      let bonus = this.weaponRangedAttack;
+      let bonus = this.weaponRangedDamage;
       let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue(updateString);
     },
