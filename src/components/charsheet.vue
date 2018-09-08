@@ -36,6 +36,7 @@ export default {
       rollQueue: [],
       armorClassBonus: 0,
       attackBonus: 0,
+      customRollValue: '3d6+1',
       // Level Up stuff
       levelUpHealthMethod: 'maximum',
       levelUpHealthRandom: 0,
@@ -287,9 +288,14 @@ export default {
       return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     },
 
-    rollDiceSingle(sides) {
+    rollDiceSingle (sides) {
       let updateString = 'You roll a d' + sides + ' for ' + rollDice(sides) +  '.';
       this.updateRollQueue(updateString);
+    },
+
+    rollString (diceString) {
+      let updateString = 'You roll ' + diceString + ' for ' + rollString(diceString) +  '.';
+      this.updateRollQueue(updateString);      
     },
 
     updateRollQueue (string, note) {
@@ -302,6 +308,11 @@ export default {
         this.rollQueue.shift();
       }
       this.rollQueue.push(rollObject);
+    },
+
+    doLongRest() {
+      this.Character.spellslots = [[], [], [], [], [], [], [], [], [], []];
+      this.Character.currentHealth = this.Character.maxHealth;
     },
 
     // API calls

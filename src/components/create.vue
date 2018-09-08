@@ -17,13 +17,13 @@ export default {
   data() {
     return {
       // tables of stuff
-      races: races,
-      classes: classes,
-      backgrounds: backgrounds,
-      feats: feats,
-      customfeats: customfeats,
-      armors: armors,
-      weapons: weapons,
+      races,
+      classes,
+      backgrounds,
+      feats,
+      customfeats,
+      armors,
+      weapons,
       // form and visuals stuff
       isLoading: false,
       submitted: false,
@@ -69,12 +69,14 @@ export default {
       // check for extra languages
       return Array.from(new Set(fromRace.concat(fromSubrace)));
     },
+
     extraLanguages: function() {
       let subraceLang = this.subrace ? this.races[this.race].subraces[this.subrace].extraLanguage ? this.races[this.race].subraces[this.subrace].extraLanguage : 0 : 0;
       let raceLang = this.race ? this.races[this.race].extraLanguage ? this.races[this.race].extraLanguage : 0 : 0;
       let bgLang = this.background ? this.backgrounds[this.background].extraLanguage ? this.backgrounds[this.background].extraLanguage : 0 : 0;
       return subraceLang + raceLang + bgLang;
     },
+
     totalLanguages: {
       get: function() {
         return flattenArray(this.characterLanguages) + (this.extraLanguages > 0 ? ' (add ' + this.extraLanguages + ' more)' : '');
@@ -84,6 +86,7 @@ export default {
         return langString;
       }
     },
+
     combatProficienciesList: {
       get: function() {
         let fromRace = this.race ? this.races[this.race].profCombat : [];
@@ -101,6 +104,7 @@ export default {
         return profString;
       }
     },
+
     characterToolsList: {
       get: function() {
         let fromRace = this.race ? this.races[this.race].tools ? this.races[this.race].tools : [] : [];
@@ -113,6 +117,7 @@ export default {
         return toolsString;
       }
     },
+
     characterGoldAmount: {
       get: function() {
         return this.background ? this.backgrounds[this.background].money : 0;
@@ -121,6 +126,7 @@ export default {
         return goldNumber;
       }
     },
+
     characterItemsList: {
       get: function() {
         let fromBackground = this.background ? this.backgrounds[this.background].equipment : [];
@@ -142,6 +148,7 @@ export default {
       }
       return shortlist;
     },
+
     meleeWeapons: function() {
       let shortlist = {};
       for (let weapon in this.weapons) {
@@ -151,9 +158,11 @@ export default {
       }
       return shortlist;
     },
+
     wieldsTwohanded: function() {
       return this.characterWeaponMelee ? this.weapons[this.characterWeaponMelee].modifiers.includes('twohanded') : false;
     },
+
     armorClass: function() {
       let attributeModifier = getModifier(this.dexterity);
       let baseAC = 10;
@@ -177,15 +186,18 @@ export default {
     skillsChoice: function() {
       return this.clas ? this.classes[this.clas].skillsChoice ? this.classes[this.clas].skillsChoice : [] : [];
     },
+
     staticSkills: function() {
       let fromRace = this.race ? this.races[this.race].skills ? this.races[this.race].skills : [] : [];
       let fromClass = this.clas ? this.classes[this.clas].skills ? this.classes[this.clas].skills : [] : [];
       let fromBackground = this.background ? this.backgrounds[this.background].skills ? this.backgrounds[this.background].skills : [] : [];
       return Array.from(new Set(fromRace.concat(fromBackground).concat(fromClass)));
     },
+
     skillsAllowed: function() {
       return this.clas ? this.classes[this.clas].skillsAllowed ? this.classes[this.clas].skillsAllowed : 0 : 0;
     },
+
     skillpoints: function() {
       let fromRace = this.race ? this.races[this.race].skillpoints ? this.races[this.race].skillpoints : 0 : 0;
       let fromClass = this.clas ? this.classes[this.clas].skillpoints ? this.classes[this.clas].skillpoints : 0 : 0;
@@ -207,6 +219,7 @@ export default {
       return this.clas ? this.classes[this.clas].hitDie + bonus + toughness : 0;
       // ToDo: custom feat bonus or something, read up
     },
+
     characterSpeed: function() {
       let raceSpeed = this.race ? this.races[this.race].speed : 30;
       let subraceSpeed = this.subrace ? this.races[this.race].subraces[this.subrace].speed ? this.races[this.race].subraces[this.subrace].speed : false : false;

@@ -17,6 +17,10 @@
     md-button.md-dense.md-raised(type="button" @click="rollDiceSingle(12)") d12
     md-button.md-dense.md-raised(type="button" @click="rollDiceSingle(20)") d20
     md-button.md-dense.md-raised(type="button" @click="rollDiceSingle(100)") d100
+    md-field(md-inline class="custom-roll")
+      label 3d6+1
+      md-input(v-model="customRollValue")
+    md-button.md-dense.md-raised(type="button" @click="rollString(customRollValue)") Roll custom
   
   .md-layout(v-if="isLoading")
     .md-layout-item.text-center
@@ -271,7 +275,7 @@
               td(colspan="2")
                 .md-title
                   | Spellslots (
-                  a.roll-link(@click="Character.spellslots = [[], [], [], [], [], [], [], [], [], []]") Long Rest
+                  a.roll-link(@click="doLongRest()") Long Rest
                   | )
                   .md-layout
                     .md-layout-item
