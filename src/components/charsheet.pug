@@ -79,7 +79,9 @@
         span {{ Character.clas | capitalize }} 
         a.level-up(@click="levelUp") Level Up
         | , 
-        a.level-up(@click="editStats = editStats ? false : true") Edit stats
+        a.level-up(@click="editStats = editStats ? false : true") Edit Stats
+        | , 
+        a.level-up(@click="doLongRest()") Long Rest
 
     .md-layout
       .md-layout-item.character-attributes.md-medium-size-100.md-large-size-100.md-xlarge-size-100

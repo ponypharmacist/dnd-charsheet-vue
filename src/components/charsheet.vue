@@ -62,17 +62,7 @@ export default {
     },
 
     proficiencyBonus: function() {
-      let profBonus = 2;
-      if (this.Character.level >= 17) {
-        profBonus = 6;
-      } else if (this.Character.level >= 13) {
-        profBonus = 5;
-      } else if (this.Character.level >= 9) {
-        profBonus = 4;
-      } else if (this.Character.level >= 5) {
-        profBonus = 3;
-      } else {}
-      return profBonus;
+      return Math.ceil(this.Character.level/4)+1;
     },
     armorClass: function() {
       let attributeModifier = getModifier(this.Character.dexterity);
