@@ -96,7 +96,7 @@
           md-select(v-model="background" name="charBackground")
             md-option(v-for="(background, key) in backgrounds" v-bind:key="backgrounds[background]" v-bind:value="key") {{ background.title }}
 
-        .feat-checkbox
+        .feat-checkbox(v-if="this.race === 'human'")
           md-checkbox(v-model="extraFeat") Extra feat instead of stat bonus
         
         md-field(v-if="extraFeat")

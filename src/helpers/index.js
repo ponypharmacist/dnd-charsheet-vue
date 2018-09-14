@@ -45,3 +45,16 @@ export const flattenArrayMultiline = (array) => {
 export const add = (number, bonus) => {
   return number + bonus
 }
+
+// Local storage
+export const readLocalStorage = (localName) => {
+  return JSON.parse(localStorage.getItem(localName))
+}
+
+export const updateLocalStorage = (data, localName) => {
+  localStorage.setItem(localName, JSON.stringify(data))
+}
+
+export const clearLocalStorage = (localName) => {
+  localStorage.removeItem(localName)
+}

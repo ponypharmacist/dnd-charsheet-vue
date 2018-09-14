@@ -3,7 +3,16 @@
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
-import { capitalize, rollDice, rollString, roll4d6Stats, getModifier, decoratePositive, flattenArray, flattenArrayMultiline } from '../helpers';
+import { capitalize,
+         rollDice,
+         roll4d6Stats,
+         getModifier,
+         decoratePositive,
+         flattenArray,
+         flattenArrayMultiline,
+         readLocalStorage,
+         updateLocalStorage,
+         clearLocalStorage } from '../helpers';
 import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
@@ -32,6 +41,9 @@ export default {
       errorMessage: 'Saving data, may take some time...',
       extraFeat: false,
       extraFeatList: 'actor',
+      // Local storage
+      enableLocalStorage: false,
+      localCharactersList: [''],
       // character stuff
       name: '',
       level: 1,
@@ -55,9 +67,19 @@ export default {
       characterShield: false,
       characterWeaponMelee: 'club',
       characterWeaponMelee2: 'dagger',
-      characterWeaponRanged: 'dart'
+      characterWeaponRanged: 'dart',
       // make computed, set -> push item (if not there), remove item (if there)
       // If a character would gain the same proficiency from two different sources, he or she can choose a different proficiency of the same kind (skill or tool) instead.
+    }
+  },
+
+  mounted() {
+    if (this.enableLocalStorage) {
+      // Get list of local characters
+      this.localCharactersList = readLocalStorage('localCharactersList');
+      console.log(this.localCharactersList);
+      // If you need to clean up manually
+      // clearLocalStorage('localCharactersList');
     }
   },
 
@@ -66,7 +88,6 @@ export default {
     characterLanguages: function() {
       let fromRace = this.race ? this.races[this.race].languages : [];
       let fromSubrace = this.subrace ? this.races[this.race].subraces[this.subrace].languages ? this.races[this.race].subraces[this.subrace].languages : [] : [];
-      // check for extra languages
       return Array.from(new Set(fromRace.concat(fromSubrace)));
     },
 
@@ -364,20 +385,43 @@ export default {
       flavor: '',
       spellslots: [[], [], [], [], [], [], [], [], [], []]
     }
-    console.log(newCharacter);
-    this.isLoading = true;
-    axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
-      .then((response) => {
-        this.isLoading = false;
-        console.log(response);
-        this.submitted = true;
-        window.location = '/';
-      })
-      .catch((error) => {
-        this.isLoading = false;
-        console.log(error);
-        this.submitted = false;
-      });
+
+    if (this.enableLocalStorage) {
+      // Put new character into local storage
+      // 1. Generate a friendly nospace name
+      let nospaceName = this.name.split(' ').join('');
+      newCharacter._id = nospaceName;
+      // 2. Update the list of local characters with a nospace name
+      if (!this.localCharactersList) {
+        this.localCharactersList = [nospaceName];
+        console.log('New array');
+      } else {
+        this.localCharactersList.push(nospaceName);
+        console.log('Pushed');
+      }
+      // 3. Update locally stored list of names
+      updateLocalStorage (this.localCharactersList, 'localCharactersList');
+      // 4. Create a LS item for this character
+      updateLocalStorage (newCharacter, nospaceName);
+      // 5. Go to tavern
+      window.location = '/';
+    }
+    
+    if (!this.enableLocalStorage) {
+      this.isLoading = true;
+      axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
+        .then((response) => {
+          this.isLoading = false;
+          console.log(response);
+          this.submitted = true;
+          window.location = '/';
+        })
+        .catch((error) => {
+          this.isLoading = false;
+          console.log(error);
+          this.submitted = false;
+        });
+      }
     }
   }
 }

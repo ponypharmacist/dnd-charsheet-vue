@@ -4,7 +4,14 @@
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
-import { capitalize, rollDice, rollString, getModifier, decoratePositive, flattenArray } from '../helpers';
+import { capitalize,
+         rollDice,
+         rollString,
+         getModifier,
+         decoratePositive,
+         flattenArray,
+         readLocalStorage,
+         updateLocalStorage } from '../helpers';
 import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
@@ -45,14 +52,26 @@ export default {
       extraFeat: false,
       extraFeatList: 'actor',
       // Character stuff
-      Character: []
+      Character: [],
+      charsheets: [],
+      // Local Storage stuff
+      enableLocalStorage: false,
+      localCharactersList: [''],
     }
   },
 
   // Mounted
   mounted() {
     this.charID = this.$route.params.charID;
-    this.getCharacter(this.charID);
+
+    if (this.enableLocalStorage) {
+      this.isLoading = false;
+      this.Character = readLocalStorage(this.charID);
+    }
+
+    if (!this.enableLocalStorage) {
+      this.getCharacter(this.charID);
+    }
   },
 
   // Computed
@@ -141,7 +160,15 @@ export default {
       let bonus = getModifier(this.Character.constitution);
       let average = this.classes[this.Character.clas].hitDie / 2 + 1;
       return average + toughness + bonus;
-    }
+    },
+
+    exportCharacterFile: function() {
+      let textFiledata = new Blob([JSON.stringify(this.Character)], {
+        type: 'text/plain'
+      });
+      console.log('Made a Blob');
+      return window.URL.createObjectURL(textFiledata);
+    },
 
     // ToDo: constitution bonus applies to all hit dice retroactively, so I need to separate base HP and HP from modifiers
     // then current max health is to be calculated from BaseMaxHealth + Modifiers*Level
@@ -300,9 +327,26 @@ export default {
       this.rollQueue.push(rollObject);
     },
 
-    doLongRest() {
+    doLongRest () {
       this.Character.spellslots = [[], [], [], [], [], [], [], [], [], []];
       this.Character.currentHealth = this.Character.maxHealth;
+      this.updateLocalCharacter();
+    },
+    toggleEditStats () {
+      if (this.editStats) {
+        this.editStats = false;
+        this.updateLocalCharacter();
+      } else {
+        this.editStats = true;
+      }
+    },
+
+    // TODO: save to local on every major changes
+    updateLocalCharacter () {
+      if (this.enableLocalStorage) {
+        updateLocalStorage (this.Character, this.Character._id);
+        console.log('Local Character Updated.');
+      }
     },
 
     // API calls

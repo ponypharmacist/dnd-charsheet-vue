@@ -4,6 +4,9 @@
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
+import { readLocalStorage,
+         updateLocalStorage,
+         clearLocalStorage } from '../helpers';
 export default {
   name:'tavern',
   components: { Spinner },
@@ -11,28 +14,52 @@ export default {
     return {
       Character: [],
       isLoading: true,
-      errorMessage: 'Starting up, may take some time.'
+      rollQueue: [],
+      // Local storage
+      enableLocalStorage: false,
+      localCharactersList: [],
     }
   },
+  // on Mounted
   mounted() {
-    axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets', {
-      timeout: 5000
-    })
-      .then((response) => {
-        this.isLoading = false;
-        console.log(response.data);
-        console.log('response.data came in');
-        this.Character = response.data;
+    if (this.enableLocalStorage && !readLocalStorage('localCharactersList')) {
+      window.location = '/create';
+    }
+
+    if (this.enableLocalStorage && readLocalStorage('localCharactersList')) {
+      this.isLoading = false;
+      // 1. Get list of locally stored characters
+      this.localCharactersList = readLocalStorage('localCharactersList');
+      console.log(this.localCharactersList);
+      // 2. 
+      for (let item of this.localCharactersList) {
+        this.Character.push(readLocalStorage(item));
+      }
+    }
+
+    if (!this.enableLocalStorage) {
+      // Get charsheets from DB
+      axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets', {
+        timeout: 5000
       })
-      .catch((error) => {
-        // ToDo: display UI message failed loading
-        console.log(error);
-        console.log('catch(error) fired');
-        this.errorMessage = error;
-      });
+        .then((response) => {
+          this.isLoading = false;
+          console.log('Response.data came in:');
+          console.log(response.data);
+          this.Character = response.data;
+          // TODO: Check if there's local data
+          // TODO: compare versions of local and remote data, when they are available
+          this.updateRollQueue('Loading complete.');
+        })
+        .catch((error) => {
+          console.log(error);
+          this.updateRollQueue('Error loading data from server. Error message: ' + error.message);
+        });
+    }
   },
+  // Methods
   methods: {
-    deleteCharacter(charID) {
+    deleteCharacter (charID) {
       console.log('Trying to delete: ' + charID);
       this.isLoading = true;
       axios.delete('https://dnd-charsheet-api.herokuapp.com/charsheets/delete/' + charID)
@@ -45,7 +72,24 @@ export default {
       //   console.log('Failed to delete. ' + error);
       //   this.isLoading = false;
       // });
-    }
+    },
+
+    updateRollQueue (string, note) {
+      let rollObject = {
+        date: this.prettyDate(),
+        string: string,
+        note: note
+      };
+      if (this.rollQueue.length >= 3) {
+        this.rollQueue.shift();
+      }
+      this.rollQueue.push(rollObject);
+    },
+
+    prettyDate () {
+      let dateWithouthSecond = new Date();
+      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    },
   }
 }
 </script>

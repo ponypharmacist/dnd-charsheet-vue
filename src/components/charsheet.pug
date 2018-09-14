@@ -79,9 +79,11 @@
         span {{ Character.clas | capitalize }} 
         a.level-up(@click="levelUp") Level Up
         | , 
-        a.level-up(@click="editStats = editStats ? false : true") Edit Stats
+        a.level-up(@click="toggleEditStats()") Edit Stats
         | , 
         a.level-up(@click="doLongRest()") Long Rest
+        | , 
+        a.level-up(@click="" :href="exportCharacterFile" :download="Character.name + '-export-file.json'") Export to a file
 
     .md-layout
       .md-layout-item.character-attributes.md-medium-size-100.md-large-size-100.md-xlarge-size-100
@@ -336,7 +338,7 @@
         .md-layout-item.md-xlarge-size-100
           md-field
             label Items
-            md-textarea(v-model="Character.items" md-autogrow)
+            md-textarea(v-model="Character.items" @change="updateLocalCharacter()" md-autogrow)
           md-field
             label Combat Proficiencies
             md-textarea(v-model="Character.proficienciesCombat" md-autogrow)
