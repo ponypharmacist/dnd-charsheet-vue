@@ -12,6 +12,8 @@ import { capitalize,
          flattenArray,
          readLocalStorage,
          updateLocalStorage } from '../helpers';
+import { mapGetters, 
+         mapMutations } from 'vuex';
 import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
@@ -53,10 +55,6 @@ export default {
       extraFeatList: 'actor',
       // Character stuff
       Character: [],
-      charsheets: [],
-      // Local Storage stuff
-      enableLocalStorage: false,
-      localCharactersList: [''],
     }
   },
 
@@ -64,18 +62,22 @@ export default {
   mounted() {
     this.charID = this.$route.params.charID;
 
-    if (this.enableLocalStorage) {
+    if (this.$store.state.enableLocalStorage) {
       this.isLoading = false;
       this.Character = readLocalStorage(this.charID);
+      // Set new character state in store
+      this.$store.commit('stateOpenCharacter', readLocalStorage(this.charID));
     }
 
-    if (!this.enableLocalStorage) {
+    if (!this.$store.state.enableLocalStorage) {
       this.getCharacter(this.charID);
     }
   },
 
   // Computed
   computed: {
+    ...mapGetters(['character']),
+
     subraceTitle: function() {
       return this.races[this.Character.race].subraces[this.Character.subrace].title;
     },
@@ -166,9 +168,8 @@ export default {
       let textFiledata = new Blob([JSON.stringify(this.Character)], {
         type: 'text/plain'
       });
-      console.log('Made a Blob');
       return window.URL.createObjectURL(textFiledata);
-    },
+    }
 
     // ToDo: constitution bonus applies to all hit dice retroactively, so I need to separate base HP and HP from modifiers
     // then current max health is to be calculated from BaseMaxHealth + Modifiers*Level
@@ -188,6 +189,28 @@ export default {
 
   // Methods
   methods: {
+    ...mapMutations([
+      'stateOpenCharacter',
+    ]),
+
+    exportCharacterToClipboard () {
+      // Create new element
+      var el = document.createElement('textarea');
+      // Set value (string to be copied)
+      el.value = JSON.stringify(this.Character);
+      // Set non-editable to avoid focus and move outside of view
+      el.setAttribute('readonly', '');
+      el.style = {position: 'absolute', left: '-9999px'};
+      document.body.appendChild(el);
+      // Select text inside element
+      el.select();
+      // Copy text to clipboard
+      document.execCommand('copy');
+      // Remove temporary element
+      document.body.removeChild(el);
+      this.updateRollQueue('Character data copied to clipboard!');
+    },
+
     levelUp () {
       if (this.Character.level < 20) {
         this.levelUpOne = true;
@@ -343,10 +366,8 @@ export default {
 
     // TODO: save to local on every major changes
     updateLocalCharacter () {
-      if (this.enableLocalStorage) {
-        updateLocalStorage (this.Character, this.Character._id);
-        console.log('Local Character Updated.');
-      }
+      updateLocalStorage (this.Character, this.Character._id);
+      console.log('Local Character Updated.');
     },
 
     // API calls
@@ -368,20 +389,25 @@ export default {
     },
 
     updateAPI () {
-      let updateCharacter = this.Character;
-      let charID = this.charID;
-      console.log(charID);
-      axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
-      .then((response) => {
-        console.log('Sent my character to API!');
-        this.updated = true;
-        this.updateRollQueue('Saved changes successfully.');
-      })
-      .catch((error) => {
-        console.log(error);
-        this.updated = false;
-        this.updateRollQueue('Failed to save changes! =( Try again later.');
-      });
+      if (this.$store.state.enableLocalStorage) {
+        this.updateLocalCharacter();
+      }
+      if (!this.$store.state.enableLocalStorage) {      
+        let updateCharacter = this.Character;
+        let charID = this.charID;
+        console.log(charID);
+        axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
+          .then((response) => {
+            console.log('Sent my character to API!');
+            this.updated = true;
+            this.updateRollQueue('Saved changes successfully.');
+          })
+          .catch((error) => {
+            console.log(error);
+            this.updated = false;
+            this.updateRollQueue('Failed to save changes! =( Try again later.');
+          });
+      }
     }
   } // end of methods
 }

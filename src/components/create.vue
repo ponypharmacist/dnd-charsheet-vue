@@ -13,6 +13,8 @@ import { capitalize,
          readLocalStorage,
          updateLocalStorage,
          clearLocalStorage } from '../helpers';
+import { mapGetters, 
+         mapMutations } from 'vuex';
 import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
@@ -42,7 +44,6 @@ export default {
       extraFeat: false,
       extraFeatList: 'actor',
       // Local storage
-      enableLocalStorage: false,
       localCharactersList: [''],
       // character stuff
       name: '',
@@ -74,7 +75,7 @@ export default {
   },
 
   mounted() {
-    if (this.enableLocalStorage) {
+    if (this.$store.state.enableLocalStorage) {
       // Get list of local characters
       this.localCharactersList = readLocalStorage('localCharactersList');
       console.log(this.localCharactersList);
@@ -386,7 +387,7 @@ export default {
       spellslots: [[], [], [], [], [], [], [], [], [], []]
     }
 
-    if (this.enableLocalStorage) {
+    if (this.$store.state.enableLocalStorage) {
       // Put new character into local storage
       // 1. Generate a friendly nospace name
       let nospaceName = this.name.split(' ').join('');
@@ -407,7 +408,7 @@ export default {
       window.location = '/';
     }
     
-    if (!this.enableLocalStorage) {
+    if (!this.$store.state.enableLocalStorage) {
       this.isLoading = true;
       axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
         .then((response) => {

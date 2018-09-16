@@ -68,8 +68,12 @@ h4
 // Navigation
 #navigation
   display: flex
+  flex-wrap: wrap
   flex-direction: row
-  padding: 12px 0 8px
+  padding: 12px 22px 8px
+
+  .md-button:first-child
+    margin-left: 0
 
 .dice-button
 
@@ -78,8 +82,11 @@ h4
 .md-button
   min-width: 32px
 
+.custom-roll-wrap
+  display: flex
+
 .custom-roll
-  margin: 6px 8px 6px 0
+  margin: 6px 8px 6px 0 !important
   padding: 0
   min-height: 32px
   height: 32px
@@ -97,9 +104,16 @@ h4
 
 // View Characters
 .delete-icon
-  display: none
   cursor: pointer
   text-decoration: none
+
+  &:hover
+    color: red !important
+
+  .md-icon
+    width: 16px
+    height: 16px
+    font-size: 16px !important
 
 // Create / Edit Character
 // == Forms
@@ -533,15 +547,24 @@ td .roll-link
   .view-charsheet
     width: 100%
     margin: 0
+    padding-bottom: 0
 
   .roll-queue
-    display: block
-    position: relative
     width: 100%
+    position: fixed
+    bottom: 0
     left: 0
-    margin-left: 0
-    margin-bottom: 10px
-    padding: 4px 0
+    top: auto
+    line-height: 16px
+    text-align: center
+
+  .queue-item
+    margin: 0
+    border-radius: 0
+    padding: 4px 12px
+
+  #navigation
+    padding: 6px 12px
 
   .attribute-column
     min-width: 145px
@@ -550,6 +573,9 @@ td .roll-link
     column-count: 1
 
 @media screen and (max-width: 600px)
+  .roll-queue
+    font-size: 80%
+
   .character-bar
     padding-left: 8px
 
@@ -558,17 +584,6 @@ td .roll-link
 
   .character-race-class
     font-size: 1rem
-
-  .roll-queue
-    position: fixed
-    bottom: 0
-    top: auto
-    margin-bottom: 0
-    background-color: #000
-    border-top: 1px solid #fff
-    font-size: 80%
-    line-height: 16px
-    border-radius: 0
 
   .md-field.md-focused .md-textarea,
   .md-field.md-has-value .md-textarea

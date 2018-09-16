@@ -14,8 +14,8 @@
       template
         spinner
 
-  .md-layout(v-if="!isLoading")
-    .md-layout-item.golden-border.md-medium-size-100.md-large-size-50.md-xlarge-size-33(v-for="char in Character")
+  .md-layout(v-if="!isLoading && !noLocalCharactersFound")
+    .md-layout-item.golden-border.md-medium-size-100.md-large-size-50.md-xlarge-size-33(v-for="char in tavernList")
       router-link.md-title(:to="'/charsheet/' + char._id") {{ char.name }}
       .md-body
         | lvl. {{ char.level }} {{ char.race }} 
