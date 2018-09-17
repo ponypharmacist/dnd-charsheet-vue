@@ -186,8 +186,7 @@
               .controls-minus(@click="character.currentHealth--")
             .hp-value-current.attribute-modifier
               input(v-model="character.currentHealth")
-          .attribute-modifier {{ character.maxHealth }}
-          .attribute-name HP Current / Max
+          .attribute-name out of {{ character.maxHealth }} HP
 
         .attribute-block
           .attribute-modifier {{ character.dexterity | getModifier | decoratePositive }}

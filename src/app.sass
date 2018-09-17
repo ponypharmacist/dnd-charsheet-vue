@@ -220,13 +220,8 @@ a
   font-weight: bold
 
 // Attribute columns
-.attribute-column
-  min-width: 160px
-  margin: 0 0.75% 15px 0.75%
-  margin-bottom: 16px
-
-  &:last-child
-    margin-right: 0
+.attributes
+  padding-right: 32px
 
 .attribute-name
   display: inline-block
@@ -291,6 +286,7 @@ a
   position: relative
   display: block
   color: #666
+  white-space: nowrap
 
 .attribute-skills-item a,
 .attribute-name a,
@@ -308,8 +304,9 @@ a
 .hp-wrap
   position: relative
   display: inline-block
+  height: 46px
   white-space: nowrap
-  margin-left: -80px
+  margin-left: -24px
 
 .hp-value-current
   position: relative
@@ -343,6 +340,7 @@ a
   .md-ripple
     display: none
 
+// Plus/minus controls
 .controls-block
   display: inline-block
   width: 24px
@@ -352,8 +350,7 @@ a
 
 .stat-controls
   position: relative
-  top: -6px
-  margin-right: 6px
+  width: 20px
 
 .controls-plus,
 .controls-minus
@@ -374,6 +371,16 @@ a
 .controls-minus:hover
   background-color: rgba(255,255,255,0.16)
   cursor: pointer
+
+.stat-controls .controls-plus,
+.stat-controls .controls-minus
+  margin: 0
+  height: 16px
+  width: 16px
+  background-size: 10px 10px
+
+.stat-controls .controls-minus
+  margin-top: 4px
 
 // Money and loot inputs
 .money-input
@@ -425,8 +432,7 @@ td .roll-link
   font-size: 1rem
 
 @media screen and (max-width: 1920px)
-  .attribute-column
-    width: auto
+  #navigation
 
 @media screen and (max-width: 1280px)
   // Container
@@ -466,9 +472,6 @@ td .roll-link
   #navigation
     padding: 6px 12px
 
-  .attribute-column
-    min-width: 145px
-
   .view-charsheet .feat-list
     column-count: 1
 
@@ -487,16 +490,6 @@ td .roll-link
 
   .pr-1
     padding-right: 0
-
-  .attribute-column
-    margin-bottom: 8px
-    order: 3
-
-  .attribute-column:nth-child(1)
-    order: 1
-
-  .attribute-column:nth-child(3)
-    order: 2
 
   .attribute-skills-item
     height: 24px
