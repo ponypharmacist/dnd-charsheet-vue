@@ -11,8 +11,7 @@ import { capitalize,
          flattenArray,
          flattenArrayMultiline,
          readLocalStorage,
-         updateLocalStorage,
-         clearLocalStorage } from '../helpers';
+         updateLocalStorage } from '../helpers';
 import { mapGetters, 
          mapMutations } from 'vuex';
 import { races } from '../tables/races';
@@ -75,13 +74,8 @@ export default {
   },
 
   mounted() {
-    if (this.$store.state.enableLocalStorage) {
-      // Get list of local characters
-      this.localCharactersList = readLocalStorage('localCharactersList');
-      console.log(this.localCharactersList);
-      // If you need to clean up manually
-      // clearLocalStorage('localCharactersList');
-    }
+    this.localCharactersList = readLocalStorage('localCharactersList');
+    console.log(this.localCharactersList);
   },
 
   // Computed
@@ -348,46 +342,45 @@ export default {
     },
     // Last method, sends new character to database
     addToAPI () {
-    let newCharacter = {
-      name: this.name,
-      level: this.level,
-      race: this.race,
-      subrace: this.subrace,
-      clas: this.clas,
-      background: this.background,
+      let newCharacter = {
+        name: this.name,
+        level: this.level,
+        race: this.race,
+        subrace: this.subrace,
+        clas: this.clas,
+        background: this.background,
 
-      strength: this.strength,
-      dexterity: this.dexterity,
-      constitution: this.constitution,
-      intelligence: this.intelligence,
-      wisdom: this.wisdom,
-      charisma: this.charisma,
+        strength: this.strength,
+        dexterity: this.dexterity,
+        constitution: this.constitution,
+        intelligence: this.intelligence,
+        wisdom: this.wisdom,
+        charisma: this.charisma,
 
-      maxHealth: this.maxHealth,
-      currentHealth: this.maxHealth,
-      speed: this.characterSpeed,
-      copper: 0,
-      silver: 0,
-      gold: this.characterGold,
-      platinum: 0,
-      items: this.characterItems,
-      armor: this.characterArmor,
-      shield: this.characterShield,
-      weaponMelee: this.characterWeaponMelee ? this.characterWeaponMelee : '',
-      weaponMelee2: this.characterWeaponMelee2 ? this.characterWeaponMelee2 : '',
-      weaponRanged: this.characterWeaponRanged ? this.characterWeaponRanged : '',
+        maxHealth: this.maxHealth,
+        currentHealth: this.maxHealth,
+        speed: this.characterSpeed,
+        copper: 0,
+        silver: 0,
+        gold: this.characterGold,
+        platinum: 0,
+        items: this.characterItems,
+        armor: this.characterArmor,
+        shield: this.characterShield,
+        weaponMelee: this.characterWeaponMelee ? this.characterWeaponMelee : '',
+        weaponMelee2: this.characterWeaponMelee2 ? this.characterWeaponMelee2 : '',
+        weaponRanged: this.characterWeaponRanged ? this.characterWeaponRanged : '',
 
-      languages: this.languagesString,
-      proficienciesCombat: this.characterProficienciesCombat.toString(),
-      tools: this.characterTools,
-      feats: this.characterFeats,
-      skills: this.characterSkills,
-      notes: 'Alignment: pick one!',
-      flavor: '',
-      spellslots: [[], [], [], [], [], [], [], [], [], []]
-    }
+        languages: this.languagesString,
+        proficienciesCombat: this.characterProficienciesCombat.toString(),
+        tools: this.characterTools,
+        feats: this.characterFeats,
+        skills: this.characterSkills,
+        notes: 'Alignment: pick one!',
+        flavor: '',
+        spellslots: [[], [], [], [], [], [], [], [], [], []]
+      }
 
-    if (this.$store.state.enableLocalStorage) {
       // Put new character into local storage
       // 1. Generate a friendly nospace name
       let nospaceName = this.name.split(' ').join('');
@@ -406,23 +399,6 @@ export default {
       updateLocalStorage (newCharacter, nospaceName);
       // 5. Go to tavern
       window.location = '/';
-    }
-    
-    if (!this.$store.state.enableLocalStorage) {
-      this.isLoading = true;
-      axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
-        .then((response) => {
-          this.isLoading = false;
-          console.log(response);
-          this.submitted = true;
-          window.location = '/';
-        })
-        .catch((error) => {
-          this.isLoading = false;
-          console.log(error);
-          this.submitted = false;
-        });
-      }
     }
   }
 }

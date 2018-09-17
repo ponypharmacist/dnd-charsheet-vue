@@ -44,25 +44,14 @@ export default {
       armorClassBonus: 0,
       attackBonus: 0,
       customRollValue: '3d6+1',
-      // Character stuff
-      Character: [],
     }
   },
 
   // Mounted
   mounted() {
     this.charID = this.$route.params.charID;
-
-    if (this.$store.state.enableLocalStorage) {
-      this.isLoading = false;
-      this.Character = readLocalStorage(this.charID);
-      // Set new character state in store
-      this.$store.commit('stateOpenCharacter', readLocalStorage(this.charID));
-    }
-
-    if (!this.$store.state.enableLocalStorage) {
-      this.getCharacter(this.charID);
-    }
+    this.$store.commit('readCharacter', readLocalStorage(this.charID));
+    this.isLoading = false;
   },
 
   // Computed
@@ -145,7 +134,7 @@ export default {
     },
 
     exportCharacterFile: function() {
-      let textFiledata = new Blob([JSON.stringify(this.Character)], {
+      let textFiledata = new Blob([JSON.stringify(this.character)], {
         type: 'text/plain'
       });
       return window.URL.createObjectURL(textFiledata);
@@ -179,7 +168,7 @@ export default {
       // Create new element
       var el = document.createElement('textarea');
       // Set value (string to be copied)
-      el.value = JSON.stringify(this.Character);
+      el.value = JSON.stringify(this.character);
       // Set non-editable to avoid focus and move outside of view
       el.setAttribute('readonly', '');
       el.style = {position: 'absolute', left: '-9999px'};
@@ -199,7 +188,7 @@ export default {
 
     getSkillBonus (attribute, skill) {
       let profBonus = this.character.skills.includes(skill) ? this.proficiencyBonus : 0;
-      return profBonus + getModifier(this.Character[attribute]);
+      return profBonus + getModifier(this.character[attribute]);
     },
     rollSkill (attribute, skill) {
       let bonus = this.getSkillBonus(attribute, skill);
@@ -212,14 +201,14 @@ export default {
     },
     rollAttribute (attribute, title = false) {
       let rollResult = rollDice(20);
-      let bonus = getModifier(this.Character[attribute]);
+      let bonus = getModifier(this.character[attribute]);
       let name = title ? title : attribute;
       let updateString = 'You roll ' + capitalize(name) + ' for ' + (rollResult + bonus) + '. ';
       this.updateRollQueue({message: updateString});
     },
 
     rollAttack (weapon) {
-      let weaponName = this.weapons[this.Character[weapon]].title;
+      let weaponName = this.weapons[this.character[weapon]].title;
       let rollResult = rollDice(20);
       let bonus = this[weapon + 'Attack'];
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
@@ -229,15 +218,15 @@ export default {
       this.updateRollQueue({message: updateString, note: note});
     },
     rollDamage (weapon) {
-      let weaponName = this.weapons[this.Character[weapon]].title;
-      let weaponDamage = this.weapons[this.Character[weapon]].damage;
+      let weaponName = this.weapons[this.character[weapon]].title;
+      let weaponDamage = this.weapons[this.character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
       let bonus = this[weapon + 'Damage'];
       let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
       this.updateRollQueue({message: updateString});
     },
     rollAttackRanged (weapon) {
-      let weaponName = this.weapons[this.Character[weapon]].title;
+      let weaponName = this.weapons[this.character[weapon]].title;
       let rollResult = rollDice(20);
       let bonus = this.weaponRangedAttack;
       let criticalSuccess = rollResult == 20 ? ' CRITICAL HIT!' : '';
@@ -247,8 +236,8 @@ export default {
       this.updateRollQueue({message: updateString, note: note});
     },
     rollDamageRanged (weapon) {
-      let weaponName = this.weapons[this.Character[weapon]].title;
-      let weaponDamage = this.weapons[this.Character[weapon]].damage;
+      let weaponName = this.weapons[this.character[weapon]].title;
+      let weaponDamage = this.weapons[this.character[weapon]].damage;
       let rollResult = rollString(weaponDamage);
       let bonus = this.weaponRangedDamage;
       let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
@@ -283,46 +272,6 @@ export default {
     updateLocalCharacter () {
       updateLocalStorage (this.character, this.character._id);
       console.log('Local Character Updated.');
-    },
-
-    // API calls
-    getCharacter (charID) {
-      console.log(charID);
-      axios.get(`https://dnd-charsheet-api.herokuapp.com/charsheets/select/${charID}`, {
-        timeout: 5000
-      })
-        .then((response) => {
-          this.isLoading = false;
-          console.log('Got my character from API!');
-          this.Character = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-          console.log('catch.error fired')
-          this.errorMessage = error;
-        });
-    },
-
-    updateAPI () {
-      if (this.$store.state.enableLocalStorage) {
-        this.updateLocalCharacter();
-      }
-      if (!this.$store.state.enableLocalStorage) {      
-        let updateCharacter = this.Character;
-        let charID = this.charID;
-        console.log(charID);
-        axios.put(`https://dnd-charsheet-api.herokuapp.com/charsheets/update/${charID}`, updateCharacter)
-          .then((response) => {
-            console.log('Sent my character to API!');
-            this.updated = true;
-            this.updateRollQueue({message: 'Saved changes successfully.'});
-          })
-          .catch((error) => {
-            console.log(error);
-            this.updated = false;
-            this.updateRollQueue({message: 'Failed to save changes! =( Try again later.'});
-          });
-      }
     }
   } // end of methods
 }

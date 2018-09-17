@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     count: 9000,
-    enableLocalStorage: true,
     character: {},
     rollQueue: [],
     // Level up stuff
@@ -24,7 +23,7 @@ export const store = new Vuex.Store({
 
   // Mutations
   mutations: {
-    stateOpenCharacter (state, characterData) {
+    readCharacter (state, characterData) {
       store.state.character = characterData
     },
     mutateCharacter (state, payload) {
