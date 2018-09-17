@@ -9,29 +9,24 @@ import { readLocalStorage,
          clearLocalStorage } from '../helpers';
 import { mapGetters, 
          mapMutations } from 'vuex';
-
 export default {
   name:'tavern',
   components: { Spinner },
   data() {
     return {
       tavernList: [],
-      isLoading: true,
-      rollQueue: [],
       localCharactersList: [],
-      noLocalCharactersFound: false,
+      noLocalCharactersFound: true,
+      importModal: false,
+      importString: '',
     }
   },
   // on Mounted
   mounted() {
-    // clearLocalStorage('localCharactersList');
+    // clearLocalStorage('NoSubrace');
     // Get charsheets from LS by default
-
-    this.isLoading = false;
-    if (!readLocalStorage('localCharactersList')) {
-      this.noLocalCharactersFound = true;
-    }
     if (readLocalStorage('localCharactersList')) {
+      this.noLocalCharactersFound = false;
       this.updateTavern();
     }
   },
@@ -44,6 +39,7 @@ export default {
         // Fill the tavern with local characters one by one
         this.tavernList.push(readLocalStorage(item));
       }
+      console.log(this.localCharactersList);
     },
 
     deleteCharacter (charID) {
@@ -55,22 +51,23 @@ export default {
       this.updateTavern();
     },
 
-    updateRollQueue (string, note) {
-      let rollObject = {
-        date: this.prettyDate(),
-        string: string,
-        note: note
-      };
-      if (this.rollQueue.length >= 3) {
-        this.rollQueue.shift();
+    commitImport () {
+      // 1. Generate a friendly nospace name
+      let nospaceName = JSON.parse(this.importString)._id;
+      console.log(nospaceName);
+      // 2. Update the list of local characters with a nospace name
+      if (!this.localCharactersList) {
+        this.localCharactersList = [nospaceName];
+        console.log('New array');
+      } else {
+        this.localCharactersList.push(nospaceName);
+        console.log('Pushed');
       }
-      this.rollQueue.push(rollObject);
-    },
-
-    prettyDate () {
-      let dateWithouthSecond = new Date();
-      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    },
+      // 3. Update locally stored list of names
+      updateLocalStorage (this.localCharactersList, 'localCharactersList');
+      // 4. Create a LS item for this character
+      updateLocalStorage (JSON.parse(this.importString), nospaceName);
+    }
   }
 }
 </script>

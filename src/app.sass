@@ -1,4 +1,5 @@
 @import "~vue-material/dist/vue-material.css"
+@import "./sass/vuematerial-override"
 @import "./sass/golden-borders"
 
 @import "~vue-material/dist/theme/engine"
@@ -23,23 +24,6 @@ body
 // Grand Typographics
 a
   color: #fff
-
-h3
-  margin: 0 0 1rem
-
-h4
-  margin: 0 0 1rem
-
-.title-h4
-  font-weight: bold
-  margin: 0.5rem 0
-  padding: 4px 8px
-  border: 1px solid #2c3e50
-  width: 80%
-
-.md-subheading
-  span
-    color: #666
 
 // Kostyli
 .align-top
@@ -75,13 +59,6 @@ h4
   .md-button:first-child
     margin-left: 0
 
-.dice-button
-
-.dice-button::before
-
-.md-button
-  min-width: 32px
-
 .custom-roll-wrap
   display: flex
 
@@ -92,17 +69,7 @@ h4
   height: 32px
   width: 100px
 
-// Dialogs
-.dialog
-
-  .md-layout
-    padding: 0 24px
-
-.error-message
-  width: 100%
-  padding: 0 0 12px
-
-// View Characters
+// View Characters / Tavern
 .delete-icon
   cursor: pointer
   text-decoration: none
@@ -115,26 +82,20 @@ h4
     height: 16px
     font-size: 16px !important
 
+.import-modal
+  width: 600px
+
+.import-modal .md-has-textarea
+  padding: 0
+  margin: 0
+
+.import-textarea
+  height: 200px !important
+  font-size: 0.75rem !important
+  padding: 8px !important
+
 // Create / Edit Character
 // == Forms
-.input-inline
-  display: inline-block
-  width: auto
-
-.input-short
-  width: 4rem
-
-.md-checkbox
-  margin: 0 16px 0 0
-  width: 100%
-
-.md-field
-  margin-bottom: 12px
-
-.md-checkbox .md-checkbox-container::before
-  width: 24px
-  height: 24px
-
 .ability-input
   margin-bottom: 24px
 
@@ -174,28 +135,6 @@ h4
 
   &:nth-child(2)
     margin: 0
-
-.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
-  min-height: 56px
-
-.equipment-textarea.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
-  min-height: 140px
-
-.md-has-textarea
-  background-color: rgba(255,255,255,0.05)
-  padding-left: 6px
-
-.md-field.md-has-textarea .md-textarea
-  padding: 4px 8px 8px
-
-.md-field.md-has-textarea:not(.md-autogrow) .md-textarea
-  padding-left: 12px
-
-.md-field.md-has-textarea label
-  padding-left: 12px
-
-.md-field.md-has-textarea:not(.md-autogrow) label
-  padding-left: 0
 
 .combat-stat-title
   display: inline-block
@@ -281,12 +220,6 @@ h4
   font-weight: bold
 
 // Attribute columns
-.character-attributes
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
-  justify-content: space-around
-
 .attribute-column
   min-width: 160px
   margin: 0 0.75% 15px 0.75%
@@ -297,20 +230,26 @@ h4
 
 .attribute-name
   display: inline-block
+  width: 180px
+  margin-left: 6px
   font-size: 1.125rem
-  margin-right: 6px
+  line-height: 36px
 
-.attribute-bg
-  display: inline-block
-  // background-color: rgba(236,190,90,0.15)
-  margin: 0.25rem 0
-  padding: 0
+  a
+    display: inline
+
+.attribute-block
+  display: flex
+  margin: 4px 0
+
+.save-link
+  font-size: 0.875rem
+  color: #aaa !important
 
 .attribute-value,
 .attribute-modifier
-  display: inline-block
-  height: 48px
-  line-height: 48px
+  height: 36px
+  line-height: 36px
   text-align: center
 
 .attribute-value
@@ -318,24 +257,43 @@ h4
   font-size: 1.25rem
   color: #fff
   background: transparent url('assets/deco-sq-plain.svg') no-repeat 50% 50% / 36px 36px
-  margin-right: 0.25rem
 
 .attribute-modifier
-  width: 48px
-  font-size: 1.5rem
+  width: 36px
+  font-size: 1.25rem
   font-weight: bold
-  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
+  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / 36px 36px
+  margin: 0 4px
 
+// Tweaks for secondary stats
+.secondary-stats
+  padding-left: 80px
+
+.secondary-stats .attribute-modifier
+  line-height: 48px
+  height: 48px
+  width: 48px
+  background-size: 48px 48px
+
+.secondary-stats .attribute-name
+  line-height: 48px
+  white-space: nowrap
+
+// Skills
 .attribute-skills
   font-size: 16px
+  column-count: 3
+  margin-top: 10px
 
 .attribute-skills-item
   height: 26px
   line-height: 26px
   position: relative
+  display: block
+  color: #666
 
 .attribute-skills-item a,
-.attribute-name,
+.attribute-name a,
 .roll-link
   color: #fff
   cursor: pointer
@@ -347,36 +305,13 @@ h4
   color: #ecbe57!important
 
 // AC, HP, Initiative
-.combat-stats
-  display: flex
-  flex-direction: row
-  flex-wrap: nowrap
-  justify-content: space-around
-  padding: 24px 0 16px
-
-.armor-class,
-.hp,
-.initiative,
-.speed
-  text-align: center
-  min-width: 80px
-  margin: 4px 1.5% 0
-  height: 48px
-
-.hp
-  min-width: 138px
-
 .hp-wrap
   position: relative
   display: inline-block
   white-space: nowrap
+  margin-left: -80px
 
-.armor-class-value,
-.initiative-value,
-.hp-value-current,
-.hp-value,
-.speed-value,
-.profbonus-value
+.hp-value-current
   position: relative
   display: inline-block
   height: 48px
@@ -385,50 +320,6 @@ h4
   width: 48px
   font-size: 1.5rem
   font-weight: bold
-  background: transparent url('assets/deco-sq-fancy.svg') no-repeat 50% 50% / cover
-
-.initiative-value
-  border-bottom: none
-  background-color: rgba(255,255,255,0.075)
-
-  &:hover
-    background-color: rgba(255,255,255,0.15)
-
-.armor-class-value::before,
-.hp-wrap::before,
-.initiative-value::before,
-.speed-value::before,
-.profbonus-value::before
-  position: absolute
-  content: "Armor Class"
-  font-size: 12px
-  line-height: 10px
-  font-weight: bold
-  width: 80px
-  top: -16px
-  left: 50%
-  margin-left: -40px
-
-.hp-wrap::before
-  content: "HP Current / Max"
-  width: 100px
-  margin-left: -36px
-
-.initiative-value::before
-  content: "Initiative"
-
-.speed-value::before
-  content: "Speed"
-
-.profbonus-value::before
-  content: "Prof.Bonus"
-
-.hp-value-current,
-.hp-value
-  float: left
-
-.hp-value-current
-  margin-right: 8px
   background: transparent url('assets/deco-sq-plain.svg') no-repeat 50% 50% / cover
 
 .hp-value-current input
@@ -458,11 +349,11 @@ h4
 
 .hp-controls
   float: left
-  margin-right: 6px
 
 .stat-controls
-  float: right
-  margin-left: 6px
+  position: relative
+  top: -6px
+  margin-right: 6px
 
 .controls-plus,
 .controls-minus
@@ -542,6 +433,15 @@ td .roll-link
   .feat-list
     column-count: 1
 
+@media screen and (max-width: 1024px)
+  .attribute-skills
+    font-size: 15px
+    columns: 2
+
+  .attribute-skills-item
+    height: 22px
+    line-height: 22px
+
 @media screen and (max-width: 960px)
   // Container
   .view-charsheet
@@ -585,10 +485,6 @@ td .roll-link
   .character-race-class
     font-size: 1rem
 
-  .md-field.md-focused .md-textarea,
-  .md-field.md-has-value .md-textarea
-    font-size: 14px
-
   .pr-1
     padding-right: 0
 
@@ -627,35 +523,6 @@ td .roll-link
   .combat-stats
     padding: 32px 0 0
 
-  .armor-class-value,
-  .initiative-value,
-  .hp-value-current,
-  .hp-value,
-  .speed-value,
-  .profbonus-value
-    height: 36px
-    line-height: 36px
-    width: 36px
-    font-size: 1.125rem
-
-  .hp-value-current
-    margin-right: 4px
-
-  .hp-value-current input
-    width: 36px
-    height: 36px
-    font-size: 1.125rem
-
-  .armor-class,
-  .hp,
-  .initiative,
-  .speed
-    margin: 0
-    min-width: 54px
-
-  .hp
-    min-width: 108px
-
   .hp-controls
     margin-right: 0
 
@@ -666,13 +533,6 @@ td .roll-link
     height: 18px
     border-radius: 3px
     margin: 0 2px
-
-  .armor-class-value::before,
-  .hp-wrap::before,
-  .initiative-value::before,
-  .speed-value::before,
-  .profbonus-value::before
-    font-size: 9px
 
   .money-wrap
     padding-right: 8px

@@ -73,9 +73,11 @@ export default {
 
   // Computed
   computed: {
-    ...mapGetters(['character',
-                   'levelUpOne',
-                   'levelUpTwo']),
+    ...mapGetters([
+      'character',
+      'levelUpOne',
+      'levelUpTwo'
+    ]),
     // Level Up stuff
     levelUpHealthMax: function() {
       let toughness = this.character.feats.includes('dwarvenToughness') ? 1 : 0;
@@ -104,6 +106,7 @@ export default {
       this.levelUpGetFeats();
       if (this.levelUpFeats == false && this.levelUpFeatsOverAttributes == false) {
         this.levelUp();
+        this.levelUpNext();
         this.levelUpComplete();
       } else {
         this.levelUp();

@@ -7,16 +7,21 @@ export const store = new Vuex.Store({
   state: {
     count: 9000,
     character: {},
+    localCharactersList: [],
     rollQueue: [],
     // Level up stuff
     levelUpOne: false,
-    levelUpTwo: false
+    levelUpTwo: false,
+    // Utility and Interface
+    importModal: false
   },
   // Getters
   getters: {
     character: state => state.character,
+    localCharactersList: state => state.localCharactersList,
     levelUpOne: state => state.levelUpOne,
     levelUpTwo: state => state.levelUpTwo,
+    importModal: state => state.importModal,
     rollQueue: state => state.rollQueue
   },
   // end of getters
@@ -29,6 +34,9 @@ export const store = new Vuex.Store({
     mutateCharacter (state, payload) {
       store.state.character[payload.param] = payload.value
       console.log(store.state.character[payload.param])
+    },
+    updateCharactersList (state, arr) {
+      store.state.localCharactersList = arr
     },
 
     updateRollQueue (state, payload) {
@@ -43,9 +51,14 @@ export const store = new Vuex.Store({
       store.state.rollQueue.push(rollObject)
     },
 
+    // Utility and Interface
+    toggleImportModal (state) {
+      state.importModal = !state.importModal
+    },
+
     // Level Up stuff
     levelUp (state) {
-      state.levelUpOne = ((state.character.level < 20) && !state.levelUpOne)
+      state.levelUpOne = !state.levelUpOne
     },
     levelUpNext (state) {
       state.levelUpTwo = !state.levelUpTwo

@@ -39,7 +39,6 @@ export default {
       submitted: false,
       skillsDialog: false,
       skillsDialogNext: false,
-      errorMessage: 'Saving data, may take some time...',
       extraFeat: false,
       extraFeatList: 'actor',
       // Local storage

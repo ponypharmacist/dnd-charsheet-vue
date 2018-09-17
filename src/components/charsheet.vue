@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       charID: '',
-      errorMessage: '',
       // tables of stuff
       races: races,
       classes: classes,
@@ -56,8 +55,10 @@ export default {
 
   // Computed
   computed: {
-    ...mapGetters(['character',
-                   'rollQueue']),
+    ...mapGetters([
+      'character',
+      'rollQueue'
+    ]),
 
     subraceTitle: function() {
       return this.races[this.character.race].subraces[this.character.subrace].title;
@@ -268,9 +269,14 @@ export default {
       }
     },
 
+    manualSave () {
+      this.updateLocalCharacter();
+      this.updateRollQueue({message: 'Character record updated!'});
+    },
+
     // TODO: save to local on every major changes
     updateLocalCharacter () {
-      updateLocalStorage (this.character, this.character._id);
+      updateLocalStorage(this.character, this.character._id);
       console.log('Local Character Updated.');
     }
   } // end of methods
