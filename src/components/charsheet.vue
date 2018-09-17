@@ -4,6 +4,7 @@
 /* eslint-disable */
 import axios from 'axios';
 import Spinner from './common/Spinner';
+import LevelUp from './modals/LevelUp';
 import { capitalize,
          rollDice,
          rollString,
@@ -23,7 +24,7 @@ import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
   name:'charsheet',
-  components: { Spinner },
+  components: { Spinner, LevelUp },
   data() {
     return {
       charID: '',
@@ -40,19 +41,9 @@ export default {
       isLoading: true,
       updated: false,
       editStats: false,
-      levelUpOne: false,
-      levelUpTwo: false,
-      rollQueue: [],
       armorClassBonus: 0,
       attackBonus: 0,
       customRollValue: '3d6+1',
-      // Level Up stuff
-      levelUpHealthMethod: 'maximum',
-      levelUpHealthRandom: 0,
-      levelUpFeats: [],
-      levelUpFeatsOverAttributes: false,
-      extraFeat: false,
-      extraFeatList: 'actor',
       // Character stuff
       Character: [],
     }
@@ -76,38 +67,40 @@ export default {
 
   // Computed
   computed: {
-    ...mapGetters(['character']),
+    ...mapGetters(['character',
+                   'rollQueue']),
 
     subraceTitle: function() {
-      return this.races[this.Character.race].subraces[this.Character.subrace].title;
+      return this.races[this.character.race].subraces[this.character.subrace].title;
     },
 
     proficiencyBonus: function() {
-      return Math.ceil(this.Character.level/4)+1;
+      return Math.ceil(this.character.level/4)+1;
     },
+
     armorClass: function() {
-      let attributeModifier = getModifier(this.Character.dexterity);
+      let attributeModifier = getModifier(this.character.dexterity);
       let baseAC = 10;
-      let shield = this.Character.shield ? 2 : 0;
-      if (this.Character.clas == 'barbarian' && this.Character.armor == 'noArmor') {
-        attributeModifier += getModifier(this.Character.constitution);
-      } else if (this.Character.clas == 'monk' && this.Character.armor == 'noArmor' && !this.Character.shield) {
-        attributeModifier += getModifier(this.Character.wisdom);
-      } else if (this.armors[this.Character.armor].type == 'heavy') {
-        baseAC = this.armors[this.Character.armor].ac;
+      let shield = this.character.shield ? 2 : 0;
+      if (this.character.clas == 'barbarian' && this.character.armor == 'noArmor') {
+        attributeModifier += getModifier(this.character.constitution);
+      } else if (this.character.clas == 'monk' && this.character.armor == 'noArmor' && !this.character.shield) {
+        attributeModifier += getModifier(this.character.wisdom);
+      } else if (this.armors[this.character.armor].type == 'heavy') {
+        baseAC = this.armors[this.character.armor].ac;
         attributeModifier = 0;
-      } else if (this.armors[this.Character.armor].type == 'medium') {
-        baseAC = this.armors[this.Character.armor].ac;
-        attributeModifier = getModifier(this.Character.dexterity) >= 2 ? 2 : getModifier(this.Character.dexterity);
+      } else if (this.armors[this.character.armor].type == 'medium') {
+        baseAC = this.armors[this.character.armor].ac;
+        attributeModifier = getModifier(this.character.dexterity) >= 2 ? 2 : getModifier(this.character.dexterity);
       } else {
-        baseAC = this.armors[this.Character.armor].ac;
+        baseAC = this.armors[this.character.armor].ac;
       }
       return baseAC + attributeModifier + shield;
     },
 
     // Weapon Related
     wieldsTwohanded: function() {
-      return this.Character.weaponMelee ? this.weapons[this.Character.weaponMelee].modifiers.includes('twohanded') : false;
+      return this.character.weaponMelee ? this.weapons[this.character.weaponMelee].modifiers.includes('twohanded') : false;
     },
     rangedWeapons: function() {
       let shortlist = {};
@@ -128,18 +121,18 @@ export default {
       return shortlist;
     },
     weaponMeleeDamage: function() {
-      let finesse = this.weapons[this.Character.weaponMelee].modifiers.includes('finesse') ? true : false;
-      let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
-      return finesse ? highestModifier : getModifier(this.Character.strength);
+      let finesse = this.weapons[this.character.weaponMelee].modifiers.includes('finesse') ? true : false;
+      let highestModifier = getModifier(this.character.strength) > getModifier(this.character.dexterity) ? getModifier(this.character.strength) : getModifier(this.character.dexterity);
+      return finesse ? highestModifier : getModifier(this.character.strength);
     },
     weaponMelee2Damage: function() {
-      let finesse = this.weapons[this.Character.weaponMelee2].modifiers.includes('finesse') ? true : false;
-      let highestModifier = getModifier(this.Character.strength) > getModifier(this.Character.dexterity) ? getModifier(this.Character.strength) : getModifier(this.Character.dexterity);
-      return finesse ? highestModifier : getModifier(this.Character.strength);
+      let finesse = this.weapons[this.character.weaponMelee2].modifiers.includes('finesse') ? true : false;
+      let highestModifier = getModifier(this.character.strength) > getModifier(this.character.dexterity) ? getModifier(this.character.strength) : getModifier(this.character.dexterity);
+      return finesse ? highestModifier : getModifier(this.character.strength);
     },
     weaponRangedDamage: function() {
-      let finesse = this.weapons[this.Character.weaponRanged].modifiers.includes('finesse') ? true : false;
-      return finesse ? getModifier(this.Character.dexterity) : getModifier(this.Character.strength);
+      let finesse = this.weapons[this.character.weaponRanged].modifiers.includes('finesse') ? true : false;
+      return finesse ? getModifier(this.character.dexterity) : getModifier(this.character.strength);
     },
     weaponMeleeAttack: function() {
       return this.weaponMeleeDamage + this.proficiencyBonus;
@@ -148,20 +141,7 @@ export default {
       return this.weaponMeleeDamage + this.proficiencyBonus;
     },
     weaponRangedAttack: function() {
-      return getModifier(this.Character.dexterity) + this.proficiencyBonus;
-    },
-
-    // Level Up stuff
-    levelUpHealthMax: function() {
-      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
-      let bonus = getModifier(this.Character.constitution);
-      return this.classes[this.Character.clas].hitDie + bonus + toughness;
-    },
-    levelUpHealthAverage: function() {
-      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
-      let bonus = getModifier(this.Character.constitution);
-      let average = this.classes[this.Character.clas].hitDie / 2 + 1;
-      return average + toughness + bonus;
+      return getModifier(this.character.dexterity) + this.proficiencyBonus;
     },
 
     exportCharacterFile: function() {
@@ -191,6 +171,8 @@ export default {
   methods: {
     ...mapMutations([
       'stateOpenCharacter',
+      'levelUp',
+      'updateRollQueue'
     ]),
 
     exportCharacterToClipboard () {
@@ -208,65 +190,15 @@ export default {
       document.execCommand('copy');
       // Remove temporary element
       document.body.removeChild(el);
-      this.updateRollQueue('Character data copied to clipboard!');
-    },
-
-    levelUp () {
-      if (this.Character.level < 20) {
-        this.levelUpOne = true;
-      }
-    },
-    levelUpStepTwo () {
-      this.levelUpGetFeats();
-      if (this.levelUpFeats == false && this.levelUpFeatsOverAttributes == false) {
-        this.levelUpOne = false;
-        this.levelUpComplete();
-      } else {
-        this.levelUpOne = false;
-        this.levelUpTwo = true;
-      }
-    },
-    levelUpRollHealth () {
-      let toughness = this.Character.feats.includes('dwarvenToughness') ? 1 : 0;
-      let bonus = getModifier(this.Character.constitution);
-      this.levelUpHealthRandom = rollDice(this.classes[this.Character.clas].hitDie) + bonus + toughness;
-    },
-    levelUpGetFeats () {
-      this.levelUpFeats = this.classes[this.Character.clas].feats[this.Character.level + 1];
-      if (this.levelUpFeats.includes('asImprovement')) {
-        this.levelUpFeats.splice(this.levelUpFeats.indexOf('asImprovement'), 1);
-        this.levelUpFeatsOverAttributes = true;
-      }
-    },
-    levelUpComplete () {
-      // Add health from level up to MaxHealth
-      if (this.levelUpHealthMethod == 'maximum') {
-        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthMax;
-      } else if (this.levelUpHealthMethod == 'average') {
-        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthAverage;
-      } else {
-        this.Character.maxHealth = this.Character.maxHealth + this.levelUpHealthRandom;
-      }
-      // Add new feats
-      this.Character.feats = this.Character.feats.concat(this.levelUpFeats);
-      this.Character.feats = this.extraFeat == true ? this.Character.feats.concat(this.extraFeatList) : this.Character.feats;
-      // Iterate level
-      this.Character.level = ++this.Character.level;
-      // Save to DB
-      // this.updateAPI();
-      // Reset booleans
-      this.levelUpTwo = false;
-      this.levelUpFeatsOverAttributes = false;
-      this.extraFeat = false;
-      this.updateRollQueue('Level up complete!');
+      this.updateRollQueue({message: 'Character data copied to clipboard!'});
     },
 
     spellsLvl (lvl) {
-      return this.classes[this.Character.clas].spellslots ? this.classes[this.Character.clas].spellslots[this.Character.level][lvl] : 0;
+      return this.classes[this.character.clas].spellslots ? this.classes[this.character.clas].spellslots[this.character.level][lvl] : 0;
     },
 
     getSkillBonus (attribute, skill) {
-      let profBonus = this.Character.skills.includes(skill) ? this.proficiencyBonus : 0;
+      let profBonus = this.character.skills.includes(skill) ? this.proficiencyBonus : 0;
       return profBonus + getModifier(this.Character[attribute]);
     },
     rollSkill (attribute, skill) {
@@ -276,14 +208,14 @@ export default {
       let criticalFail = rollResult == 1 ? ' CRITICAL FAIL!' : '';
       let updateString = 'You roll ' + capitalize(skill) + ' for ' + (rollResult + bonus) + '. ';
       let note = criticalSuccess + criticalFail;
-      this.updateRollQueue(updateString, note);
+      this.updateRollQueue({message: updateString, note: note});
     },
     rollAttribute (attribute, title = false) {
       let rollResult = rollDice(20);
       let bonus = getModifier(this.Character[attribute]);
       let name = title ? title : attribute;
       let updateString = 'You roll ' + capitalize(name) + ' for ' + (rollResult + bonus) + '. ';
-      this.updateRollQueue(updateString);
+      this.updateRollQueue({message: updateString});
     },
 
     rollAttack (weapon) {
@@ -294,7 +226,7 @@ export default {
       let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
       let note = criticalSuccess + criticalFail;
       let updateString = 'You attack with ' + weaponName + ' and roll ' + (rollResult + bonus) + '. ';
-      this.updateRollQueue(updateString, note);
+      this.updateRollQueue({message: updateString, note: note});
     },
     rollDamage (weapon) {
       let weaponName = this.weapons[this.Character[weapon]].title;
@@ -302,7 +234,7 @@ export default {
       let rollResult = rollString(weaponDamage);
       let bonus = this[weapon + 'Damage'];
       let updateString = 'You swing your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
-      this.updateRollQueue(updateString);
+      this.updateRollQueue({message: updateString});
     },
     rollAttackRanged (weapon) {
       let weaponName = this.weapons[this.Character[weapon]].title;
@@ -312,7 +244,7 @@ export default {
       let criticalFail = rollResult == 1 ? ' CRITICAL MISS!' : '';
       let note = criticalSuccess + criticalFail;
       let updateString = 'You attack with ' + weaponName + ' and roll ' + (rollResult + bonus) + '. ';
-      this.updateRollQueue(updateString, note);
+      this.updateRollQueue({message: updateString, note: note});
     },
     rollDamageRanged (weapon) {
       let weaponName = this.weapons[this.Character[weapon]].title;
@@ -320,39 +252,22 @@ export default {
       let rollResult = rollString(weaponDamage);
       let bonus = this.weaponRangedDamage;
       let updateString = 'You shoot your ' + weaponName + ' for ' + (rollResult + bonus) + ' damage. ';
-      this.updateRollQueue(updateString);
-    },
-
-    prettyDate () {
-      let dateWithouthSecond = new Date();
-      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      this.updateRollQueue({message: updateString});
     },
 
     rollDiceSingle (sides) {
       let updateString = 'You roll a d' + sides + ' for ' + rollDice(sides) +  '.';
-      this.updateRollQueue(updateString);
+      this.updateRollQueue({message: updateString});
     },
 
     rollString (diceString) {
       let updateString = 'You roll ' + diceString + ' for ' + rollString(diceString) +  '.';
-      this.updateRollQueue(updateString);      
-    },
-
-    updateRollQueue (string, note) {
-      let rollObject = {
-        date: this.prettyDate(),
-        string: string,
-        note: note
-      };
-      if (this.rollQueue.length >= 3) {
-        this.rollQueue.shift();
-      }
-      this.rollQueue.push(rollObject);
+      this.updateRollQueue({message: updateString});
     },
 
     doLongRest () {
-      this.Character.spellslots = [[], [], [], [], [], [], [], [], [], []];
-      this.Character.currentHealth = this.Character.maxHealth;
+      this.character.spellslots = [[], [], [], [], [], [], [], [], [], []];
+      this.character.currentHealth = this.character.maxHealth;
       this.updateLocalCharacter();
     },
     toggleEditStats () {
@@ -366,7 +281,7 @@ export default {
 
     // TODO: save to local on every major changes
     updateLocalCharacter () {
-      updateLocalStorage (this.Character, this.Character._id);
+      updateLocalStorage (this.character, this.character._id);
       console.log('Local Character Updated.');
     },
 
@@ -400,12 +315,12 @@ export default {
           .then((response) => {
             console.log('Sent my character to API!');
             this.updated = true;
-            this.updateRollQueue('Saved changes successfully.');
+            this.updateRollQueue({message: 'Saved changes successfully.'});
           })
           .catch((error) => {
             console.log(error);
             this.updated = false;
-            this.updateRollQueue('Failed to save changes! =( Try again later.');
+            this.updateRollQueue({message: 'Failed to save changes! =( Try again later.'});
           });
       }
     }
