@@ -23,7 +23,7 @@ export default {
   },
   // on Mounted
   mounted() {
-    // clearLocalStorage('NoSubrace');
+    // clearLocalStorage('localCharactersList');
     // Get charsheets from LS by default
     if (readLocalStorage('localCharactersList')) {
       this.noLocalCharactersFound = false;
@@ -67,6 +67,8 @@ export default {
       updateLocalStorage (this.localCharactersList, 'localCharactersList');
       // 4. Create a LS item for this character
       updateLocalStorage (JSON.parse(this.importString), nospaceName);
+      this.importModal = false;
+      this.updateTavern();
     }
   }
 }

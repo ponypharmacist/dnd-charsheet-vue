@@ -113,7 +113,7 @@
             |  | 
             a.save-link(@click="rollSkill('charisma', 'charisma')" v-bind:class="[ character.skills.includes('charisma') ? 'skillStar' : '' ]") Save {{ getSkillBonus('charisma', 'charisma') | decoratePositive }}
 
-      .attribute-skills.md-layout-item.md-small-size-50.md-medium-size-40.md-large-size-40.md-xlarge-size-40
+      .attribute-skills.md-layout-item.md-small-size-50.md-medium-size-45.md-large-size-45.md-xlarge-size-45
         .attribute-skills-item Strength
         .attribute-skills-item(v-bind:class="[ character.skills.includes('athletics') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="athletics" class="controls-skill")
@@ -174,11 +174,10 @@
           md-checkbox(v-if="editStats" v-model="character.skills" value="persuasion" class="controls-skill")
           a(@click="rollSkill('charisma', 'persuasion')") Persuasion {{ getSkillBonus('charisma', 'persuasion') | decoratePositive }}
 
-      .secondary-stats.md-layout-item.md-small-size-100.md-large-size-30.md-xlarge-size-30.align-top
+      .secondary-stats.md-layout-item.md-small-size-100.md-large-size-25.md-xlarge-size-25.align-top
         .attribute-block
           .attribute-modifier {{ armorClass }}
           .attribute-name Armor Class
-
         .attribute-block
           .hp-wrap
             .hp-controls.controls-block
@@ -187,19 +186,16 @@
             .hp-value-current.attribute-modifier
               input(v-model="character.currentHealth")
           .attribute-name out of {{ character.maxHealth }} HP
-
         .attribute-block
           .attribute-modifier {{ character.dexterity | getModifier | decoratePositive }}
           .attribute-name
             a.roll-link(@click="rollAttribute('dexterity', 'Initiative')") Initiative
-
         .attribute-block
           .attribute-modifier {{ character.speed }}
           .attribute-name Speed
-
         .attribute-block
           .attribute-modifier {{ proficiencyBonus | decoratePositive }}
-          .attribute-name Proficiency Bonus
+          .attribute-name Prof. Bonus
 
 
       .md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
@@ -278,7 +274,7 @@
                   md-option(v-for="(weapon, key) in rangedWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
             td
               md-button.md-dense.md-raised(type="button" @click="rollAttackRanged('weaponRanged')") Roll Attack ({{ weaponRangedAttack | decoratePositive }})
-              md-button.md-dense.md-raised(type="button" @click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }} + {{ weaponRangedDamage }})
+              md-button.md-dense.md-raised(type="button" @click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top.pr-1
         .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap
