@@ -5,11 +5,15 @@
 import axios from 'axios';
 import Spinner from './common/Spinner';
 import LevelUp from './modals/LevelUp';
+import ArmorSelect from './modals/ArmorSelect';
+import WeaponSelect from './modals/WeaponSelect';
+import RangedSelect from './modals/RangedSelect';
 import { capitalize,
          rollDice,
          rollString,
          getModifier,
          decoratePositive,
+         decoratePositiveSmart,
          flattenArray,
          readLocalStorage,
          updateLocalStorage } from '../helpers';
@@ -24,7 +28,7 @@ import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
   name:'charsheet',
-  components: { Spinner, LevelUp },
+  components: { Spinner, LevelUp, ArmorSelect, WeaponSelect, RangedSelect },
   data() {
     return {
       charID: '',
@@ -37,7 +41,6 @@ export default {
       armors: armors,
       weapons: weapons,
       // UI stuff
-      isLoading: true,
       updated: false,
       editStats: false,
       armorClassBonus: 0,
@@ -50,7 +53,6 @@ export default {
   mounted() {
     this.charID = this.$route.params.charID;
     this.$store.commit('readCharacter', readLocalStorage(this.charID));
-    this.isLoading = false;
   },
 
   // Computed
@@ -89,6 +91,7 @@ export default {
     },
 
     // Weapon Related
+    // TODO: add toggle to process versatile weapons
     wieldsTwohanded: function() {
       return this.character.weaponMelee ? this.weapons[this.character.weaponMelee].modifiers.includes('twohanded') : false;
     },
@@ -153,6 +156,7 @@ export default {
   filters: {
     capitalize,
     decoratePositive,
+    decoratePositiveSmart,
     flattenArray,
     getModifier
   },
@@ -162,7 +166,10 @@ export default {
     ...mapMutations([
       'stateOpenCharacter',
       'levelUp',
-      'updateRollQueue'
+      'updateRollQueue',
+      'toggleArmorSelect',
+      'toggleWeaponSelect',
+      'toggleRangedSelect'
     ]),
 
     exportCharacterToClipboard () {

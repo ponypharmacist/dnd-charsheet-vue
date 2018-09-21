@@ -23,15 +23,19 @@
         md-input(v-model="customRollValue")
       md-button.md-dense.md-raised(type="button" @click="rollString(customRollValue)") Roll custom
 
-  .md-layout(v-if="isLoading")
-    .md-layout-item.text-center
-      template
-        Spinner
+  template
+    LevelUp
 
-  .golden-border(v-if="!isLoading")
-    template
-      LevelUp
+  template
+    ArmorSelect
 
+  template
+    WeaponSelect
+
+  template
+    RangedSelect
+  
+  .golden-border
     .character-bar
       .character-name {{ character.name | capitalize }}
       .character-race-class 
@@ -51,7 +55,7 @@
         a.level-up(@click="exportCharacterToClipboard()") Export to clipboard
 
     .md-layout
-      .attributes.md-layout-item.md-small-size-50.md-medium-size-30.md-large-size-30.md-xlarge-size-30
+      .attributes.md-layout-item.md-xsmall-size-100.md-small-size-50.md-medium-size-30.md-large-size-30.md-xlarge-size-30
         .attribute-block
           .stat-controls.controls-block(v-if="editStats")
             .controls-plus(@click="character.strength++")
@@ -113,11 +117,12 @@
             |  | 
             a.save-link(@click="rollSkill('charisma', 'charisma')" v-bind:class="[ character.skills.includes('charisma') ? 'skillStar' : '' ]") Save {{ getSkillBonus('charisma', 'charisma') | decoratePositive }}
 
-      .attribute-skills.md-layout-item.md-small-size-50.md-medium-size-45.md-large-size-45.md-xlarge-size-45
+      .attribute-skills.md-layout-item.md-xsmall-size-100.md-small-size-50.md-medium-size-45.md-large-size-45.md-xlarge-size-45
         .attribute-skills-item Strength
         .attribute-skills-item(v-bind:class="[ character.skills.includes('athletics') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="athletics" class="controls-skill")
           a(@click="rollSkill('strength', 'athletics')") Athletics {{ getSkillBonus('strength', 'athletics') | decoratePositive }}
+
         .attribute-skills-item Dexterity
         .attribute-skills-item(v-bind:class="[ character.skills.includes('acrobatics') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="acrobatics" class="controls-skill")
@@ -128,6 +133,7 @@
         .attribute-skills-item(v-bind:class="[ character.skills.includes('stealth') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="stealth" class="controls-skill")
           a(@click="rollSkill('dexterity', 'stealth')") Stealth {{ getSkillBonus('dexterity', 'stealth') | decoratePositive }}
+
         .attribute-skills-item Intelligence
         .attribute-skills-item(v-bind:class="[ character.skills.includes('arcana') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="arcana" class="controls-skill")
@@ -144,6 +150,7 @@
         .attribute-skills-item(v-bind:class="[ character.skills.includes('religion') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="religion" class="controls-skill")
           a(@click="rollSkill('intelligence', 'religion')") Religion {{ getSkillBonus('intelligence', 'religion') | decoratePositive }}
+
         .attribute-skills-item Wisdom
         .attribute-skills-item(v-bind:class="[ character.skills.includes('animalHandling') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="animalHandling" class="controls-skill")
@@ -160,6 +167,7 @@
         .attribute-skills-item(v-bind:class="[ character.skills.includes('survival') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="survival" class="controls-skill")
           a(@click="rollSkill('wisdom', 'survival')") Survival {{ getSkillBonus('wisdom', 'survival') | decoratePositive }}
+
         .attribute-skills-item Charisma
         .attribute-skills-item(v-bind:class="[ character.skills.includes('deception') ? 'skillStar' : '' ]")
           md-checkbox(v-if="editStats" v-model="character.skills" value="deception" class="controls-skill")
@@ -197,84 +205,65 @@
           .attribute-modifier {{ proficiencyBonus | decoratePositive }}
           .attribute-name Prof. Bonus
 
+      .equipment-block.md-layout-item.md-xlarge-size-100
+        .equipment-item
+          .equipment-title Armor
+          .equipment-image(@click="toggleArmorSelect()")
+            .equipment-image-title {{ armors[character.armor].title }}
+          .equipment-misc
+            md-checkbox(v-model="character.shield" v-bind:disabled="wieldsTwohanded") Shield
+              span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
 
-      .md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
-        table(width="100%")
-          tr
-            td(colspan="2")
-              md-field
-                label(for="charArmor") Armor
-                md-select(v-model="character.armor" name="charArmor")
-                  md-option(v-for="(armor, key) in armors" v-bind:key="armors[armor]" v-bind:value="key") {{ armor.title }} (AC: {{ armor.ac }})
-          tr
-            td(colspan="2")
-              md-checkbox(v-model="character.shield" v-bind:disabled="wieldsTwohanded") Shield
-                span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
+        .equipment-item
+          .equipment-title Weapon
+          .equipment-image.weapon-bg(@click="toggleWeaponSelect('weaponMelee')")
+            .equipment-image-title {{ weapons[character.weaponMelee].title }}
+          .equipment-misc
+            a.roll-link(@click="rollAttack('weaponMelee')") Roll Attack ({{ weaponMeleeAttack | decoratePositive }})
+            br
+            a.roll-link(@click="rollDamage('weaponMelee')") Damage ({{ this.weapons[character.weaponMelee].damage }}{{ weaponMeleeDamage | decoratePositiveSmart }})
 
-          tr(v-if="classes[character.clas].spellslots")
-            td(colspan="2")
-              .md-title
-                | Spellslots (
-                a.roll-link(@click="doLongRest()") Long Rest
-                | )
-                .md-layout
-                  .md-layout-item
-                    | lv.1
-                    md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="character.spellslots[1]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(2) != 0")
-                    | lv.2
-                    md-checkbox(v-for="spellslot in spellsLvl(2)" v-bind:key="spellslot" v-model="character.spellslots[2]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(3) != 0")
-                    | lv.3
-                    md-checkbox(v-for="spellslot in spellsLvl(3)" v-bind:key="spellslot" v-model="character.spellslots[3]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(4) != 0")
-                    | lv.4
-                    md-checkbox(v-for="spellslot in spellsLvl(4)" v-bind:key="spellslot" v-model="character.spellslots[4]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(5) != 0")
-                    | lv.5
-                    md-checkbox(v-for="spellslot in spellsLvl(5)" v-bind:key="spellslot" v-model="character.spellslots[5]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(6) != 0")
-                    | lv.6
-                    md-checkbox(v-for="spellslot in spellsLvl(6)" v-bind:key="spellslot" v-model="character.spellslots[6]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(7) != 0")
-                    | lv.7
-                    md-checkbox(v-for="spellslot in spellsLvl(7)" v-bind:key="spellslot" v-model="character.spellslots[7]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(8) != 0")
-                    | lv.8
-                    md-checkbox(v-for="spellslot in spellsLvl(8)" v-bind:key="spellslot" v-model="character.spellslots[8]" v-bind:value="spellslot")
-                  .md-layout-item(v-if="spellsLvl(9) != 0")
-                    | lv.9
-                    md-checkbox(v-for="spellslot in spellsLvl(9)" v-bind:key="spellslot" v-model="character.spellslots[9]" v-bind:value="spellslot")
+        .equipment-item
+          .equipment-title Offhand
+          .equipment-image.weapon-bg(@click="toggleWeaponSelect('weaponMelee2')")
+            .equipment-image-title {{ weapons[character.weaponMelee2].title }}
+          .equipment-misc
+            a.roll-link(@click="rollAttack('weaponMelee2')") Roll Attack ({{ weaponMelee2Attack | decoratePositive }})
+            br
+            a.roll-link(@click="rollDamage('weaponMelee2')") Damage ({{ this.weapons[character.weaponMelee2].damage }}{{ weaponMelee2Damage | decoratePositiveSmart }})
 
-      .md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
-        table(width="100%")
-          tr
-            td
-              md-field
-                label(for="charWeapon1") Melee Weapon
-                md-select(v-model="character.weaponMelee" name="charWeapon1")
-                  md-option(v-for="(weapon, key) in meleeWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
-            td
-              md-button.md-dense.md-raised(type="button" @click="rollAttack('weaponMelee')") Roll Attack ({{ weaponMeleeAttack | decoratePositive }})
-              md-button.md-dense.md-raised(type="button" @click="rollDamage('weaponMelee')") Damage ({{ this.weapons[character.weaponMelee].damage }}{{ weaponMeleeDamage | decoratePositive }})
-          tr
-            td
-              md-field
-                label(for="charWeapon2") Alternative Melee Weapon
-                md-select(v-model="character.weaponMelee2" name="charWeapon2")
-                  md-option(v-for="(weapon, key) in meleeWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
-            td
-              md-button.md-dense.md-raised(type="button" @click="rollAttack('weaponMelee2')") Roll Attack ({{ weaponMelee2Attack | decoratePositive }})
-              md-button.md-dense.md-raised(type="button" @click="rollDamage('weaponMelee2')") Damage ({{ this.weapons[character.weaponMelee2].damage }}{{ weaponMelee2Damage | decoratePositive }})
-          tr
-            td
-              md-field
-                label(for="charWeaponRanged") Ranged Weapon
-                md-select(v-model="character.weaponRanged" name="charWeaponRanged")
-                  md-option(v-for="(weapon, key) in rangedWeapons" v-bind:key="weapons[weapon]" v-bind:value="key") {{ weapon.title }} ({{ weapon.damage }})
-            td
-              md-button.md-dense.md-raised(type="button" @click="rollAttackRanged('weaponRanged')") Roll Attack ({{ weaponRangedAttack | decoratePositive }})
-              md-button.md-dense.md-raised(type="button" @click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
+        .equipment-item
+          .equipment-title Ranged weapon
+          .equipment-image.weapon-ranged(@click="toggleRangedSelect()")
+            .equipment-image-title  {{ weapons[character.weaponRanged].title }}
+          .equipment-misc
+            a.roll-link(@click="rollAttackRanged('weaponRanged')") Roll Attack ({{ weaponRangedAttack | decoratePositiveSmart }})
+            br
+            a.roll-link(@click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
+
+        .spellslots-block.pl-1(v-if="classes[character.clas].spellslots")
+          .md-title Spellslots (
+            a.roll-link(@click="doLongRest()") Long Rest
+            | )
+          .md-layout
+            .md-layout-item lv.1
+              md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="character.spellslots[1]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(2) != 0") lv.2
+              md-checkbox(v-for="spellslot in spellsLvl(2)" v-bind:key="spellslot" v-model="character.spellslots[2]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(3) != 0") lv.3
+              md-checkbox(v-for="spellslot in spellsLvl(3)" v-bind:key="spellslot" v-model="character.spellslots[3]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(4) != 0") lv.4
+              md-checkbox(v-for="spellslot in spellsLvl(4)" v-bind:key="spellslot" v-model="character.spellslots[4]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(5) != 0") lv.5
+              md-checkbox(v-for="spellslot in spellsLvl(5)" v-bind:key="spellslot" v-model="character.spellslots[5]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(6) != 0") lv.6
+              md-checkbox(v-for="spellslot in spellsLvl(6)" v-bind:key="spellslot" v-model="character.spellslots[6]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(7) != 0") lv.7
+              md-checkbox(v-for="spellslot in spellsLvl(7)" v-bind:key="spellslot" v-model="character.spellslots[7]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(8) != 0") lv.8
+              md-checkbox(v-for="spellslot in spellsLvl(8)" v-bind:key="spellslot" v-model="character.spellslots[8]" v-bind:value="spellslot")
+            .md-layout-item(v-if="spellsLvl(9) != 0") lv.9
+              md-checkbox(v-for="spellslot in spellsLvl(9)" v-bind:key="spellslot" v-model="character.spellslots[9]" v-bind:value="spellslot")
 
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top.pr-1
         .md-layout-item.md-large-size-25.md-xlarge-size-25.money-wrap

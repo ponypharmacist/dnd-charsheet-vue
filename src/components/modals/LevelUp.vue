@@ -44,8 +44,7 @@
 
 <script>
 /* eslint-disable */
-import { capitalize,
-         rollDice,
+import { rollDice,
          rollString,
          getModifier,
          decoratePositive } from '../../helpers';

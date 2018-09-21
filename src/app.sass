@@ -46,6 +46,9 @@ a
 .pr-1
   padding-right: 1rem
 
+.pl-1
+  padding-left: 1rem
+
 .mt-1
   margin-top: 1rem
 
@@ -382,6 +385,82 @@ a
 .stat-controls .controls-minus
   margin-top: 4px
 
+// Armor and weapons block
+.equipment-block
+  display: flex
+  padding-bottom: 16px
+
+.equipment-item
+  display: inline-block
+  max-width: 152px
+  margin-right: 12px
+
+.equipment-title
+  text-align: center
+  color: #ffffff
+  font-size: 1.125rem
+
+.equipment-image
+  display: flex
+  flex-direction: column
+  justify-content: center
+  width: 150px
+  height: 120px
+  margin: 6px 0 6px
+  border: 1px solid #666666
+  background: url('assets/armor.png') no-repeat 50% 50% / contain
+  cursor: pointer
+
+  &.weapon-bg
+    background-image: url('assets/weapon.png')
+
+  &.weapon-ranged
+    background-image: url('assets/ranged.png')
+
+  &:hover
+    background-color: #000
+
+.equipment-image-title
+  width: 100%
+  background-color: rgba(0, 0, 0, 0.9)
+  text-align: center
+  padding: 8px 12px
+  font-size: 1.125rem
+  line-height: 20px
+
+.equipment-misc
+  text-align: center
+  font-size: 1rem
+  line-height: 24px
+
+  .md-checkbox
+    margin: 4px 0 0
+    width: auto
+
+// Armor modal
+.armor-select-dialog .md-layout-item .md-button
+  width: 100%
+  max-width: 250px
+  margin: 4px 0
+  text-transform: none
+  font-size: 0.875rem
+
+// Weapon modal
+.weapon-select-dialog .weapon-list .md-button
+  width: 100%
+  max-width: 160px
+  margin: 4px 12px 4px 0
+  text-transform: none
+  font-size: 0.875rem
+
+// Spellslots block
+.spellslots-block
+  .md-title
+    color: #ffffff
+    font-size: 1.125rem
+    line-height: inherit
+    margin-bottom: 6px
+
 // Money and loot inputs
 .money-input
   width: 30%
@@ -479,9 +558,6 @@ td .roll-link
   .roll-queue
     font-size: 80%
 
-  .character-bar
-    padding-left: 8px
-
   .character-name
     font-size: 1.5rem
 
@@ -490,6 +566,9 @@ td .roll-link
 
   .pr-1
     padding-right: 0
+
+  .attribute-skills .editable
+    padding-left: 32px
 
   .attribute-skills-item
     height: 24px

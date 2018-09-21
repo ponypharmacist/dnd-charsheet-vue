@@ -13,7 +13,9 @@ export const store = new Vuex.Store({
     levelUpOne: false,
     levelUpTwo: false,
     // Utility and Interface
-    importModal: false
+    armorSelectModal: false,
+    weaponSelectModal: false,
+    rangedSelectModal: false
   },
   // Getters
   getters: {
@@ -21,7 +23,9 @@ export const store = new Vuex.Store({
     localCharactersList: state => state.localCharactersList,
     levelUpOne: state => state.levelUpOne,
     levelUpTwo: state => state.levelUpTwo,
-    importModal: state => state.importModal,
+    armorSelectModal: state => state.armorSelectModal,
+    weaponSelectModal: state => state.weaponSelectModal,
+    rangedSelectModal: state => state.rangedSelectModal,
     rollQueue: state => state.rollQueue
   },
   // end of getters
@@ -33,7 +37,7 @@ export const store = new Vuex.Store({
     },
     mutateCharacter (state, payload) {
       store.state.character[payload.param] = payload.value
-      console.log(store.state.character[payload.param])
+      console.log(payload.param + ' changed to ' + store.state.character[payload.param] + '!')
     },
     updateCharactersList (state, arr) {
       store.state.localCharactersList = arr
@@ -54,6 +58,15 @@ export const store = new Vuex.Store({
     // Utility and Interface
     toggleImportModal (state) {
       state.importModal = !state.importModal
+    },
+    toggleArmorSelect (state) {
+      state.armorSelectModal = !state.armorSelectModal
+    },
+    toggleRangedSelect (state) {
+      state.rangedSelectModal = !state.rangedSelectModal
+    },
+    toggleWeaponSelect (state, weaponSlot) {
+      state.weaponSelectModal = weaponSlot
     },
 
     // Level Up stuff
