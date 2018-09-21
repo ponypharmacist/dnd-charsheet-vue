@@ -241,12 +241,12 @@
             br
             a.roll-link(@click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
 
-        .spellslots-block.pl-1(v-if="classes[character.clas].spellslots")
+        .spellslots-block.pl-1(v-if="classes[character.clas].spellslots && (spellsLvl(1) != 0)")
           .md-title Spellslots (
             a.roll-link(@click="doLongRest()") Long Rest
             | )
           .md-layout
-            .md-layout-item lv.1
+            .md-layout-item(v-if="spellsLvl(1) != 0") lv.1
               md-checkbox(v-for="spellslot in spellsLvl(1)" v-bind:key="spellslot" v-model="character.spellslots[1]" v-bind:value="spellslot")
             .md-layout-item(v-if="spellsLvl(2) != 0") lv.2
               md-checkbox(v-for="spellslot in spellsLvl(2)" v-bind:key="spellslot" v-model="character.spellslots[2]" v-bind:value="spellslot")
