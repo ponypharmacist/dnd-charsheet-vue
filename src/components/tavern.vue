@@ -39,7 +39,6 @@ export default {
         // Fill the tavern with local characters one by one
         this.tavernList.push(readLocalStorage(item));
       }
-      console.log(this.localCharactersList);
     },
 
     deleteCharacter (charID) {
@@ -54,14 +53,11 @@ export default {
     commitImport () {
       // 1. Generate a friendly nospace name
       let nospaceName = JSON.parse(this.importString)._id;
-      console.log(nospaceName);
       // 2. Update the list of local characters with a nospace name
       if (!this.localCharactersList) {
         this.localCharactersList = [nospaceName];
-        console.log('New array');
       } else {
         this.localCharactersList.push(nospaceName);
-        console.log('Pushed');
       }
       // 3. Update locally stored list of names
       updateLocalStorage (this.localCharactersList, 'localCharactersList');

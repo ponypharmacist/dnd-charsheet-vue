@@ -4,11 +4,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
 import router from './router'
-import VueSweetalert2 from 'vue-sweetalert2'
 import VueMaterial from 'vue-material'
 import { store } from './store'
 
-Vue.use(VueSweetalert2)
 Vue.use(VueMaterial)
 Vue.use(Vuex)
 

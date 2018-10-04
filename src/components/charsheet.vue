@@ -2,7 +2,6 @@
 
 <script>
 /* eslint-disable */
-import axios from 'axios';
 import Disclaimer from './common/Disclaimer';
 import LevelUp from './modals/LevelUp';
 import ArmorSelect from './modals/ArmorSelect';

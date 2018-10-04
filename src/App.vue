@@ -1,6 +1,5 @@
 <template lang="pug">
   #app(md-theme="dark" class="md-theme-dark md-theme-default-dark")
-    // app-head
     router-view
 </template>
 

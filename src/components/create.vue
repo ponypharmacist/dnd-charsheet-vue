@@ -1,7 +1,6 @@
 <template lang="pug" src="./create.pug"></template>
 <script>
 /* eslint-disable */
-import axios from 'axios';
 import Disclaimer from './common/Disclaimer';
 import { capitalize,
          rollDice,

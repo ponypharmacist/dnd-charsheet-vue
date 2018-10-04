@@ -17,5 +17,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-Built based on Nilotpal Chanda's vue-axios example.
