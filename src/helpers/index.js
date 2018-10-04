@@ -1,5 +1,5 @@
 // Capitalize text filter
-export const capitalize = (text) => {
+export const capitalize = (text = '') => {
   return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
 
@@ -30,6 +30,16 @@ export const getModifier = (abilityValue) => {
 // Decorate positive numbers with a plus
 export const decoratePositive = (number) => {
   return number > 0 ? '+' + number : number
+}
+// Hide 0
+export const decoratePositiveSmart = (number) => {
+  if (number > 0) {
+    return '+' + number
+  }
+  if (number === 0) {
+    return ''
+  }
+  return number
 }
 
 // Flatten array to a list

@@ -3,12 +3,6 @@
     md-button.md-dense.md-raised(to="/home") Tavern
     md-button.md-dense.md-raised.md-accent(type="button" @click="addToAPI") Save Character
 
-  .md-layout(v-if="isLoading")
-    .md-layout-item.text-center
-      .error-message {{ errorMessage }}
-      template
-        spinner
-
   // Class skills dialog
   md-dialog.dialog(:md-active.sync="skillsDialog" :md-fullscreen="false")
     md-dialog-title Select {{ skillsAllowed }} skills from Class
@@ -68,7 +62,7 @@
   
   h3(v-if="submitted") Thanks for adding your character!
   
-  form(v-if="!submitted || isLoading")
+  form(v-if="!submitted")
     .md-layout
       .md-layout-item.golden-border.md-xsmall-size-100.md-small-size-100.md-medium-size-50.md-large-size-33.md-xlarge-size-33
         .md-title Rejoice, for it is...
@@ -276,3 +270,6 @@
           li.feat-list-item(v-for="feat in characterFeats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
+
+  template
+    disclaimer

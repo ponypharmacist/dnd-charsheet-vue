@@ -1,21 +1,20 @@
 .container
-
-  .roll-queue
-    .queue-item(v-for="roll in rollQueue")
-      span.roll-date {{ roll.date }} 
-      span.roll-string {{ roll.string }} 
-      span.roll-note {{ roll.note }}
+  md-dialog.import-modal(:md-active.sync="importModal" :md-fullscreen="false")
+    md-dialog-title Paste character here
+    .md-layout(md-dynamic-height)
+      .md-layout-item
+        md-field
+          md-textarea.import-textarea(v-model="importString")
+    md-dialog-actions
+      md-button.md-primary.md-accent(@click="importModal = !importModal") Cancel
+      md-button.md-primary.md-raised(@click="commitImport()") Import
 
   #navigation
-    md-button.md-dense.md-raised.md-primary(to="/create") Add Character
+    md-button.md-dense.md-raised.md-accent(to="/create") Add Character
+    md-button.md-dense.md-raised.md-primary(@click="importModal = !importModal") Import Character
 
-  .md-layout(v-if="isLoading")
-    .md-layout-item.text-center
-      template
-        spinner
-
-  .md-layout(v-if="!isLoading")
-    .md-layout-item.golden-border.md-medium-size-100.md-large-size-50.md-xlarge-size-33(v-for="char in Character")
+  .md-layout(v-if="!noLocalCharactersFound")
+    .md-layout-item.golden-border.md-medium-size-100.md-large-size-50.md-xlarge-size-33(v-for="char in tavernList")
       router-link.md-title(:to="'/charsheet/' + char._id") {{ char.name }}
       .md-body
         | lvl. {{ char.level }} {{ char.race }} 
@@ -30,3 +29,6 @@
         a.delete-icon(@click="deleteCharacter(char._id)")
           md-icon close
           | delete
+
+  template
+    disclaimer

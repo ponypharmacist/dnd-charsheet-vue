@@ -2,7 +2,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import Spinner from './common/Spinner';
+import Disclaimer from './common/Disclaimer';
 import { capitalize,
          rollDice,
          roll4d6Stats,
@@ -11,8 +11,9 @@ import { capitalize,
          flattenArray,
          flattenArrayMultiline,
          readLocalStorage,
-         updateLocalStorage,
-         clearLocalStorage } from '../helpers';
+         updateLocalStorage } from '../helpers';
+import { mapGetters, 
+         mapMutations } from 'vuex';
 import { races } from '../tables/races';
 import { backgrounds } from '../tables/backgrounds';
 import { classes } from '../tables/classes';
@@ -22,7 +23,7 @@ import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
   name: 'create',
-  components: { Spinner },
+  components: { Disclaimer },
   data() {
     return {
       // tables of stuff
@@ -34,15 +35,12 @@ export default {
       armors,
       weapons,
       // form and visuals stuff
-      isLoading: false,
       submitted: false,
       skillsDialog: false,
       skillsDialogNext: false,
-      errorMessage: 'Saving data, may take some time...',
       extraFeat: false,
       extraFeatList: 'actor',
       // Local storage
-      enableLocalStorage: false,
       localCharactersList: [''],
       // character stuff
       name: '',
@@ -74,13 +72,8 @@ export default {
   },
 
   mounted() {
-    if (this.enableLocalStorage) {
-      // Get list of local characters
-      this.localCharactersList = readLocalStorage('localCharactersList');
-      console.log(this.localCharactersList);
-      // If you need to clean up manually
-      // clearLocalStorage('localCharactersList');
-    }
+    this.localCharactersList = readLocalStorage('localCharactersList');
+    console.log(this.localCharactersList);
   },
 
   // Computed
@@ -347,46 +340,45 @@ export default {
     },
     // Last method, sends new character to database
     addToAPI () {
-    let newCharacter = {
-      name: this.name,
-      level: this.level,
-      race: this.race,
-      subrace: this.subrace,
-      clas: this.clas,
-      background: this.background,
+      let newCharacter = {
+        name: this.name,
+        level: this.level,
+        race: this.race,
+        subrace: this.subrace,
+        clas: this.clas,
+        background: this.background,
 
-      strength: this.strength,
-      dexterity: this.dexterity,
-      constitution: this.constitution,
-      intelligence: this.intelligence,
-      wisdom: this.wisdom,
-      charisma: this.charisma,
+        strength: this.strength,
+        dexterity: this.dexterity,
+        constitution: this.constitution,
+        intelligence: this.intelligence,
+        wisdom: this.wisdom,
+        charisma: this.charisma,
 
-      maxHealth: this.maxHealth,
-      currentHealth: this.maxHealth,
-      speed: this.characterSpeed,
-      copper: 0,
-      silver: 0,
-      gold: this.characterGold,
-      platinum: 0,
-      items: this.characterItems,
-      armor: this.characterArmor,
-      shield: this.characterShield,
-      weaponMelee: this.characterWeaponMelee ? this.characterWeaponMelee : '',
-      weaponMelee2: this.characterWeaponMelee2 ? this.characterWeaponMelee2 : '',
-      weaponRanged: this.characterWeaponRanged ? this.characterWeaponRanged : '',
+        maxHealth: this.maxHealth,
+        currentHealth: this.maxHealth,
+        speed: this.characterSpeed,
+        copper: 0,
+        silver: 0,
+        gold: this.characterGold,
+        platinum: 0,
+        items: this.characterItems,
+        armor: this.characterArmor,
+        shield: this.characterShield,
+        weaponMelee: this.characterWeaponMelee ? this.characterWeaponMelee : '',
+        weaponMelee2: this.characterWeaponMelee2 ? this.characterWeaponMelee2 : '',
+        weaponRanged: this.characterWeaponRanged ? this.characterWeaponRanged : '',
 
-      languages: this.languagesString,
-      proficienciesCombat: this.characterProficienciesCombat.toString(),
-      tools: this.characterTools,
-      feats: this.characterFeats,
-      skills: this.characterSkills,
-      notes: 'Alignment: pick one!',
-      flavor: '',
-      spellslots: [[], [], [], [], [], [], [], [], [], []]
-    }
+        languages: this.languagesString,
+        proficienciesCombat: this.characterProficienciesCombat.toString(),
+        tools: this.characterTools,
+        feats: this.characterFeats,
+        skills: this.characterSkills,
+        notes: 'Alignment: pick one!',
+        flavor: '',
+        spellslots: [[], [], [], [], [], [], [], [], [], []]
+      }
 
-    if (this.enableLocalStorage) {
       // Put new character into local storage
       // 1. Generate a friendly nospace name
       let nospaceName = this.name.split(' ').join('');
@@ -405,23 +397,6 @@ export default {
       updateLocalStorage (newCharacter, nospaceName);
       // 5. Go to tavern
       window.location = '/';
-    }
-    
-    if (!this.enableLocalStorage) {
-      this.isLoading = true;
-      axios.post('https://dnd-charsheet-api.herokuapp.com/charsheets/create', newCharacter)
-        .then((response) => {
-          this.isLoading = false;
-          console.log(response);
-          this.submitted = true;
-          window.location = '/';
-        })
-        .catch((error) => {
-          this.isLoading = false;
-          console.log(error);
-          this.submitted = false;
-        });
-      }
     }
   }
 }

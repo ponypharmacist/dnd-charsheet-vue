@@ -3,93 +3,73 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import Spinner from './common/Spinner';
+import Disclaimer from './common/Disclaimer';
 import { readLocalStorage,
          updateLocalStorage,
          clearLocalStorage } from '../helpers';
+import { mapGetters, 
+         mapMutations } from 'vuex';
 export default {
   name:'tavern',
-  components: { Spinner },
+  components: { Disclaimer },
   data() {
     return {
-      Character: [],
-      isLoading: true,
-      rollQueue: [],
-      // Local storage
-      enableLocalStorage: false,
+      tavernList: [],
       localCharactersList: [],
+      noLocalCharactersFound: true,
+      importModal: false,
+      importString: '',
     }
   },
   // on Mounted
   mounted() {
-    if (this.enableLocalStorage && !readLocalStorage('localCharactersList')) {
-      window.location = '/create';
-    }
-
-    if (this.enableLocalStorage && readLocalStorage('localCharactersList')) {
-      this.isLoading = false;
-      // 1. Get list of locally stored characters
-      this.localCharactersList = readLocalStorage('localCharactersList');
-      console.log(this.localCharactersList);
-      // 2. 
-      for (let item of this.localCharactersList) {
-        this.Character.push(readLocalStorage(item));
-      }
-    }
-
-    if (!this.enableLocalStorage) {
-      // Get charsheets from DB
-      axios.get('https://dnd-charsheet-api.herokuapp.com/charsheets', {
-        timeout: 5000
-      })
-        .then((response) => {
-          this.isLoading = false;
-          console.log('Response.data came in:');
-          console.log(response.data);
-          this.Character = response.data;
-          // TODO: Check if there's local data
-          // TODO: compare versions of local and remote data, when they are available
-          this.updateRollQueue('Loading complete.');
-        })
-        .catch((error) => {
-          console.log(error);
-          this.updateRollQueue('Error loading data from server. Error message: ' + error.message);
-        });
+    // clearLocalStorage('localCharactersList');
+    // Get charsheets from LS by default
+    if (readLocalStorage('localCharactersList')) {
+      this.noLocalCharactersFound = false;
+      this.updateTavern();
     }
   },
   // Methods
   methods: {
-    deleteCharacter (charID) {
-      console.log('Trying to delete: ' + charID);
-      this.isLoading = true;
-      axios.delete('https://dnd-charsheet-api.herokuapp.com/charsheets/delete/' + charID)
-      this.isLoading = false;
-      // .then((response) => {
-      //   console.log('Success deleting.');
-      //   this.isLoading = false;
-      // })
-      // .catch((error) => {
-      //   console.log('Failed to delete. ' + error);
-      //   this.isLoading = false;
-      // });
-    },
-
-    updateRollQueue (string, note) {
-      let rollObject = {
-        date: this.prettyDate(),
-        string: string,
-        note: note
-      };
-      if (this.rollQueue.length >= 3) {
-        this.rollQueue.shift();
+    updateTavern () {
+      this.localCharactersList = readLocalStorage('localCharactersList');
+      this.tavernList = [];
+      for (let item of this.localCharactersList) {
+        // Fill the tavern with local characters one by one
+        this.tavernList.push(readLocalStorage(item));
       }
-      this.rollQueue.push(rollObject);
+      console.log(this.localCharactersList);
     },
 
-    prettyDate () {
-      let dateWithouthSecond = new Date();
-      return dateWithouthSecond.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    deleteCharacter (charID) {
+      clearLocalStorage(charID);
+      let deleteFrom = this.localCharactersList.indexOf(charID);
+      this.localCharactersList.splice(deleteFrom, 1);
+      // Update locally stored list of names and character record
+      updateLocalStorage(this.localCharactersList, 'localCharactersList');
+      this.updateTavern();
     },
+
+    commitImport () {
+      // 1. Generate a friendly nospace name
+      let nospaceName = JSON.parse(this.importString)._id;
+      console.log(nospaceName);
+      // 2. Update the list of local characters with a nospace name
+      if (!this.localCharactersList) {
+        this.localCharactersList = [nospaceName];
+        console.log('New array');
+      } else {
+        this.localCharactersList.push(nospaceName);
+        console.log('Pushed');
+      }
+      // 3. Update locally stored list of names
+      updateLocalStorage (this.localCharactersList, 'localCharactersList');
+      // 4. Create a LS item for this character
+      updateLocalStorage (JSON.parse(this.importString), nospaceName);
+      this.importModal = false;
+      this.updateTavern();
+    }
   }
 }
 </script>
