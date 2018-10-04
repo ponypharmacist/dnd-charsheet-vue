@@ -3,7 +3,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import Spinner from './common/Spinner';
+import Disclaimer from './common/Disclaimer';
 import { readLocalStorage,
          updateLocalStorage,
          clearLocalStorage } from '../helpers';
@@ -11,7 +11,7 @@ import { mapGetters,
          mapMutations } from 'vuex';
 export default {
   name:'tavern',
-  components: { Spinner },
+  components: { Disclaimer },
   data() {
     return {
       tavernList: [],

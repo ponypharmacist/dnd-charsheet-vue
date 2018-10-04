@@ -2,7 +2,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import Spinner from './common/Spinner';
+import Disclaimer from './common/Disclaimer';
 import { capitalize,
          rollDice,
          roll4d6Stats,
@@ -23,7 +23,7 @@ import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
   name: 'create',
-  components: { Spinner },
+  components: { Disclaimer },
   data() {
     return {
       // tables of stuff
@@ -35,7 +35,6 @@ export default {
       armors,
       weapons,
       // form and visuals stuff
-      isLoading: false,
       submitted: false,
       skillsDialog: false,
       skillsDialogNext: false,

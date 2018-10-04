@@ -19,7 +19,6 @@ body
 .container
   max-width: 1200px
   margin: 0 auto
-  padding-bottom: 32px
 
 // Grand Typographics
 a
@@ -265,7 +264,7 @@ a
 
 // Tweaks for secondary stats
 .secondary-stats
-  padding-left: 32px
+  padding-left: 24px
 
 .secondary-stats .attribute-modifier
   line-height: 48px
@@ -299,6 +298,10 @@ a
   border-bottom: 1px dashed rgba(255,255,255,0.5)
   text-decoration: none!important
 
+  &:hover
+    color: #00ff66!important
+    border-bottom-color: #00ff66
+
 .attribute-skills-item.skillStar a
   font-weight: bold
   color: #ecbe57!important
@@ -315,23 +318,27 @@ a
   position: relative
   display: inline-block
   height: 48px
+  width: 48px
   line-height: 48px
   text-align: center
-  width: 48px
-  font-size: 1.5rem
   font-weight: bold
   background: transparent url('assets/deco-sq-plain.svg') no-repeat 50% 50% / cover
 
-.hp-value-current input
+.boxed-input
   float: left
+  width: 100%
+  height: 100%
+  line-height: 36px
   font-size: 1.25rem
-  font-weight: bold
-  width: 48px
-  height: 48px
   text-align: center
   color: #fff
   background-color: rgba(255,255,255,0.15)
   border: none
+
+.hp-value-current .boxed-input 
+  font-weight: bold
+  font-size: 1.25rem
+
 
 .controls-skill
   margin: 0
@@ -350,10 +357,6 @@ a
 
 .hp-controls
   float: left
-
-.stat-controls
-  position: relative
-  width: 20px
 
 .controls-plus,
 .controls-minus
@@ -375,25 +378,15 @@ a
   background-color: rgba(255,255,255,0.16)
   cursor: pointer
 
-.stat-controls .controls-plus,
-.stat-controls .controls-minus
-  margin: 0
-  height: 16px
-  width: 16px
-  background-size: 10px 10px
-
-.stat-controls .controls-minus
-  margin-top: 4px
-
 // Armor and weapons block
 .equipment-block
   display: flex
-  padding-bottom: 16px
 
 .equipment-item
   display: inline-block
   max-width: 152px
   margin-right: 12px
+  padding-bottom: 16px
 
 .equipment-title
   text-align: center
@@ -410,6 +403,7 @@ a
   border: 1px solid #666666
   background: url('assets/armor.png') no-repeat 50% 50% / contain
   cursor: pointer
+  background-color: #111
 
   &.weapon-bg
     background-image: url('assets/weapon.png')
@@ -417,25 +411,27 @@ a
   &.weapon-ranged
     background-image: url('assets/ranged.png')
 
-  &:hover
-    background-color: #000
-
 .equipment-image-title
   width: 100%
   background-color: rgba(0, 0, 0, 0.9)
   text-align: center
   padding: 8px 12px
-  font-size: 1.125rem
+  font-size: 0.875rem
   line-height: 20px
 
-.equipment-misc
-  text-align: center
-  font-size: 1rem
-  line-height: 24px
+.equipment-toggler
+  font-size: 1.125rem
+  padding-bottom: 8px
 
-  .md-checkbox
-    margin: 4px 0 0
-    width: auto
+  .roll-link
+    position: relative
+
+.equipment-image-title .md-checkbox
+  margin: 0
+  width: auto
+
+  .md-checkbox-label
+    padding-left: 8px
 
 // Armor modal
 .armor-select-dialog .md-layout-item .md-button
@@ -455,6 +451,8 @@ a
 
 // Spellslots block
 .spellslots-block
+  padding-bottom: 16px
+
   .md-title
     color: #ffffff
     font-size: 1.125rem
@@ -554,6 +552,10 @@ td .roll-link
   .view-charsheet .feat-list
     column-count: 1
 
+  .equipment-block
+    flex-wrap: wrap
+    justify-content: space-around
+
 @media screen and (max-width: 600px)
   .roll-queue
     font-size: 80%
@@ -566,9 +568,6 @@ td .roll-link
 
   .pr-1
     padding-right: 0
-
-  .attribute-skills .editable
-    padding-left: 32px
 
   .attribute-skills-item
     height: 24px
@@ -594,17 +593,6 @@ td .roll-link
 
   .combat-stats
     padding: 32px 0 0
-
-  .hp-controls
-    margin-right: 0
-
-  .controls-plus,
-  .controls-minus
-    display: block
-    width: 18px
-    height: 18px
-    border-radius: 3px
-    margin: 0 2px
 
   .money-wrap
     padding-right: 8px

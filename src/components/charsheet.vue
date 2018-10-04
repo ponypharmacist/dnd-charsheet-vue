@@ -3,7 +3,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import Spinner from './common/Spinner';
+import Disclaimer from './common/Disclaimer';
 import LevelUp from './modals/LevelUp';
 import ArmorSelect from './modals/ArmorSelect';
 import WeaponSelect from './modals/WeaponSelect';
@@ -28,7 +28,7 @@ import { armors } from '../tables/armors';
 import { weapons } from '../tables/weapons';
 export default {
   name:'charsheet',
-  components: { Spinner, LevelUp, ArmorSelect, WeaponSelect, RangedSelect },
+  components: { Disclaimer, LevelUp, ArmorSelect, WeaponSelect, RangedSelect },
   data() {
     return {
       charID: '',

@@ -46,71 +46,59 @@
         span(v-if="character.level < 20")
           a.level-up(@click="levelUp()") Level Up
           | , 
-        a.level-up(@click="toggleEditStats()") Edit Stats
+        a.level-up(@click="toggleEditStats()") Edit Skills
         | , 
         a.level-up(@click="doLongRest()") Long Rest
-        | , 
-        a.level-up(@click="" :href="exportCharacterFile" :download="character.name + '-export-file.json'") Export to a file
+        //| , 
+        //a.level-up(@click="" :href="exportCharacterFile" :download="character.name + '-export-file.json'") Export to a file
         | , 
         a.level-up(@click="exportCharacterToClipboard()") Export to clipboard
 
     .md-layout
       .attributes.md-layout-item.md-xsmall-size-100.md-small-size-50.md-medium-size-30.md-large-size-30.md-xlarge-size-30
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.strength++")
-            .controls-minus(@click="character.strength--")
-          .attribute-value {{ character.strength }}
+          .attribute-value
+            input.boxed-input(v-model="character.strength")
           .attribute-modifier {{ character.strength | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('strength')") Strength
             |  | 
             a.save-link(@click="rollSkill('strength', 'strength')" v-bind:class="[ character.skills.includes('strength') ? 'skillStar' : '' ]") Save {{ getSkillBonus('strength', 'strength') | decoratePositive }}
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.dexterity++")
-            .controls-minus(@click="character.dexterity--")
-          .attribute-value {{ character.dexterity }}
+          .attribute-value
+            input.boxed-input(v-model="character.dexterity")
           .attribute-modifier {{ character.dexterity | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('dexterity')") Dexterity
             |  | 
             a.save-link(@click="rollSkill('dexterity', 'dexterity')" v-bind:class="[ character.skills.includes('dexterity') ? 'skillStar' : '' ]") Save {{ getSkillBonus('dexterity', 'dexterity') | decoratePositive }}
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.constitution++")
-            .controls-minus(@click="character.constitution--")
-          .attribute-value {{ character.constitution }}
+          .attribute-value
+            input.boxed-input(v-model="character.constitution")
           .attribute-modifier {{ character.constitution | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('constitution')") Constitution
             |  | 
             a.save-link(@click="rollSkill('constitution', 'constitution')" v-bind:class="[ character.skills.includes('constitution') ? 'skillStar' : '' ]") Save {{ getSkillBonus('constitution', 'constitution') | decoratePositive }}
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.intelligence++")
-            .controls-minus(@click="character.intelligence--")
-          .attribute-value {{ character.intelligence }}
+          .attribute-value
+            input.boxed-input(v-model="character.intelligence")
           .attribute-modifier {{ character.intelligence | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('intelligence')") Intelligence
             |  | 
             a.save-link(@click="rollSkill('intelligence', 'intelligence')" v-bind:class="[ character.skills.includes('intelligence') ? 'skillStar' : '' ]") Save {{ getSkillBonus('intelligence', 'intelligence') | decoratePositive }}
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.wisdom++")
-            .controls-minus(@click="character.wisdom--")
-          .attribute-value {{ character.wisdom }}
+          .attribute-value
+            input.boxed-input(v-model="character.wisdom")
           .attribute-modifier {{ character.wisdom | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('wisdom')") Wisdom
             |  | 
             a.save-link(@click="rollSkill('wisdom', 'wisdom')" v-bind:class="[ character.skills.includes('wisdom') ? 'skillStar' : '' ]") Save {{ getSkillBonus('wisdom', 'wisdom') | decoratePositive }}
         .attribute-block
-          .stat-controls.controls-block(v-if="editStats")
-            .controls-plus(@click="character.charisma++")
-            .controls-minus(@click="character.charisma--")
-          .attribute-value {{ character.charisma }}
+          .attribute-value
+            input.boxed-input(v-model="character.charisma")
           .attribute-modifier {{ character.charisma | getModifier | decoratePositive }}
           .attribute-name
             a(@click="rollAttribute('charisma')") Charisma
@@ -192,7 +180,7 @@
               .controls-plus(@click="character.currentHealth++")
               .controls-minus(@click="character.currentHealth--")
             .hp-value-current.attribute-modifier
-              input(v-model="character.currentHealth")
+              input.boxed-input(v-model="character.currentHealth")
           .attribute-name out of {{ character.maxHealth }} HP
         .attribute-block
           .attribute-modifier {{ character.dexterity | getModifier | decoratePositive }}
@@ -208,38 +196,42 @@
       .equipment-block.md-layout-item.md-xlarge-size-100
         .equipment-item
           .equipment-title Armor
-          .equipment-image(@click="toggleArmorSelect()")
-            .equipment-image-title {{ armors[character.armor].title }}
-          .equipment-misc
-            md-checkbox(v-model="character.shield" v-bind:disabled="wieldsTwohanded") Shield
-              span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
+          .equipment-image
+            .equipment-image-title
+              .equipment-toggler
+                a.roll-link(@click="toggleArmorSelect()") {{ armors[character.armor].title }}
+              md-checkbox(v-model="character.shield" v-bind:disabled="wieldsTwohanded") Shield
+                span(v-if="wieldsTwohanded")  (you wield a twohanded weapon)
 
         .equipment-item
           .equipment-title Weapon
-          .equipment-image.weapon-bg(@click="toggleWeaponSelect('weaponMelee')")
-            .equipment-image-title {{ weapons[character.weaponMelee].title }}
-          .equipment-misc
-            a.roll-link(@click="rollAttack('weaponMelee')") Roll Attack ({{ weaponMeleeAttack | decoratePositive }})
-            br
-            a.roll-link(@click="rollDamage('weaponMelee')") Damage ({{ this.weapons[character.weaponMelee].damage }}{{ weaponMeleeDamage | decoratePositiveSmart }})
+          .equipment-image.weapon-bg
+            .equipment-image-title
+              .equipment-toggler
+                a.roll-link(@click="toggleWeaponSelect('weaponMelee')") {{ weapons[character.weaponMelee].title }}
+              a.roll-link(@click="rollAttack('weaponMelee')") Roll Attack ({{ weaponMeleeAttack | decoratePositive }})
+              br
+              a.roll-link(@click="rollDamage('weaponMelee')") Damage ({{ this.weapons[character.weaponMelee].damage }}{{ weaponMeleeDamage | decoratePositiveSmart }})
 
         .equipment-item
           .equipment-title Offhand
-          .equipment-image.weapon-bg(@click="toggleWeaponSelect('weaponMelee2')")
-            .equipment-image-title {{ weapons[character.weaponMelee2].title }}
-          .equipment-misc
-            a.roll-link(@click="rollAttack('weaponMelee2')") Roll Attack ({{ weaponMelee2Attack | decoratePositive }})
-            br
-            a.roll-link(@click="rollDamage('weaponMelee2')") Damage ({{ this.weapons[character.weaponMelee2].damage }}{{ weaponMelee2Damage | decoratePositiveSmart }})
+          .equipment-image.weapon-bg
+            .equipment-image-title
+              .equipment-toggler
+                a.roll-link(@click="toggleWeaponSelect('weaponMelee2')") {{ weapons[character.weaponMelee2].title }}
+              a.roll-link(@click="rollAttack('weaponMelee2')") Roll Attack ({{ weaponMelee2Attack | decoratePositive }})
+              br
+              a.roll-link(@click="rollDamage('weaponMelee2')") Damage ({{ this.weapons[character.weaponMelee2].damage }}{{ weaponMelee2Damage | decoratePositiveSmart }})
 
         .equipment-item
           .equipment-title Ranged weapon
-          .equipment-image.weapon-ranged(@click="toggleRangedSelect()")
-            .equipment-image-title  {{ weapons[character.weaponRanged].title }}
-          .equipment-misc
-            a.roll-link(@click="rollAttackRanged('weaponRanged')") Roll Attack ({{ weaponRangedAttack | decoratePositiveSmart }})
-            br
-            a.roll-link(@click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
+          .equipment-image.weapon-ranged
+            .equipment-image-title
+              .equipment-toggler(@click="toggleRangedSelect()")
+                a.roll-link {{ weapons[character.weaponRanged].title }}
+              a.roll-link(@click="rollAttackRanged('weaponRanged')") Roll Attack ({{ weaponRangedAttack | decoratePositiveSmart }})
+              br
+              a.roll-link(@click="rollDamageRanged('weaponRanged')") Damage ({{ this.weapons[character.weaponRanged].damage }}+{{ weaponRangedDamage }})
 
         .spellslots-block.pl-1(v-if="classes[character.clas].spellslots && (spellsLvl(1) != 0)")
           .md-title Spellslots (
@@ -288,6 +280,9 @@
             md-textarea(v-model="character.items" @change="updateLocalCharacter()" md-autogrow)
       .md-layout.md-layout-item.md-small-size-100.md-large-size-50.md-xlarge-size-50.align-top
           md-field
+            label Notes
+            md-textarea(v-model="character.notes" md-autogrow) Slot
+          md-field
             label Combat Proficiencies
             md-textarea(v-model="character.proficienciesCombat" md-autogrow)
           md-field
@@ -296,9 +291,6 @@
           md-field
             label Languages
             md-textarea(v-model="character.languages" md-autogrow)
-          md-field
-            label Notes
-            md-textarea(v-model="character.notes" md-autogrow) Slot
           md-field
             label Flavor: backstory, ideals, flaws, bonds, goals
             md-textarea(v-model="character.flavor" md-autogrow)
@@ -309,3 +301,6 @@
           li.feat-list-item(v-for="feat in character.feats")
             .feat-name {{ feats[feat].title }}
             .feat-description {{ feats[feat].description }}
+
+  template
+    disclaimer
